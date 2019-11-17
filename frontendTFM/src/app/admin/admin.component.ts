@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-  
-
   constructor(private tokenService: TokenService,private router: Router) { }
 
   ngOnInit() {}

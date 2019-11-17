@@ -10,7 +10,7 @@
         <li class="nav-item">
             <a class="nav-link" href="#inicio">Inicio</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#nuevaeva"> Nueva evaluación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nuevaeva" data-toggle="modal" data-target="#nuevaEvaluacion"> Nueva evaluación</a></li>
         <li class="nav-item"><a class="nav-link" href="#repetireva"> Repetir evaluación</a></li>
         <li>
             <a class="nav-link" href="#" (click)=logOut()>Logout</a>
@@ -18,4 +18,44 @@
     </ul>
     </div>
 </nav>
+<div *ngIf="rejillaIniciada" class="container col-lg-10">
+        <h1 class="text-center">Elementos</h1>
+        <div class="card">
+          <div class="card-body">
+        <form name="form" #f="ngForm" novalidate >
+          <div class="form-group">
+            <label for="elemento1">{{elementos[0].descripcion}} </label>
+            <input type="text" class="form-control" name="elemento1" [(ngModel)]="elementos.elemento1" 
+            autocomplete="off" required>
+          </div>
+          <div class="form-group">
+            <label for="elemento1">{{elementos[1].descripcion}} </label>
+            <input type="text" class="form-control" name="elemento2" [(ngModel)]="elementos.elemento2" 
+            autocomplete="off" required>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar elementos</button>
+            <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Debe de introducir todos los elementos</div>
+          </div>
+        </form>
+      </div>
+        </div>
+       
+</div>
+<div class="modal" id="nuevaEvaluacion" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modificarDatos">Modificar datos imagen</h5>
+            </div>
+            <div class="modal-body">
+            <div>A continuación iniciará una nueva evaluación. En primer lugar deberá rellenar los 12 elementos que se le piden.</div>
+             <button type="button"  class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+             <button type="button" (click)=iniciarRejilla() id="guardarcambios" data-dismiss="modal" class="btn btn-dark">Continuar</button>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 

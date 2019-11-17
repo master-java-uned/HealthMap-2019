@@ -22,9 +22,12 @@ public class JwtProvider {
 
     @Value("${jwt.expiration}")
     private int expiration;
+    
+    private Long idUsuario;
 
     public String generateToken(Authentication authentication) {
         UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) authentication.getPrincipal();
+        setIdUsuario(usuarioPrincipal.getId());
         return Jwts.builder().setSubject(usuarioPrincipal.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 1000))
@@ -32,7 +35,18 @@ public class JwtProvider {
                 .compact();
     }
 
-    public String getNombreUsuarioFromToken(String token){
+    
+    public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+	public String getNombreUsuarioFromToken(String token){
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 

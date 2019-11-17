@@ -9,17 +9,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import uned.master.java.DTO.JwtDTO;
 import uned.master.java.DTO.LoginUsuario;
 import uned.master.java.DTO.Mensaje;
-
 import uned.master.java.security.JWT.JwtProvider;
-import uned.master.java.service.RolService;
-import uned.master.java.service.UsuarioService;
+
+
 
 import javax.validation.Valid;
 
@@ -29,17 +27,9 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*")
 public class AuthController {
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     @Autowired
     AuthenticationManager authenticationManager;
-
-    @Autowired
-    UsuarioService usuarioService;
-
-    @Autowired
-    RolService rolService;
 
     @Autowired
     JwtProvider jwtProvider;
@@ -54,8 +44,12 @@ public class AuthController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
+        Long idUsuario=jwtProvider.getIdUsuario();
+        System.out.println("hola");
+        System.out.println(idUsuario);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        JwtDTO jwtDTO = new JwtDTO(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        JwtDTO jwtDTO = new JwtDTO(jwt,idUsuario,userDetails.getUsername(), userDetails.getAuthorities());
         return new ResponseEntity<JwtDTO>(jwtDTO, HttpStatus.OK);
     }
+    
 }

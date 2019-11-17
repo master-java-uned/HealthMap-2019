@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
+import{interceptorProvider} from './interceptors/rejilla-interceptor.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { UserComponent } from './user/user.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
