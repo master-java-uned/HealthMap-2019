@@ -1,4 +1,4 @@
 export class Elementos {
     id: number;
-    elementoDescripcion: string;
+    descripcion: string;  
 }

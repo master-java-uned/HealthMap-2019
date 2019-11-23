@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import{Elementos}from '../models/elementos'
+
 
 const cabecera = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 const REJILLA_KEY = 'RejillaNumber';
 const ELEMENTOS = 'ElementosEvaluacion';
+const CONSTRUCTOS = 'ConstructosEvaluacion';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,8 +19,11 @@ export class RejillaService {
   public nuevaRejilla(idUsuario: bigint): Observable<any> {
     return this.httpClient.post<any>(this.authURL + 'nueva', idUsuario, cabecera);
   }
-  public getElementos():Observable<Elementos> {
-    return this.httpClient.post<Elementos>(this.authURL + 'getElementos', cabecera);
+  public getElementos():Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'getElementos', cabecera);
+  }
+  public getConstructos():Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'getConstructos', cabecera);
   }
   
   
@@ -38,6 +42,14 @@ export class RejillaService {
 
   public getElementosEvaluacion(): any {
     return  JSON.parse(sessionStorage.getItem(ELEMENTOS));
+  }
+  public setConstructos(constructos: any): void {
+    window.sessionStorage.removeItem(CONSTRUCTOS);
+    window.sessionStorage.setItem(CONSTRUCTOS, JSON.stringify(constructos));
+  }
+
+  public getConstructosEvaluacion(): any {
+    return  JSON.parse(sessionStorage.getItem(CONSTRUCTOS));
   }
 
 

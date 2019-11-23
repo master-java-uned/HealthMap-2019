@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uned.master.java.entity.Constructo;
 import uned.master.java.entity.Elemento;
 import uned.master.java.entity.Rejilla;
 import uned.master.java.repository.RejillaRepository;
+import uned.master.java.service.ConstructosService;
 import uned.master.java.service.ElementoService;
 import uned.master.java.service.RejillaService;
 
@@ -34,6 +36,9 @@ public class RejillaController {
 	 
 	  @Autowired  
 	  ElementoService elementoService;
+	  
+	  @Autowired  
+	  ConstructosService constructosService;
 	
 	 @PostMapping("/nueva")
 		public ResponseEntity<?> nueva(@RequestBody Long idUsuario) {
@@ -45,12 +50,22 @@ public class RejillaController {
 	 
 	 @PostMapping("/getElementos")
 		public ResponseEntity<Elemento> getElementos() {
-		Elemento elementos[]=new Elemento[2];
-			for(int i=0;i<2;i++) {
+		Elemento elementos[]=new Elemento[12];
+			for(int i=0;i<12;i++) {
 			elementos[i] = elementoService.getElemento(i+1).get();
 		}
 		//Redirige a la página datos_insercion.html
 		return new ResponseEntity(elementos, HttpStatus.CREATED);
+		}
+	 
+	 @PostMapping("/getConstructos")
+		public ResponseEntity<Constructo> getConstructos() {
+		Constructo constructos[]=new Constructo[14];
+			for(int i=0;i<14;i++) {
+			constructos[i] = constructosService.getConstructos(i+1).get();
+		}
+		//Redirige a la página datos_insercion.html
+		return new ResponseEntity(constructos, HttpStatus.CREATED);
 		}
 	 
 	
