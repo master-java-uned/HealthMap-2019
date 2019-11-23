@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
 
   idUsuario:bigint;
   idRejilla:number;
-  mostrarconstructos=false;
+  mostrarConstructos=false;
   rejillaIniciada=false;
   elementos: any={};
   constructos:Constructos[];
@@ -64,6 +64,7 @@ export class UserComponent implements OnInit {
       this.elementosUsuario[8]=new ElementosUsuario(this.elementos.nombre9,this.elementos.descripcionUsuario9);
       this.elementosUsuario[9]=new ElementosUsuario(this.elementos.nombre10,this.elementos.descripcionUsuario10);
       this.elementosUsuario[10]=new ElementosUsuario(this.elementos.nombre11,this.elementos.descripcionUsuario11);
+      this.elementosUsuario[11]=new ElementosUsuario(this.elementos.nombre12,this.elementos.descripcionUsuario12);
       
    this.rejillaService.getConstructos().subscribe(data => {
     this.constructos=data;
@@ -75,19 +76,18 @@ export class UserComponent implements OnInit {
   }
 );
   }
-  mostrarContructos(){
-   for (var i=0; i < 14; i++) {
-    
-     
-        //reemplazar los numeros por elementousuario
-        
-     
-   }
- }
+
+  mostrarContructos() {
+    this.rejillaIniciada = false;
+    this.mostrarConstructos = true;
+    for (var i=0; i < 14; i++) {
+        //reemplazar los numeros por elementousuario           
+    }
+  }
 
   logOut(): void {
-  this.tokenService.logOut();
-  this.router.navigate(['login']);
-}
+    this.tokenService.logOut();
+    this.router.navigate(['login']);
+  }
 
 }

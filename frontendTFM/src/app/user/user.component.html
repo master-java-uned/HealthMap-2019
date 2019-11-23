@@ -1,261 +1,266 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div><a href="#" class="navbar-brand">Proyecto</a></div>
-     <!--boton asociado con collapse como indica data-toggle. La clase collapse navbar-collapse indica que parte estará oculta en el navbar para tamaños inferiores a lg-->
-    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse"  data-target="#navigation"  aria-expanded="false">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navigation">
-        <ul class="navbar-nav mr-auto">
-        <!--En el navbar se muestran todas las opciones de la aplicación-->
-        <li class="nav-item">
-            <a class="nav-link" href="#inicio">Inicio</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#nuevaeva" data-toggle="modal" data-target="#nuevaEvaluacion"> Nueva evaluación</a></li>
-        <li class="nav-item"><a class="nav-link" href="#repetireva"> Repetir evaluación</a></li>
-        <li>
-            <a class="nav-link" href="#" (click)=logOut()>Logout</a>
-        </li>  
+  <div><a href="#" class="navbar-brand">Proyecto</a></div>
+  <!--boton asociado con collapse como indica data-toggle. La clase collapse navbar-collapse indica que parte estará oculta en el navbar para tamaños inferiores a lg-->
+  <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navigation"
+    aria-expanded="false">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navigation">
+    <ul class="navbar-nav mr-auto">
+      <!--En el navbar se muestran todas las opciones de la aplicación-->
+      <li class="nav-item">
+        <a class="nav-link" href="#inicio">Inicio</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="#nuevaeva" data-toggle="modal" data-target="#nuevaEvaluacion">
+          Nueva evaluación</a></li>
+      <li class="nav-item"><a class="nav-link" href="#repetireva"> Repetir evaluación</a></li>
+      <li>
+        <a class="nav-link" href="#" (click)=logOut()>Logout</a>
+      </li>
     </ul>
-    </div>
+  </div>
 </nav>
-  <!-- <app-mostrar-rejilla></app-mostrar-rejilla>-->
+<!-- <app-mostrar-rejilla></app-mostrar-rejilla>-->
 <div *ngIf="rejillaIniciada" class="container col-lg-10">
-        <h1 class="text-center">Elementos</h1>
-        <div class="card">
-          <div class="card-body">
-        <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
-          <div class="form-group">
-            <label for="elemento1">{{elementos[0].descripcion}} </label>
-            <input type="text" class="form-control" name="elemento1" [(ngModel)]="elementos.nombre1" 
-            autocomplete="off" required>
-            <label for="descripcionElemento">Descripción:</label>
-            <input type="text" class="form-control" name="descripcionElemento" [(ngModel)]="elementos.descripcionUsuario1" 
-            autocomplete="off" >
-          </div>
+  <h1 class="text-center">Elementos</h1>
+  <div class="card">
+    <div class="card-body">
+      <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
         <div class="form-group">
-            <label for="elemento2">{{elementos[1].descripcion}} </label>
-            <input type="text" class="form-control" name="elemento2" [(ngModel)]="elementos.nombre2" 
-            autocomplete="off" required>
-            <label for="descripcion2">Descripción:</label>
-            <input type="text" class="form-control" name="descripcion2" [(ngModel)]="elementos.descripcionUsuario2" 
-            autocomplete="off" >
-          </div>
-          <div class="form-group">
-              <label for="elemento3">{{elementos[2].descripcion}} </label>
-              <input type="text" class="form-control" name="elemento3" [(ngModel)]="elementos.nombre3" 
-              autocomplete="off" required>
-              <label for="descripcion3">Descripción:</label>
-            <input type="text" class="form-control" name="descripcion3" [(ngModel)]="elementos.descripcionUsuario3" 
-            autocomplete="off" >
-            </div>
-           <div class="form-group">
-              <label for="elemento4">{{elementos[3].descripcion}} </label>
-              <input type="text" class="form-control" name="elemento4" [(ngModel)]="elementos.nombre4" 
-              autocomplete="off" required>
-              <label for="descripcion1¡4">Descripción:</label>
-            <input type="text" class="form-control" name="descripcion4" [(ngModel)]="elementos.descripcionUsuario4" 
-            autocomplete="off" required>
-            </div>
-            <div class="form-group">
-                <label for="elemento5">{{elementos[4].descripcion}} </label>
-                <input type="text" class="form-control" name="elemento5" [(ngModel)]="elementos.nombre5" 
-                autocomplete="off" required>
-                <label for="descripcion5">Descripción:</label>
-            <input type="text" class="form-control" name="descripcion5" [(ngModel)]="elementos.descripcionUsuario5" 
-            autocomplete="off" required>
-              </div>
-              <div class="form-group">
-                <label for="elemento6">{{elementos[5].descripcion}} </label>
-                <input type="text" class="form-control" name="elemento6" [(ngModel)]="elementos.nombre6" 
-                autocomplete="off" required>
-                <label for="descripcion6">Descripción:</label>
-            <input type="text" class="form-control" name="descripcion6" [(ngModel)]="elementos.descripcionUsuario6" 
-            autocomplete="off"required >
-              </div>
-              <div class="form-group">
-                <label for="elemento7">{{elementos[6].descripcion}} </label>
-                <input type="text" class="form-control" name="elemento7" [(ngModel)]="elementos.nombre7" 
-                autocomplete="off" required>
-                <label for="descripcion7">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion7" [(ngModel)]="elementos.descripcionUsuario7" 
-              autocomplete="off" >
-              </div>
-             <div class="form-group">
-                <label for="elemento8">{{elementos[7].descripcion}} </label>
-                <input type="text" class="form-control" name="elemento8" [(ngModel)]="elementos.nombre8" 
-                autocomplete="off" required>
-                <label for="descripcion8">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion8" [(ngModel)]="elementos.descripcionUsuario8" 
-              autocomplete="off" >
-              </div>
-              <div class="form-group">
-                  <label for="elemento9">{{elementos[8].descripcion}} </label>
-                  <input type="text" class="form-control" name="elemento9" [(ngModel)]="elementos.nombre9" 
-                  autocomplete="off" required>
-                  <label for="descripcion9">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion9" [(ngModel)]="elementos.descripcionUsuario9" 
-              autocomplete="off" >
-                </div>
-                <div class="form-group">
-                  <label for="elemento10">{{elementos[9].descripcion}} </label>
-                  <input type="text" class="form-control" name="elemento10" [(ngModel)]="elementos.nombre10" 
-                  autocomplete="off" required>
-                  <label for="descripcion10">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion10" [(ngModel)]="elementos.descripcionUsuario10" 
-              autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <label for="elemento11">{{elementos[10].descripcion}} </label>
-                  <input type="text" class="form-control" name="elemento11" [(ngModel)]="elementos.nombre11" 
-                  autocomplete="off" required>
-                  <label for="descripcion11">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion11" [(ngModel)]="elementos.descripcionUsuario11" 
-              autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <label for="elemento12">{{elementos[11].descripcion}} </label>
-                  <input type="text" class="form-control" name="elemento12" [(ngModel)]="elementos.nombre12" 
-                  autocomplete="off" required>
-                  <label for="descripcion12">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion12" [(ngModel)]="elementos.descripcionUsuario12" 
-              autocomplete="off">
-                </div>
-
-          <div class="form-group">
-            <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar elementos</button>
-            <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Debe de introducir todos los elementos</div>
-          </div>
-        </form>
-      </div>
+          <label for="elemento1">{{elementos[0].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento1" [(ngModel)]="elementos.nombre1" autocomplete="off"
+            required/>
+          <label for="descripcionElemento">Descripción1:</label>
+          <input type="text" class="form-control" name="descripcionElemento" [(ngModel)]="elementos.descripcionUsuario1"
+            autocomplete="off">
         </div>
-       
+        <div class="form-group">
+          <label for="elemento2">{{elementos[1].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento2" [(ngModel)]="elementos.nombre2" autocomplete="off"
+            required>
+          <label for="descripcion2">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion2" [(ngModel)]="elementos.descripcionUsuario2"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento3">{{elementos[2].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento3" [(ngModel)]="elementos.nombre3" autocomplete="off"
+            required>
+          <label for="descripcion3">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion3" [(ngModel)]="elementos.descripcionUsuario3"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento4">{{elementos[3].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento4" [(ngModel)]="elementos.nombre4" autocomplete="off"
+            required>
+          <label for="descripcion1¡4">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion4" [(ngModel)]="elementos.descripcionUsuario4"
+            autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="elemento5">{{elementos[4].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento5" [(ngModel)]="elementos.nombre5" autocomplete="off"
+            required>
+          <label for="descripcion5">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion5" [(ngModel)]="elementos.descripcionUsuario5"
+            autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="elemento6">{{elementos[5].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento6" [(ngModel)]="elementos.nombre6" autocomplete="off"
+            required>
+          <label for="descripcion6">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion6" [(ngModel)]="elementos.descripcionUsuario6"
+            autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="elemento7">{{elementos[6].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento7" [(ngModel)]="elementos.nombre7" autocomplete="off"
+            required>
+          <label for="descripcion7">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion7" [(ngModel)]="elementos.descripcionUsuario7"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento8">{{elementos[7].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento8" [(ngModel)]="elementos.nombre8" autocomplete="off"
+            required>
+          <label for="descripcion8">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion8" [(ngModel)]="elementos.descripcionUsuario8"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento9">{{elementos[8].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento9" [(ngModel)]="elementos.nombre9" autocomplete="off"
+            required>
+          <label for="descripcion9">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion9" [(ngModel)]="elementos.descripcionUsuario9"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento10">{{elementos[9].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento10" [(ngModel)]="elementos.nombre10" autocomplete="off"
+            required>
+          <label for="descripcion10">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion10" [(ngModel)]="elementos.descripcionUsuario10"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento11">{{elementos[10].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento11" [(ngModel)]="elementos.nombre11" autocomplete="off"
+            required>
+          <label for="descripcion11">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion11" [(ngModel)]="elementos.descripcionUsuario11"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento12">{{elementos[11].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento12" [(ngModel)]="elementos.nombre12" autocomplete="off"
+            required>
+          <label for="descripcion12">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion12" [(ngModel)]="elementos.descripcionUsuario12"
+            autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar elementos</button>
+          <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Debe de introducir todos los elementos
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </div>
 
 <div *ngIf="mostrarConstructos" class="container col-lg-10">
   <h1 class="text-center">Constructos</h1>
   <div class="card">
     <div class="card-body">
-  <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
-    <div class="form-group">
-      <label for="elemento1">{{elementos[0].descripcion}} </label>
-      <input type="text" class="form-control" name="elemento1" [(ngModel)]="elementos.nombre1" 
-      autocomplete="off" required>
-      <label for="descripcionElemento">Descripción:</label>
-      <input type="text" class="form-control" name="descripcionElemento" [(ngModel)]="elementos.descripcionUsuario1" 
-      autocomplete="off" >
-    </div>
-  <div class="form-group">
-      <label for="elemento2">{{elementos[1].descripcion}} </label>
-      <input type="text" class="form-control" name="elemento2" [(ngModel)]="elementos.nombre2" 
-      autocomplete="off" required>
-      <label for="descripcion2">Descripción:</label>
-      <input type="text" class="form-control" name="descripcion2" [(ngModel)]="elementos.descripcionUsuario2" 
-      autocomplete="off" >
-    </div>
-    <div class="form-group">
-        <label for="elemento3">{{elementos[2].descripcion}} </label>
-        <input type="text" class="form-control" name="elemento3" [(ngModel)]="elementos.nombre3" 
-        autocomplete="off" required>
-        <label for="descripcion3">Descripción:</label>
-      <input type="text" class="form-control" name="descripcion3" [(ngModel)]="elementos.descripcionUsuario3" 
-      autocomplete="off" >
-      </div>
-     <div class="form-group">
-        <label for="elemento4">{{elementos[3].descripcion}} </label>
-        <input type="text" class="form-control" name="elemento4" [(ngModel)]="elementos.nombre4" 
-        autocomplete="off" required>
-        <label for="descripcion1¡4">Descripción:</label>
-      <input type="text" class="form-control" name="descripcion4" [(ngModel)]="elementos.descripcionUsuario4" 
-      autocomplete="off" required>
-      </div>
-      <div class="form-group">
+      <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
+        <div class="form-group">
+          <label for="elemento1">{{elementos[0].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento1" [(ngModel)]="elementos.nombre1" autocomplete="off"
+            required>
+          <label for="descripcionElemento">Descripción:</label>
+          <input type="text" class="form-control" name="descripcionElemento" [(ngModel)]="elementos.descripcionUsuario1"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento2">{{elementos[1].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento2" [(ngModel)]="elementos.nombre2" autocomplete="off"
+            required>
+          <label for="descripcion2">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion2" [(ngModel)]="elementos.descripcionUsuario2"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento3">{{elementos[2].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento3" [(ngModel)]="elementos.nombre3" autocomplete="off"
+            required>
+          <label for="descripcion3">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion3" [(ngModel)]="elementos.descripcionUsuario3"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento4">{{elementos[3].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento4" [(ngModel)]="elementos.nombre4" autocomplete="off"
+            required>
+          <label for="descripcion1¡4">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion4" [(ngModel)]="elementos.descripcionUsuario4"
+            autocomplete="off" required>
+        </div>
+        <div class="form-group">
           <label for="elemento5">{{elementos[4].descripcion}} </label>
-          <input type="text" class="form-control" name="elemento5" [(ngModel)]="elementos.nombre5" 
-          autocomplete="off" required>
+          <input type="text" class="form-control" name="elemento5" [(ngModel)]="elementos.nombre5" autocomplete="off"
+            required>
           <label for="descripcion5">Descripción:</label>
-      <input type="text" class="form-control" name="descripcion5" [(ngModel)]="elementos.descripcionUsuario5" 
-      autocomplete="off" required>
+          <input type="text" class="form-control" name="descripcion5" [(ngModel)]="elementos.descripcionUsuario5"
+            autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="elemento6">{{elementos[5].descripcion}} </label>
-          <input type="text" class="form-control" name="elemento6" [(ngModel)]="elementos.nombre6" 
-          autocomplete="off" required>
+          <input type="text" class="form-control" name="elemento6" [(ngModel)]="elementos.nombre6" autocomplete="off"
+            required>
           <label for="descripcion6">Descripción:</label>
-      <input type="text" class="form-control" name="descripcion6" [(ngModel)]="elementos.descripcionUsuario6" 
-      autocomplete="off"required >
+          <input type="text" class="form-control" name="descripcion6" [(ngModel)]="elementos.descripcionUsuario6"
+            autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="elemento7">{{elementos[6].descripcion}} </label>
-          <input type="text" class="form-control" name="elemento7" [(ngModel)]="elementos.nombre7" 
-          autocomplete="off" required>
+          <input type="text" class="form-control" name="elemento7" [(ngModel)]="elementos.nombre7" autocomplete="off"
+            required>
           <label for="descripcion7">Descripción:</label>
-        <input type="text" class="form-control" name="descripcion7" [(ngModel)]="elementos.descripcionUsuario7" 
-        autocomplete="off" >
-        </div>
-       <div class="form-group">
-          <label for="elemento8">{{elementos[7].descripcion}} </label>
-          <input type="text" class="form-control" name="elemento8" [(ngModel)]="elementos.nombre8" 
-          autocomplete="off" required>
-          <label for="descripcion8">Descripción:</label>
-        <input type="text" class="form-control" name="descripcion8" [(ngModel)]="elementos.descripcionUsuario8" 
-        autocomplete="off" >
+          <input type="text" class="form-control" name="descripcion7" [(ngModel)]="elementos.descripcionUsuario7"
+            autocomplete="off">
         </div>
         <div class="form-group">
-            <label for="elemento9">{{elementos[8].descripcion}} </label>
-            <input type="text" class="form-control" name="elemento9" [(ngModel)]="elementos.nombre9" 
-            autocomplete="off" required>
-            <label for="descripcion9">Descripción:</label>
-        <input type="text" class="form-control" name="descripcion9" [(ngModel)]="elementos.descripcionUsuario9" 
-        autocomplete="off" >
-          </div>
-          <div class="form-group">
-            <label for="elemento10">{{elementos[9].descripcion}} </label>
-            <input type="text" class="form-control" name="elemento10" [(ngModel)]="elementos.nombre10" 
-            autocomplete="off" required>
-            <label for="descripcion10">Descripción:</label>
-        <input type="text" class="form-control" name="descripcion10" [(ngModel)]="elementos.descripcionUsuario10" 
-        autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label for="elemento11">{{elementos[10].descripcion}} </label>
-            <input type="text" class="form-control" name="elemento11" [(ngModel)]="elementos.nombre11" 
-            autocomplete="off" required>
-            <label for="descripcion11">Descripción:</label>
-        <input type="text" class="form-control" name="descripcion11" [(ngModel)]="elementos.descripcionUsuario11" 
-        autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label for="elemento12">{{elementos[11].descripcion}} </label>
-            <input type="text" class="form-control" name="elemento12" [(ngModel)]="elementos.nombre12" 
-            autocomplete="off" required>
-            <label for="descripcion12">Descripción:</label>
-        <input type="text" class="form-control" name="descripcion12" [(ngModel)]="elementos.descripcionUsuario12" 
-        autocomplete="off">
-          </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar elementos</button>
-      <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Debe de introducir todos los elementos</div>
-    </div>
-  </form>
-</div>
-  </div>
- 
-</div>
-<div class="modal" id="nuevaEvaluacion" tabindex="-1" role="dialog" >
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modificarDatos">Nueva evaluacion</h5>
-            </div>
-            <div class="modal-body">
-            <div>A continuación iniciará una nueva evaluación. En primer lugar deberá rellenar los 12 elementos que se le piden.</div>
-             <button type="button"  class="btn btn-dark" data-dismiss="modal">Cerrar</button>
-             <button type="button" (click)=iniciarRejilla() id="guardarcambios" data-dismiss="modal" class="btn btn-dark">Continuar</button>
-            </div>
-            <div class="modal-footer">
-            </div>
+          <label for="elemento8">{{elementos[7].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento8" [(ngModel)]="elementos.nombre8" autocomplete="off"
+            required>
+          <label for="descripcion8">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion8" [(ngModel)]="elementos.descripcionUsuario8"
+            autocomplete="off">
         </div>
-    </div>
-</div>
+        <div class="form-group">
+          <label for="elemento9">{{elementos[8].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento9" [(ngModel)]="elementos.nombre9" autocomplete="off"
+            required>
+          <label for="descripcion9">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion9" [(ngModel)]="elementos.descripcionUsuario9"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento10">{{elementos[9].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento10" [(ngModel)]="elementos.nombre10" autocomplete="off"
+            required>
+          <label for="descripcion10">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion10" [(ngModel)]="elementos.descripcionUsuario10"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento11">{{elementos[10].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento11" [(ngModel)]="elementos.nombre11" autocomplete="off"
+            required>
+          <label for="descripcion11">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion11" [(ngModel)]="elementos.descripcionUsuario11"
+            autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="elemento12">{{elementos[11].descripcion}} </label>
+          <input type="text" class="form-control" name="elemento12" [(ngModel)]="elementos.nombre12" autocomplete="off"
+            required>
+          <label for="descripcion12">Descripción:</label>
+          <input type="text" class="form-control" name="descripcion12" [(ngModel)]="elementos.descripcionUsuario12"
+            autocomplete="off">
+        </div>
 
+        <div class="form-group">
+          <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar elementos</button>
+          <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Debe de introducir todos los elementos
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+<div class="modal" id="nuevaEvaluacion" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modificarDatos">Nueva evaluacion</h5>
+      </div>
+      <div class="modal-body">
+        <div>A continuación iniciará una nueva evaluación. En primer lugar deberá rellenar los 12 elementos que se le
+          piden.</div>
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+        <button type="button" (click)=iniciarRejilla() id="guardarcambios" data-dismiss="modal"
+          class="btn btn-dark">Continuar</button>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

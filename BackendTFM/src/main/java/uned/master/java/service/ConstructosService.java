@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import uned.master.java.entity.Constructo;
-import uned.master.java.entity.Elemento;
 import uned.master.java.repository.ConstructosRepository;
-import uned.master.java.repository.ElementosRepository;
 
 @Service
 @Transactional

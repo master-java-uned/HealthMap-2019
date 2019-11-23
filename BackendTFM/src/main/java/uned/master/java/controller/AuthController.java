@@ -21,7 +21,7 @@ import uned.master.java.security.JWT.JwtProvider;
 
 import javax.validation.Valid;
 
-
+@SuppressWarnings({"rawtypes", "unchecked"})
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*")
@@ -45,7 +45,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         Long idUsuario=jwtProvider.getIdUsuario();
-        System.out.println("hola");
+        System.out.println("hola_y");
         System.out.println(idUsuario);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         JwtDTO jwtDTO = new JwtDTO(jwt,idUsuario,userDetails.getUsername(), userDetails.getAuthorities());

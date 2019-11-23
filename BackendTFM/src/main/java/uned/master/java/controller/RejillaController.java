@@ -1,17 +1,10 @@
 package uned.master.java.controller;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import uned.master.java.entity.Constructo;
 import uned.master.java.entity.Elemento;
 import uned.master.java.entity.Rejilla;
-import uned.master.java.repository.RejillaRepository;
 import uned.master.java.service.ConstructosService;
 import uned.master.java.service.ElementoService;
 import uned.master.java.service.RejillaService;
 
-
+@SuppressWarnings({"rawtypes", "unchecked"})
 @RestController
 @RequestMapping("/api/rejilla")
 @CrossOrigin(origins = "http://localhost:4200")

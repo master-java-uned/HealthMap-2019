@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import uned.master.java.entity.Elemento;
-import uned.master.java.entity.Rejilla;
 import uned.master.java.repository.ElementosRepository;
-import uned.master.java.repository.RejillaRepository;
 
 @Service
 @Transactional
