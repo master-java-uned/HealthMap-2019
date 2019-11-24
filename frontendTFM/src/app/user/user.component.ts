@@ -76,14 +76,20 @@ export class UserComponent implements OnInit {
   }
 );
   }
-
-  mostrarContructos() {
-    this.rejillaIniciada = false;
-    this.mostrarConstructos = true;
-    for (var i=0; i < 14; i++) {
-        //reemplazar los numeros por elementousuario           
+    mostrarContructos(){
+      for (var i=0; i < 14; i++) {
+            for(var u=0;u<12;u++){
+               var r="#"+(u+1);
+               var re = new RegExp(r);
+               this.constructos[i].txtpregunta=this.constructos[i].txtpregunta.replace(re,this.elementosUsuario[u].nombre);
+             }
+         
+         }
+          //reemplazar los numeros por elementousuario
+      console.log(this.constructos);
     }
-  }
+   
+  
 
   logOut(): void {
     this.tokenService.logOut();
