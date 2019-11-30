@@ -9,6 +9,7 @@ import{Constructos} from '../models/constructos';
 import { TouchSequence } from 'selenium-webdriver';
 import{PreguntasPolos} from '../models/preguntas-polos'
 import{PolosConstructos} from '../models/polos-constructos'
+import { ConstructosService } from '../services/constructos.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -26,23 +27,28 @@ export class UserComponent implements OnInit {
   usuario:LoginUsuario;
   varAux:number;
   constructosUsuario:any={};
-  polosUsuario:any={};
+  polosUsuario:Array<PolosConstructos>=[];
   
   parecidos=false;
   diferencias=false;
   preguntas:any={};
   segundaPregunta=false;
-  poloDerecho:any={};
-  poloIzquierdo:any={};
+  poloDerecho:Array<string> = [];
+  poloIzquierdo:Array<string> = [];
   preguntasPolos:any={};
+  devuelto:any={};
+  pruebapolos:Array<string> = [];
+  
 
-  constructor(private tokenService: TokenService,private router: Router,private rejillaService:RejillaService) { }
+  constructor(private tokenService: TokenService,private router: Router,private rejillaService:RejillaService,private constructosService:ConstructosService) { }
 
   ngOnInit() {
     this.idUsuario=this.tokenService.getUserId();
     if(this.rejillaService.getRejillaId()!=null){
       this.rejillaIniciada=true;
       this.elementos=this.rejillaService.getElementosEvaluacion();
+    this.idRejilla=this.rejillaService.getRejillaId();
+    console.log(this.idRejilla);
     } 
   }
   
@@ -111,7 +117,7 @@ export class UserComponent implements OnInit {
    incrementarVar(){
     
      if(this.segundaPregunta){
-      this.polosUsuario[this.varAux]=new PolosConstructos(this.poloIzquierdo[this.varAux],this.poloDerecho[this.varAux]);
+      this.polosUsuario[this.varAux]=new PolosConstructos(1,this.idRejilla,this.varAux+1,this.poloIzquierdo[this.varAux],this.poloDerecho[this.varAux]);
       this.varAux++;
       this.segundaPregunta=false; 
       if(this.constructos[this.varAux].tipopregunta==='Parecidos'){
@@ -122,7 +128,7 @@ export class UserComponent implements OnInit {
         this.parecidos=false;
         this.diferencias=true;
       }
-      console.log(this.polosUsuario);
+      //console.log(this.polosUsuario);
      }
      else{
        if(this.parecidos){
@@ -135,9 +141,21 @@ export class UserComponent implements OnInit {
     }
    }
 
+
    guardarConstructos(){
-    console.log("hola");
-    console.log(this.constructosUsuario);
+   
+  //  this.pruebapolos[0]="hola";
+   // this.pruebapolos[1]="hola";
+   
+   //this.constructosService.insertConstructos(this.polosUsuario).subscribe(data => {
+    this.constructosService.insertConstructos(this.polosUsuario).subscribe(data => {
+    this.devuelto=data;
+     
+  },
+    (err: any) => {
+     
+    }
+  );
    }
   
 
