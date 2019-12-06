@@ -1,23 +1,24 @@
 <div class="container col-lg-6" id="logincont">
-      <h1 class="text-center">Inicio de Sesión</h1>
-    <div class="card">
+   <h1 class="text-center">Inicio de Sesión</h1>
+   <div class="card">
       <div class="card-body">
-    <form name="form" #f="ngForm" novalidate (ngSubmit)="onLogin()">
-      <div class="form-group">
-        <label for="nombreUsuario">Nombre de Usuario: </label>
-        <input type="text" class="form-control" name="nombreusuario" [(ngModel)]="form.nombreUsuario" 
-        autocomplete="off" required>
+         <form name="form" #f="ngForm" novalidate (ngSubmit)="onLogin()">
+            <div class="form-group">
+               <label for="nombreUsuario">Nombre de Usuario: </label>
+               <input type="text" class="form-control" name="nombreusuario" [(ngModel)]="form.nombreUsuario"
+                  autocomplete="off" required>
+            </div>
+            <div class="form-group">
+               <label for="password">Contraseña: </label>
+               <input type="password" class="form-control" name="password" [(ngModel)]="form.password"
+                  autocomplete="off" required>
+            </div>
+            <div class="form-group">
+               <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Iniciar sesión</button>
+               <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Usuario o contraseña incorrectos.
+               </div>
+            </div>
+         </form>
       </div>
-      <div class="form-group">
-        <label for="password">Contraseña: </label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" 
-        autocomplete="off" required>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Iniciar sesión</button>
-        <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Usuario o contraseña incorrectos.</div>
-      </div>
-    </form>
-  </div>
-    </div>
+   </div>
 </div>

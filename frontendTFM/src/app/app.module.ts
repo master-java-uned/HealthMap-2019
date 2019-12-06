@@ -11,23 +11,25 @@ import { UserComponent } from './user/user.component';
 import { interceptorProvider } from './interceptors/rejilla-interceptor.service';
 import { MostrarRejillaComponent } from './mostrar-rejilla/mostrar-rejilla.component';
 import { ConstructosComponent } from './constructos/constructos.component'
+
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    MenuComponent,
-    AdminComponent,
-    UserComponent,
-    MostrarRejillaComponent,
-    ConstructosComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
-  providers: [interceptorProvider],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      LoginComponent,
+      MenuComponent,
+      AdminComponent,
+      UserComponent,
+      MostrarRejillaComponent,
+      ConstructosComponent
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      HttpClientModule,
+      FormsModule
+   ],
+   providers: [interceptorProvider],
+   bootstrap: [AppComponent]
 })
 export class AppModule { }
