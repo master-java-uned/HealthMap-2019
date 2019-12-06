@@ -8,7 +8,7 @@ import{ElementosUsuario} from'../models/elementos-usuario';
 import{Constructos} from '../models/constructos';
 import { TouchSequence } from 'selenium-webdriver';
 import{PreguntasPolos} from '../models/preguntas-polos'
-import{PolosConstructos} from '../models/polos-constructos'
+import{Polos} from '../models/polos'
 import { ConstructosService } from '../services/constructos.service';
 @Component({
   selector: 'app-user',
@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
   usuario:LoginUsuario;
   varAux:number;
   constructosUsuario:any={};
-  polosUsuario:Array<PolosConstructos>=[];
+  polos:Array<Polos>=[];
   
   parecidos=false;
   diferencias=false;
@@ -117,7 +117,7 @@ export class UserComponent implements OnInit {
    incrementarVar(){
     
      if(this.segundaPregunta){
-      this.polosUsuario[this.varAux]=new PolosConstructos(1,this.idRejilla,this.varAux+1,this.poloIzquierdo[this.varAux],this.poloDerecho[this.varAux]);
+      this.polos[this.varAux]=new Polos(1,this.idRejilla,this.varAux+1,this.poloIzquierdo[this.varAux],this.poloDerecho[this.varAux]);
       this.varAux++;
       this.segundaPregunta=false; 
       if(this.constructos[this.varAux].tipopregunta==='Parecidos'){
@@ -143,12 +143,10 @@ export class UserComponent implements OnInit {
 
 
    guardarConstructos(){
-   
-  //  this.pruebapolos[0]="hola";
-   // this.pruebapolos[1]="hola";
-   
-   //this.constructosService.insertConstructos(this.polosUsuario).subscribe(data => {
-    this.constructosService.insertConstructos(this.polosUsuario).subscribe(data => {
+ 
+    console.log(this.polos[0]);
+    //this.constructosService.insertConstructos(this.polos[0]).subscribe(data => {
+      this.constructosService.insertConstructos(this.polos).subscribe(data => {
     this.devuelto=data;
      
   },
