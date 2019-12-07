@@ -1,0 +1,7 @@
+#resultadoRejilla{
+    margin-top:80px;
+}
+.vertical{
+    writing-mode: vertical-lr;
+transform: rotate(180deg);
+}

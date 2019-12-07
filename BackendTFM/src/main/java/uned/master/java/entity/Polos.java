@@ -27,12 +27,6 @@ public class Polos {
 	public String txtpoloder;
 	public Polos() {}
 	
-	/*public Polos(int idrejilla, int idconstructo, String txtpoloizq, String txtpoloder) {
-		this.idrejilla = idrejilla;
-		this.idconstructo = idconstructo;
-		this.txtpoloizq = txtpoloizq;
-		this.txtpoloder = txtpoloder;
-	}*/
 
 	public int getIdrejilla() {
 		return idrejilla;

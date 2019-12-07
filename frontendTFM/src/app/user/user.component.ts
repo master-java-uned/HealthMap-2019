@@ -40,7 +40,8 @@ export class UserComponent implements OnInit {
    poloIzquierdo: Array<string> = [];
    preguntasPolos: any = {};
    devuelto: any = {};
-   pruebapolos: Array<string> = [];
+   puntuarRejilla=false;
+
 
 
    constructor(private tokenService: TokenService, private router: Router, private rejillaService: RejillaService, private constructosService: ConstructosService) { }
@@ -135,7 +136,6 @@ export class UserComponent implements OnInit {
             this.parecidos = false;
             this.diferencias = true;
          }
-         //console.log(this.polosUsuario);
       }
       else {
          if (this.parecidos) {
@@ -150,14 +150,18 @@ export class UserComponent implements OnInit {
 
 
    guardarConstructos() {
-      console.log(this.polos[0]);
-      //this.constructosService.insertConstructos(this.polos[0]).subscribe(data => {
-      this.constructosService.insertConstructos(this.polos).subscribe(data => {
-         this.devuelto = data;
-      },
-         (err: any) => {
-         }
-      );
+      console.log(this.polos);
+      this.polos[this.varAux] = new Polos(0, this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
+      //this.constructosService.insertConstructos(this.polos).subscribe(data => {
+       //  this.devuelto = data;
+      //},
+       //  (err: any) => {
+       //  }
+      //);
+     this.constructosService.setConstructosUsuario(this.polos);
+     this.constructosService.setElementosUsuario(this.elementosUsuario);
+     this.mostrarConstructos=false; 
+     this.puntuarRejilla=true;
    }
 
 

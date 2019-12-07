@@ -10,7 +10,9 @@ import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { interceptorProvider } from './interceptors/rejilla-interceptor.service';
 import { MostrarRejillaComponent } from './mostrar-rejilla/mostrar-rejilla.component';
-import { ConstructosComponent } from './constructos/constructos.component'
+import { ConstructosComponent } from './constructos/constructos.component';
+import { PuntualRejillaComponent } from './puntual-rejilla/puntual-rejilla.component';
+import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.component'
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ConstructosComponent } from './constructos/constructos.component'
       AdminComponent,
       UserComponent,
       MostrarRejillaComponent,
-      ConstructosComponent
+      ConstructosComponent,
+      PuntualRejillaComponent,
+      PuntuarRejillaComponent
    ],
    imports: [
       BrowserModule,
