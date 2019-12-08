@@ -11,7 +11,6 @@ import { UserComponent } from './user/user.component';
 import { interceptorProvider } from './interceptors/rejilla-interceptor.service';
 import { MostrarRejillaComponent } from './mostrar-rejilla/mostrar-rejilla.component';
 import { ConstructosComponent } from './constructos/constructos.component';
-import { PuntualRejillaComponent } from './puntual-rejilla/puntual-rejilla.component';
 import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.component'
 
 
@@ -24,7 +23,6 @@ import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.compo
       UserComponent,
       MostrarRejillaComponent,
       ConstructosComponent,
-      PuntualRejillaComponent,
       PuntuarRejillaComponent
    ],
    imports: [

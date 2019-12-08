@@ -15,6 +15,7 @@ import { ConstructosService } from '../services/constructos.service';
 const modo_test: boolean = true;
 
 
+
 @Component({
    selector: 'app-user',
    templateUrl: './user.component.html',
@@ -40,7 +41,8 @@ export class UserComponent implements OnInit {
    poloIzquierdo: Array<string> = [];
    preguntasPolos: any = {};
    devuelto: any = {};
-   puntuarRejilla=false;
+   puntuarRejilla = false;
+   yer_cont_log: number = 0;
 
 
 
@@ -59,6 +61,7 @@ export class UserComponent implements OnInit {
 
 
    iniciarRejilla(): void {
+      console.log("YERAY-LOG - iniciarRejilla() - " + (++this.yer_cont_log).toString());
       this.rejillaService.nuevaRejilla(this.idUsuario).subscribe(data => {
          this.idRejilla = data;
          this.rejillaService.setRejillaId(this.idRejilla);
@@ -69,7 +72,6 @@ export class UserComponent implements OnInit {
       );
       this.rejillaService.getElementos().subscribe(data => {
          this.elementos = data;
-         console.log("YERAY-LOG1");
          console.log(this.elementos);
          this.rellenar_modo_test();
          this.rejillaService.setElementos(this.elementos);
@@ -81,6 +83,7 @@ export class UserComponent implements OnInit {
 
 
    guardar(): void {
+      console.log("YERAY-LOG - guardar() - " + (++this.yer_cont_log).toString());
       this.elementosUsuario[0] = new ElementosUsuario("Yo actual", null);
       this.elementosUsuario[1] = new ElementosUsuario("Yo dentro de dos años", null);
       this.elementosUsuario[2] = new ElementosUsuario(this.elementos.nombre3, this.elementos.descripcionUsuario3);
@@ -96,7 +99,6 @@ export class UserComponent implements OnInit {
       this.rejillaService.getConstructos().subscribe(data => {
          this.constructos = data;
          this.rejillaService.setConstructos(this.constructos);
-         console.log("YERAY-LOG2");
          console.log(this.elementosUsuario);
          console.log(this.constructos);
          this.mostrarContructos();
@@ -108,6 +110,7 @@ export class UserComponent implements OnInit {
 
 
    mostrarContructos() {
+      console.log("YERAY-LOG - mostrarContructos() - " + (++this.yer_cont_log).toString());
       for (var i = 0; i < 14; i++) {
          for (var u = 0; u < 12; u++) {
             var r = "#" + (u + 1);
@@ -146,22 +149,26 @@ export class UserComponent implements OnInit {
          }
          this.segundaPregunta = true;
       }
+      console.log("YERAY-LOG - incrementarVar() - " + (++this.yer_cont_log).toString());
+      console.log(this.varAux + ": " + this.segundaPregunta + " - " + this.constructos[this.varAux].tipopregunta);
    }
 
 
    guardarConstructos() {
+      console.log("YERAY-LOG - guardarConstructos() - " + (++this.yer_cont_log).toString());
       console.log(this.polos);
       this.polos[this.varAux] = new Polos(0, this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
       //this.constructosService.insertConstructos(this.polos).subscribe(data => {
-       //  this.devuelto = data;
+      //  this.devuelto = data;
       //},
-       //  (err: any) => {
-       //  }
+      //  (err: any) => {
+      //  }
       //);
-     this.constructosService.setConstructosUsuario(this.polos);
-     this.constructosService.setElementosUsuario(this.elementosUsuario);
-     this.mostrarConstructos=false; 
-     this.puntuarRejilla=true;
+      this.constructosService.setConstructosUsuario(this.polos);
+      this.constructosService.setElementosUsuario(this.elementosUsuario);
+      this.mostrarConstructos = false;
+      //ykk - Enviar constructos y elementos al back
+      this.puntuarRejilla = true;
    }
 
 

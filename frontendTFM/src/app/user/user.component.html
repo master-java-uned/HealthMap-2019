@@ -58,29 +58,32 @@
             <div class="form-group" *ngIf="varAux<= 13">
                <label for="constructos+{{varAux}}">{{constructos[varAux].txtpregunta}} </label>
                <div *ngIf="parecidos">
-                  <input type="text" class="form-control" name="constructos+{{varAux}}" [(ngModel)]="poloIzquierdo[varAux]"
-                     autocomplete="off" required></div>
-               <div *ngIf="!segundaPregunta">
-                  <button class="btn btn-dark" (click)=incrementarVar()>Siguiente</button>
+                  <input type="text" class="form-control" name="constructos+{{varAux}}"
+                     [(ngModel)]="poloIzquierdo[varAux]" autocomplete="off" required>
                </div>
+               <div *ngIf="!segundaPregunta">
+                  <button class="btn btn-dark" (click)=incrementarVar() [disabled]="!f.valid">Siguiente</button>
+               </div>
+
                <div *ngIf="segundaPregunta">
                   <div *ngIf="parecidos">
                      <p>{{preguntasPolos[this.varAux].preg1}}</p>
-                     <input type="text" class="form-control" name="poloDerecho+{{varAux}}" [(ngModel)]="poloDerecho[varAux]"
-                        autocomplete="off" required>
-                     <button class="btn btn-dark" (click)=incrementarVar()>Siguiente</button>
+                     <input type="text" class="form-control" name="poloDerecho+{{varAux}}"
+                        [(ngModel)]="poloDerecho[varAux]" autocomplete="off" required>
+                     <button class="btn btn-dark" (click)=incrementarVar() [disabled]="!f.valid">Siguiente</button>
                   </div>
+
                   <div *ngIf="diferencias">
                      <p>{{preguntasPolos[this.varAux].preg1}}</p>
-                     <input type="text" class="form-control" name="poloIzquierdo+{{varAux}}" [(ngModel)]="poloIzquierdo[varAux]"
-                        autocomplete="off" required>
+                     <input type="text" class="form-control" name="poloIzquierdo+{{varAux}}"
+                        [(ngModel)]="poloIzquierdo[varAux]" autocomplete="off" required>
                      <p>{{preguntasPolos[this.varAux].preg2}}</p>
-                     <input type="text" class="form-control" name="poloDerecho+{{varAux}}" [(ngModel)]="poloDerecho[varAux]"
-                        autocomplete="off" required>
-                     <button *ngIf="varAux!= 13"  class="btn btn-dark" (click)=incrementarVar()>Siguiente</button>
+                     <input type="text" class="form-control" name="poloDerecho+{{varAux}}"
+                        [(ngModel)]="poloDerecho[varAux]" autocomplete="off" required>
+                     <button *ngIf="varAux!= 13" class="btn btn-dark" (click)=incrementarVar()
+                        [disabled]="!f.valid">Siguiente</button>
                   </div>
                </div>
-
             </div>
 
             <div *ngIf="varAux===13" class="form-group">
@@ -92,11 +95,13 @@
          </form>
       </div>
    </div>
+</div>
 
-</div>
+
 <div *ngIf="puntuarRejilla">
-<app-puntuar-rejilla></app-puntuar-rejilla>
+   <app-puntuar-rejilla></app-puntuar-rejilla>
 </div>
+
 
 <div class="modal" id="nuevaEvaluacion" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
