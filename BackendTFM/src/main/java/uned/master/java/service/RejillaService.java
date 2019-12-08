@@ -18,6 +18,7 @@ public class RejillaService {
 	@Autowired
    RejillaRepository rejillaRepository;
 	
+	
 	 public int guardar(Rejilla rejilla){
 	        Rejilla newRejilla=rejillaRepository.save(rejilla);
 		
