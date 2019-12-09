@@ -6,20 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "polos")
+@IdClass(idPolos.class)
 public class Polos {
 
-
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int id;
-	
 	public int idrejilla;
-	
+	@Id
 	public int idconstructo;
 	
 	public String txtpoloizq;

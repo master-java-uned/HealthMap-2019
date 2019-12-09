@@ -1,22 +1,24 @@
 package uned.master.java.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "puntuaciones")
+@IdClass(idPuntuaciones.class)
 public class Puntuaciones {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int id;
-	
 	public int idevaluacion;
-	
+	@Id
 	public int idconstructo;
-	
+	@Id
 	public int idelemento;
 	
 	public int puntuacion;
@@ -53,4 +55,6 @@ public class Puntuaciones {
 		this.puntuacion = puntuacion;
 	}
 	
+	
 }
+

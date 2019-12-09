@@ -10,7 +10,7 @@ import { Constructos } from '../models/constructos';
 import { PreguntasPolos } from '../models/preguntas-polos'
 import { Polos } from '../models/polos'
 import { ConstructosService } from '../services/constructos.service';
-
+import {FlatTreeControl} from '@angular/cdk/tree';
 
 const modo_test: boolean = true;
 
@@ -128,7 +128,7 @@ export class UserComponent implements OnInit {
 
    incrementarVar() {
       if (this.segundaPregunta) {
-         this.polos[this.varAux] = new Polos(0, this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
+         this.polos[this.varAux] = new Polos(this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
          this.varAux++;
          this.segundaPregunta = false;
          if (this.constructos[this.varAux].tipopregunta === 'Parecidos') {
@@ -157,13 +157,13 @@ export class UserComponent implements OnInit {
    guardarConstructos() {
       console.log("YERAY-LOG - guardarConstructos() - " + (++this.yer_cont_log).toString());
       console.log(this.polos);
-      this.polos[this.varAux] = new Polos(0, this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
-      //this.constructosService.insertConstructos(this.polos).subscribe(data => {
-      //  this.devuelto = data;
-      //},
-      //  (err: any) => {
-      //  }
-      //);
+      this.polos[this.varAux] = new Polos(this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
+      this.constructosService.insertConstructos(this.polos).subscribe(data => {
+        this.devuelto = data;
+      },
+        (err: any) => {
+        }
+      );
       this.constructosService.setConstructosUsuario(this.polos);
       this.constructosService.setElementosUsuario(this.elementosUsuario);
       this.mostrarConstructos = false;

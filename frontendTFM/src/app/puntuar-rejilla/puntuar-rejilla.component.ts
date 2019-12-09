@@ -50,7 +50,7 @@ export class PuntuarRejillaComponent implements OnInit {
         //console.log(this.ordenConstructosFinales[i]);
         for(var j:number=0;j<12;j++){
           
-          this.puntuacionesFinales[this.k]=new Puntuaciones(0,this.idEvaluacion,i+1,j+1,this.puntuaciones[i][j]);
+          this.puntuacionesFinales[this.k]=new Puntuaciones(this.idEvaluacion,i+1,j+1,this.puntuaciones[i][j]);
           this.k++;
         }
       }

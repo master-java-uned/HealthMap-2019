@@ -4,17 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ordenaciones")
+@IdClass(idOrdenConstructos.class)
 public class OrdenConstructos {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int id;
-	
 	public int idevaluacion;
-	
+	@Id
 	public int idconstructo;
 	
 	public int ordenconstructo;
@@ -22,20 +22,11 @@ public class OrdenConstructos {
 	public OrdenConstructos() {}
 	
 	
-	public OrdenConstructos(int id, int idevaluacion, int idconstructo, int ordenconstructo) {
+	public OrdenConstructos(int idevaluacion, int idconstructo, int ordenconstructo) {
 		super();
-		this.id = id;
 		this.idevaluacion = idevaluacion;
 		this.idconstructo = idconstructo;
 		this.ordenconstructo = ordenconstructo;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getIdevaluacion() {
