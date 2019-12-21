@@ -7,11 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { AdminComponent } from './admin/admin.component';
-import { UserComponent } from './user/user.component';
 import { interceptorProvider } from './interceptors/rejilla-interceptor.service';
 import { MostrarRejillaComponent } from './mostrar-rejilla/mostrar-rejilla.component';
 import { ConstructosComponent } from './constructos/constructos.component';
-import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.component'
+import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.component';
+import { UserComponent } from './user/user.component';
+import { ElementosComponent } from './elementos/elementos.component';
+import { User2Component } from './user2/user2.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.compo
       UserComponent,
       MostrarRejillaComponent,
       ConstructosComponent,
-      PuntuarRejillaComponent
+      PuntuarRejillaComponent,
+      ElementosComponent,
+      User2Component
    ],
    imports: [
       BrowserModule,

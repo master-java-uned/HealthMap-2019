@@ -2,18 +2,6 @@
   <app-admin></app-admin>
 </div>
 <div *ngIf="authority === 'user'">
-  <app-user></app-user>
+  <!-- <app-user></app-user> -->
+  <app-user2></app-user2>
 </div>
-
-<!--<div *ngIf="info.token; else loggedOut">
-    <div class="container">
-  <p><strong>Tu nombre e usuario: </strong>{{ info.nombreUsuario}}</p>
-      <p><strong>Este es el token: </strong>{{ info.token}}</p>
-      <p><strong>Tus privilegios: </strong>{{ info.authorities}}</p>
-    </div>
-  </div>
-  <ng-template #loggedOut>
-    <div class="container">
-      No has iniciado sesión
-    </div>
-  </ng-template>-->

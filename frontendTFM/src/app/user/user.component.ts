@@ -10,7 +10,7 @@ import { Constructos } from '../models/constructos';
 import { PreguntasPolos } from '../models/preguntas-polos'
 import { Polos } from '../models/polos'
 import { ConstructosService } from '../services/constructos.service';
-import {FlatTreeControl} from '@angular/cdk/tree';
+// import { FlatTreeControl } from '@angular/cdk/tree';
 
 const modo_test: boolean = true;
 
@@ -159,15 +159,14 @@ export class UserComponent implements OnInit {
       console.log(this.polos);
       this.polos[this.varAux] = new Polos(this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
       this.constructosService.insertConstructos(this.polos).subscribe(data => {
-        this.devuelto = data;
+         this.devuelto = data;
       },
-        (err: any) => {
-        }
+         (err: any) => {
+         }
       );
       this.constructosService.setConstructosUsuario(this.polos);
       this.constructosService.setElementosUsuario(this.elementosUsuario);
       this.mostrarConstructos = false;
-      //ykk - Enviar constructos y elementos al back
       this.puntuarRejilla = true;
    }
 
