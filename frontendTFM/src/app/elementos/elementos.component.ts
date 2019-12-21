@@ -13,13 +13,11 @@ export class ElementosComponent implements OnInit {
    @Input() bModo_test: boolean;
    @Output() emitterOutputComponente = new EventEmitter();
    elementosUsuario: any = {};
-   bMostrarConstructos: boolean = false;
-   bPrueba: boolean = true;
-   txtprueba: string = "YER - prueba texto";
+   elementos: any = {};
    idUsuario: bigint;
    idRejilla: number;
-   elementos: any = {};
    yer_cont_log: number = 0;
+
 
    constructor(private tokenService: TokenService, private rejillaService: RejillaService) { }
 
@@ -35,12 +33,12 @@ export class ElementosComponent implements OnInit {
          this.idRejilla = this.rejillaService.getRejillaId();
          console.log("IdRejilla " + this.idRejilla);
       }
-      this.iniciarRejilla();
+      this.inicializarRejilla();
    }
 
 
-   iniciarRejilla(): void {
-      console.log("YERAY-LOG - ElementosComponent-iniciarRejilla() - " + (++this.yer_cont_log).toString());
+   inicializarRejilla(): void {
+      console.log("YERAY-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
       this.rejillaService.getElementos().subscribe(data => {
          this.elementos = data;
          console.log(data);

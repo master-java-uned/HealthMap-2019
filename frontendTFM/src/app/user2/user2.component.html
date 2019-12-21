@@ -22,14 +22,14 @@
 </nav>
 
 
-<div *ngIf="bRejillaIniciada">
-   <app-elementos [bModo_test]="true" (emitterOutputComponente)="obtenerSalidaElementosComponent($event)">
+<div *ngIf="bMostrarElementos">
+   <app-elementos [bModo_test]="this.modo_test" (emitterOutputComponente)="obtenerSalidaElementosComponent($event)">
    </app-elementos>
 </div>
 
 
 <div *ngIf="bMostrarConstructos">
-   <app-constructos [elementosUsuario]="elementosUsuario" [idRejilla]="idRejilla"
+   <app-constructos [elementosUsuario]="elementosUsuario" [idRejilla]="idRejilla" [bModo_test]="this.modo_test"
       (emitterOutputComponente)="obtenerSalidaConstructosComponent($event)"></app-constructos>
 </div>
 

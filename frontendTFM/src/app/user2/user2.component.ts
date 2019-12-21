@@ -16,7 +16,7 @@ export class User2Component implements OnInit {
    idUsuario: bigint;
    idRejilla: number;
    bMostrarConstructos = false;
-   bRejillaIniciada = false;
+   bMostrarElementos = false;
    elementos: any = {};
    constructos: Constructos[];
    elementosUsuario: any = {};
@@ -38,7 +38,7 @@ export class User2Component implements OnInit {
       console.log("YERAY-LOG - User2Component-ngOnInit() - " + (++this.yer_cont_log).toString());
       this.idUsuario = this.tokenService.getUserId();
       if (this.rejillaService.getRejillaId() != null) {
-         this.bRejillaIniciada = true;
+         this.bMostrarElementos = true;
          this.elementos = this.rejillaService.getElementosEvaluacion();
          this.idRejilla = this.rejillaService.getRejillaId();
          console.log(this.idRejilla);
@@ -47,7 +47,7 @@ export class User2Component implements OnInit {
 
 
    iniciarRejilla(): void {
-      this.bRejillaIniciada = true;
+      this.bMostrarElementos = true;
       console.log("YERAY-LOG - User2Component-iniciarRejilla() - " + (++this.yer_cont_log).toString());
    }
 
@@ -75,7 +75,7 @@ export class User2Component implements OnInit {
       this.elementosUsuario = event.elementosUsuario;
       this.bMostrarConstructos = event.bMostrarConstructos;
       if (this.bMostrarConstructos) {
-         this.bRejillaIniciada = false;
+         this.bMostrarElementos = false;
       }
    }
 
