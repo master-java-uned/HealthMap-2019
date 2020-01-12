@@ -23,15 +23,33 @@ public class PuntuacionesService {
 	@Autowired
 	   OrdenConstructosRepository ordenRepository;
 	
-		 public void guardar(List<Puntuaciones> puntuaciones){
+		/**
+		 * Inserta las puntuaciones en la base de datos 
+		 * @param puntuaciones
+		 */
+		public void guardar(List<Puntuaciones> puntuaciones){
 		     for(Puntuaciones puntuacion:puntuaciones) { 
 		    	 puntuacionesRepository.save(puntuacion);
 		     }      
 		    }
 		 
-		 public void guardarOrdenConstructos(List<OrdenConstructos> ordenConstructos){
+		/**
+		 * Inserta el orden de los constructos en la base de datos 
+		 * @param ordenConstructos
+		 */
+		public void guardarOrdenConstructos(List<OrdenConstructos> ordenConstructos){
 		     for(OrdenConstructos orden:ordenConstructos) {
 		    	 ordenRepository.save(orden);
 		     }      
 		    }
+		
+		public List<Puntuaciones> getPuntuaciones(int idEvaluacion){
+			return puntuacionesRepository.findById(idEvaluacion);
+		}
+		
+		public List<OrdenConstructos> getOrden(int idEvaluacion){
+			return ordenRepository.findById(idEvaluacion);
+		}
+		
+		
 }

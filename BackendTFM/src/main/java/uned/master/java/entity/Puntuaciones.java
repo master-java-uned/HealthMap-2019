@@ -22,6 +22,20 @@ public class Puntuaciones {
 	public int idelemento;
 	
 	public int puntuacion;
+	
+	public Puntuaciones() {}
+
+	
+
+	public Puntuaciones(int idevaluacion, int idconstructo, int idelemento, int puntuacion) {
+		super();
+		this.idevaluacion = idevaluacion;
+		this.idconstructo = idconstructo;
+		this.idelemento = idelemento;
+		this.puntuacion = puntuacion;
+	}
+
+
 
 	public int getIdevaluacion() {
 		return idevaluacion;

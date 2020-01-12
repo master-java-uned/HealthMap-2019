@@ -19,15 +19,6 @@ public class OrdenConstructos {
 	
 	public int ordenconstructo;
 
-	public OrdenConstructos() {}
-	
-	
-	public OrdenConstructos(int idevaluacion, int idconstructo, int ordenconstructo) {
-		super();
-		this.idevaluacion = idevaluacion;
-		this.idconstructo = idconstructo;
-		this.ordenconstructo = ordenconstructo;
-	}
 
 	public int getIdevaluacion() {
 		return idevaluacion;

@@ -1,6 +1,5 @@
 package uned.master.java.controller;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,32 +19,49 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import uned.master.java.entity.ElementosRejilla;
 import uned.master.java.entity.Polos;
 
 import uned.master.java.service.PolosService;
 
-
 @RestController
 
-@RequestMapping(value = "/api/constructos", headers="Accept=application/json") 
+@RequestMapping(value = "/api/constructos", headers = "Accept=application/json")
 @CrossOrigin(origins = "http://localhost:4200")
 
 public class ConstructosController {
+
+	@Autowired
+	PolosService polosService;
 	
-	@Autowired  
-	 PolosService polosService;
-	
-	
-		
+	/**
+	 * Inserta los polos introducidos por el usuario en la base de datos
+	 * @param polos
+	 * @return
+	 */
 	@PostMapping("/insertPolos")
-		public ResponseEntity<?> insertPolos(@RequestBody List<Polos> polos) throws JsonParseException, JsonMappingException, IOException {
-			for(Polos polo:polos){
-			System.out.println(polo.getTxtpoloizquierdo());
-			System.out.println(polo.getTxtpoloderecho());
-			System.out.println(polo.idrejilla);
-		
-			}
+	public ResponseEntity<?> insertPolos(@RequestBody List<Polos> polos)
+			 {
 		polosService.insertConstructos(polos);
 		return new ResponseEntity("polos insertados", HttpStatus.CREATED);
+	}
+	
+	/**
+	 * Recupera los polos introducidos en una rejilla concreta y devuelve su valor
+	 * @param idrejilla
+	 * @return
+	 */
+	@PostMapping("/getPolos")
+	public ResponseEntity<?> getPolos(@RequestBody Integer idrejilla) {
+		List<Polos> polos = polosService.findPolos(idrejilla);
+		System.out.println("polos");
+		for(Polos polo:polos) {
+			System.out.println(polo.toString());
+			
 		}
+		return new ResponseEntity(polos, HttpStatus.CREATED);
+	}
+	
+	
+	
 }

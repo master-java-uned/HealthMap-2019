@@ -20,6 +20,8 @@ public class Rejilla {
 	private Long idpaciente;
 
 	private Timestamp fechahora;
+	
+	private Timestamp fechahorafin;
 	    
 	private String comentariopaciente;
 	   
@@ -29,62 +31,77 @@ public class Rejilla {
 	public Rejilla() {}
 	    
 
-	public Rejilla(int idRejilla, Long idpaciente, @NotNull Timestamp fechahora, String comentariopaciente,
-				String comentariopsicologo) {
-			this.idrejilla = idRejilla;
-			this.idpaciente = idpaciente;
-			this.fechahora = fechahora;
-			this.comentariopaciente = comentariopaciente;
-			this.comentariopsicologo = comentariopsicologo;
-		}
+	public Rejilla(int idrejilla, Long idpaciente, @NotNull Timestamp fechahora,Timestamp fechahorafin, String comentariopaciente,
+			String comentariopsicologo) {
+		this.idrejilla = idrejilla;
+		this.idpaciente = idpaciente;
+		this.fechahora = fechahora;
+		this.fechahorafin=fechahorafin;
+		this.comentariopaciente = comentariopaciente;
+		this.comentariopsicologo = comentariopsicologo;
+	}
 
-		public int getIdRejilla() {
-			return idrejilla;
-		}
 
-		public void setIdRejilla(int idRejilla) {
-			this.idrejilla = idRejilla;
-		}
+	public int getIdrejilla() {
+		return idrejilla;
+	}
 
-		public Long getIdpaciente() {
-			return idpaciente;
-		}
 
-		public void setIdpaciente(Long idpaciente) {
-			this.idpaciente = idpaciente;
-		}
+	public void setIdrejilla(int idrejilla) {
+		this.idrejilla = idrejilla;
+	}
 
-		public Timestamp getFechahora() {
-			return fechahora;
-		}
 
-		public void setFechahora(Timestamp fechahora) {
-			this.fechahora = fechahora;
-		}
+	public Long getIdpaciente() {
+		return idpaciente;
+	}
 
-		public String getComentariopaciente() {
-			return comentariopaciente;
-		}
 
-		public void setComentariopaciente(String comentariopaciente) {
-			this.comentariopaciente = comentariopaciente;
-		}
+	public void setIdpaciente(Long idpaciente) {
+		this.idpaciente = idpaciente;
+	}
 
-		public String getComentariopsicologo() {
-			return comentariopsicologo;
-		}
 
-		public void setComentariopsicologo(String comentariopsicologo) {
-			this.comentariopsicologo = comentariopsicologo;
-		}
-	    
-	    
-	  
-	    
-	 
+	public Timestamp getFechahora() {
+		return fechahora;
+	}
+
+
+	public void setFechahora(Timestamp fechahora) {
+		this.fechahora = fechahora;
+	}
+
+
+	public Timestamp getFechahorafin() {
+		return fechahorafin;
+	}
+
+
+	public void setFechahorafin(Timestamp fechahorafin) {
+		this.fechahorafin = fechahorafin;
+	}
+
+
+	public String getComentariopaciente() {
+		return comentariopaciente;
+	}
+
+
+	public void setComentariopaciente(String comentariopaciente) {
+		this.comentariopaciente = comentariopaciente;
+	}
+
+
+	public String getComentariopsicologo() {
+		return comentariopsicologo;
+	}
+
+
+	public void setComentariopsicologo(String comentariopsicologo) {
+		this.comentariopsicologo = comentariopsicologo;
+	}
+
 		
-	    
-	    
-	    
+  
 	    
 }

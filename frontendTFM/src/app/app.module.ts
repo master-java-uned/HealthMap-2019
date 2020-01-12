@@ -15,6 +15,10 @@ import { UserComponent } from './user/user.component';
 import { ElementosComponent } from './elementos/elementos.component';
 import { User2Component } from './user2/user2.component';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTreeModule} from '@angular/material/tree';
+import{MatIconModule} from '@angular/material/icon';
+import{MatButtonModule} from '@angular/material/button'
 
 @NgModule({
    declarations: [
@@ -27,13 +31,18 @@ import { User2Component } from './user2/user2.component';
       ConstructosComponent,
       PuntuarRejillaComponent,
       ElementosComponent,
-      User2Component
+      User2Component, 
+  
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      MatIconModule,
+      MatTreeModule,
+      MatButtonModule,
+      BrowserAnimationsModule
    ],
    providers: [interceptorProvider],
    bootstrap: [AppComponent]

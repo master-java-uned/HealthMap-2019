@@ -16,11 +16,15 @@ import uned.master.java.repository.PolosRepository;
 public class PolosService {
 	@Autowired
 	PolosRepository polosRepository;
-	
+
 	public void insertConstructos(List<Polos> polos) {
-		for(Polos polo:polos){
-		polosRepository.save(polo);
+		for (Polos polo : polos) {
+			polosRepository.save(polo);
 		}
+	}
+
+	public List<Polos> findPolos(Integer idrejilla) {
+		return polosRepository.findByRejilla(idrejilla);
 	}
 
 }

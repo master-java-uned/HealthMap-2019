@@ -19,11 +19,20 @@ export class PuntuacionesService {
   public insertEvaluacion(idRejilla: number): Observable<any> {
     return this.httpClient.post<any>(this.constructosURL + 'insertEvaluacion', idRejilla, cabecera);
  }
+ public getEvaluacionesUsuario(idRejilla:number): Observable<any> {
+  return this.httpClient.post<any>(this.constructosURL + 'getEvaluacionesUsuario',idRejilla, cabecera);
+}
  public insertPuntuaciones(puntuaciones:Array<Puntuaciones> ): Observable<any> {
   return this.httpClient.post<any>(this.constructosURL + 'insertPuntuaciones', puntuaciones, cabecera);
 }
+public getPuntuaciones(idEvaluacion:number): Observable<Array<Puntuaciones>>{
+  return this.httpClient.post<Array<Puntuaciones>>(this.constructosURL + 'getPuntuaciones', idEvaluacion, cabecera);
+}
 public insertOrdenConstructos(ordenConstructos:Array<OrdenConstructos> ): Observable<any> {
   return this.httpClient.post<any>(this.constructosURL + 'insertOrdenConstructos', ordenConstructos, cabecera);
+}
+public getOrden(idEvaluacion:number): Observable<any> {
+  return this.httpClient.post<any>(this.constructosURL + 'getOrden', idEvaluacion, cabecera);
 }
 
 

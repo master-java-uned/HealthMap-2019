@@ -1,0 +1,25 @@
+#inicio{
+    margin-top: 100px;
+    margin-left: 80px;
+}
+#segundaRama{
+    margin-left: 40px;
+}
+#resumen{
+    font-size: 18px;
+   font-style: italic;
+}
+.elementoResumen{
+    margin-left: 20px; 
+}
+.resultadoResumen{
+    margin-left: 40px; 
+}
+.principal{
+   margin-left: 20px;
+}
+.mat-icon-rtl-mirror{
+    display: inline-flex;
+    vertical-align: middle;
+    margin-left:0;
+}

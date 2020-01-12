@@ -15,11 +15,14 @@ export class ConstructosService {
   constructor(private httpClient: HttpClient) { }
 
 
-
   public insertConstructos(polos: Array<Polos>): Observable<any> {
-    console.log("Entra en el bucle");
-    //console.log(polos);
     return this.httpClient.post<any>(this.constructosURL + 'insertPolos', polos, cabecera);
+  }
+  public getElementosUser(idRejilla:number):Observable<any> {
+    return this.httpClient.post<any>(this.constructosURL + 'getElementosUsuario', idRejilla, cabecera);
+  }
+  public getPolosUsuario(idRejilla:number): Observable<any> {
+    return this.httpClient.post<any>(this.constructosURL + 'getPolos', idRejilla, cabecera);
   }
   public setElementosUsuario(elementosUsuario: Array<ElementosUsuario>): void {
     window.sessionStorage.removeItem(ELEMENTOSUSUARIO);

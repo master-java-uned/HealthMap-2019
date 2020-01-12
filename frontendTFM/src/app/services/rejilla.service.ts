@@ -17,16 +17,17 @@ export class RejillaService {
 
    constructor(private httpClient: HttpClient) { }
 
+   public getRejillasUser(idUsuario:bigint):Observable<any> {
+      return this.httpClient.post<any>(this.authURL + 'getRejillasUser', idUsuario, cabecera);
+   }
 
    public nuevaRejilla(idUsuario: bigint): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'nueva', idUsuario, cabecera);
    }
 
-
    public getElementos(): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'getElementos', cabecera);
    }
-
 
    public getConstructos(): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'getConstructos', cabecera);

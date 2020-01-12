@@ -22,4 +22,36 @@ public class ElementosRejilla {
 	private String nombreelemento;
 	
 	private String rolelemento;
+
+	public int getIdelemento() {
+		return idelemento;
+	}
+
+	public void setIdelemento(int idelemento) {
+		this.idelemento = idelemento;
+	}
+
+	public int getIdrejilla() {
+		return idrejilla;
+	}
+
+	public void setIdrejilla(int idrejilla) {
+		this.idrejilla = idrejilla;
+	}
+
+	public String getNombreelemento() {
+		return nombreelemento;
+	}
+
+	public void setNombreelemento(String nombreelemento) {
+		this.nombreelemento = nombreelemento;
+	}
+
+	public String getRolelemento() {
+		return rolelemento;
+	}
+
+	public void setRolelemento(String rolelemento) {
+		this.rolelemento = rolelemento;
+	}
 }

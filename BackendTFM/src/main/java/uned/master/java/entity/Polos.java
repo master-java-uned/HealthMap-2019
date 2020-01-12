@@ -22,8 +22,6 @@ public class Polos {
 	public String txtpoloizq;
 	
 	public String txtpoloder;
-	public Polos() {}
-	
 
 	public int getIdrejilla() {
 		return idrejilla;
@@ -41,22 +39,25 @@ public class Polos {
 		this.idconstructo = idconstructo;
 	}
 
-	public String getTxtpoloizquierdo() {
+	public String getTxtpoloizq() {
 		return txtpoloizq;
 	}
 
-	public void setTxtpoloizquierdo(String txtpoloizquierdo) {
-		this.txtpoloizq = txtpoloizquierdo;
+	public void setTxtpoloizq(String txtpoloizq) {
+		this.txtpoloizq = txtpoloizq;
 	}
 
-	public String getTxtpoloderecho() {
+	public String getTxtpoloder() {
 		return txtpoloder;
 	}
 
-	public void setTxtpoloderecho(String txtpoloderecho) {
-		this.txtpoloder = txtpoloderecho;
+	public void setTxtpoloder(String txtpoloder) {
+		this.txtpoloder = txtpoloder;
 	}
+	
+	
 
+	
 	
 	
 	
