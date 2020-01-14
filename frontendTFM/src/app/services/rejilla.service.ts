@@ -17,52 +17,56 @@ export class RejillaService {
 
    constructor(private httpClient: HttpClient) { }
 
-   public getRejillasUser(idUsuario:bigint):Observable<any> {
+
+   public getRejillasUser(idUsuario: bigint): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'getRejillasUser', idUsuario, cabecera);
    }
 
-   public nuevaRejilla(idUsuario: bigint): Observable<any> {
+
+   public backend_nuevaRejilla(idUsuario: bigint): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'nueva', idUsuario, cabecera);
    }
 
-   public getElementos(): Observable<any> {
+
+   public backend_getElementos(): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'getElementos', cabecera);
    }
 
-   public getConstructos(): Observable<any> {
+
+   public backend_getConstructos(): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'getConstructos', cabecera);
    }
 
 
-   public setRejillaId(rejillaId: number): void {
+   public sesion_setRejillaId(rejillaId: number): void {
       window.sessionStorage.removeItem(REJILLA_KEY);
       window.sessionStorage.setItem(REJILLA_KEY, JSON.stringify(rejillaId));
    }
 
 
-   public getRejillaId(): number {
+   public sesion_getRejillaId(): number {
       return JSON.parse(sessionStorage.getItem(REJILLA_KEY));
    }
 
 
-   public setElementos(elementos: any): void {
+   public sesion_setElementos(elementos: any): void {
       window.sessionStorage.removeItem(ELEMENTOS);
       window.sessionStorage.setItem(ELEMENTOS, JSON.stringify(elementos));
    }
 
 
-   public getElementosEvaluacion(): any {
+   public sesion_getElementosEvaluacion(): any {
       return JSON.parse(sessionStorage.getItem(ELEMENTOS));
    }
 
 
-   public setConstructos(constructos: any): void {
+   public sesion_setConstructos(constructos: any): void {
       window.sessionStorage.removeItem(CONSTRUCTOS);
       window.sessionStorage.setItem(CONSTRUCTOS, JSON.stringify(constructos));
    }
 
 
-   public getConstructosEvaluacion(): any {
+   public sesion_getConstructosEvaluacion(): any {
       return JSON.parse(sessionStorage.getItem(CONSTRUCTOS));
    }
 }

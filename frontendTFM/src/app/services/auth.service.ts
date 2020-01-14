@@ -5,20 +5,20 @@ import { Observable } from 'rxjs';
 import { JwtModel } from '../models/jwt-model';
 
 
-const cabecera = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+const cabecera = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+
 
 @Injectable({
-  providedIn: 'root'
+   providedIn: 'root'
 })
 export class AuthService {
+   private authURL = 'http://localhost:8080/api/auth/';
 
-  private authURL = 'http://localhost:8080/api/auth/';
 
-  constructor(private httpClient: HttpClient) { }
+   constructor(private httpClient: HttpClient) { }
 
-  public login(usuario: LoginUsuario): Observable<JwtModel> {
-    return this.httpClient.post<JwtModel>(this.authURL + 'login', usuario, cabecera);
-  }
 
- 
+   public backend_login(usuario: LoginUsuario): Observable<JwtModel> {
+      return this.httpClient.post<JwtModel>(this.authURL + 'login', usuario, cabecera);
+   }
 }

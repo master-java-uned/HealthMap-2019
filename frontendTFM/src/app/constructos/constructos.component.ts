@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Constructos } from '../models/constructos';
 import { Polos } from '../models/polos';
-// import { PreguntasPolos } from '../models/preguntas-polos';
+import { UsuarioRejilla } from '../models/usuario-rejilla';
 import { RejillaService } from '../services/rejilla.service';
 import { ConstructosService } from '../services/constructos.service';
 
@@ -13,15 +13,13 @@ import { ConstructosService } from '../services/constructos.service';
    styleUrls: ['./constructos.component.css']
 })
 export class ConstructosComponent implements OnInit {
-   @Input() elementosUsuario: any = {};
-   @Input() idRejilla: number;
    @Input() bModo_test: boolean;
+   @Input() usuarioRejilla: UsuarioRejilla;
    @Output() emitterOutputComponente = new EventEmitter();
-   elementos: any = {};
-   constructos: Constructos[];
-   polos: Array<Polos> = [];
-   poloIzquierdo: Array<string> = [];
-   poloDerecho: Array<string> = [];
+   // constructos: Constructos[];
+   // polos: Array<Polos> = [];
+   // poloIzquierdo: Array<string> = [];
+   // poloDerecho: Array<string> = [];
    bConstructosIniciados = false;
    yer_cont_log: number = 0;
 
@@ -33,17 +31,17 @@ export class ConstructosComponent implements OnInit {
 
    ngOnInit() {
       console.log("YERAY-LOG - ConstructosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
-      this.rejillaService.getConstructos().subscribe(data => {
+      this.rejillaService.backend_getConstructos().subscribe(data => {
          console.log("YERAY-LOG - ConstructosComponent-ngOnInit()-data - " + (++this.yer_cont_log).toString());
          console.log(data);
-         this.constructos = data;
-         this.rejillaService.setConstructos(this.constructos);
+         this.usuarioRejilla.constructos = data;
+         this.rejillaService.sesion_setConstructos(this.usuarioRejilla.constructos);
          console.log("YERAY-LOG - ConstructosComponent-ngOnInit()-elementosUsuario - " + (++this.yer_cont_log).toString());
-         console.log(this.elementosUsuario);
+         console.log(this.usuarioRejilla.elementosUsuario);
          console.log("YERAY-LOG - ConstructosComponent-ngOnInit()-constructos - " + (++this.yer_cont_log).toString());
-         console.log(this.constructos);
+         console.log(this.usuarioRejilla.constructos);
          console.log("YERAY-LOG - ConstructosComponent-ngOnInit()-idRejilla - " + (++this.yer_cont_log).toString());
-         console.log(this.idRejilla);
+         console.log(this.usuarioRejilla.idRejilla);
          this.inicializarContructos();
          this.bConstructosIniciados = true;
       },
@@ -57,35 +55,39 @@ export class ConstructosComponent implements OnInit {
       console.log("YERAY-LOG - ConstructosComponent-inicializarContructos() - " + (++this.yer_cont_log).toString());
       //Reemplazamos en los constructos los nombres reales de los elementos indicados por el paciente
       for (var i = 0; i < 14; i++) {
-         this.constructos[i].txtpregunta = this.constructos[i].txtpregunta.replace("#1", this.elementosUsuario[this.constructos[i].idelemento1].nombre);
-         this.constructos[i].txtpregunta = this.constructos[i].txtpregunta.replace("#2", this.elementosUsuario[this.constructos[i].idelemento2].nombre);
-         switch (this.constructos[i].tipopregunta.toUpperCase()) {
+         this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#1", this.usuarioRejilla.elementosUsuario[this.usuarioRejilla.constructos[i].idelemento1].nombre);
+         this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#2", this.usuarioRejilla.elementosUsuario[this.usuarioRejilla.constructos[i].idelemento2].nombre);
+         switch (this.usuarioRejilla.constructos[i].tipopregunta.toUpperCase()) {
             case "PARECIDOS": {
-               this.constructos[i].preguntaAux1 = "";
-               this.constructos[i].preguntaAux2 = "Que es para ti lo opuesto a...";
+               this.usuarioRejilla.constructos[i].preguntaAux1 = "";
+               this.usuarioRejilla.constructos[i].preguntaAux2 = "Que es para ti lo opuesto a...";
                break;
             }
             case "DIFERENCIAS": {
-               this.constructos[i].preguntaAux1 = "Nos diferenciamos en que yo soy:";
-               this.constructos[i].preguntaAux2 = "y el/ella es:";
+               this.usuarioRejilla.constructos[i].preguntaAux1 = "Nos diferenciamos en que yo soy:";
+               this.usuarioRejilla.constructos[i].preguntaAux2 = "y el/ella es:";
                break;
             }
          }
          //Si estamos en modo test
          if (this.bModo_test) {
-            this.poloIzquierdo[i] = 'val_test_poloIzq_' + i;
-            this.poloDerecho[i] = 'val_test_poloDer_' + i;
+            this.usuarioRejilla.poloIzquierdo[i] = 'val_test_poloIzq_' + i;
+            this.usuarioRejilla.poloDerecho[i] = 'val_test_poloDer_' + i;
          }
-         this.polos[i] = new Polos(this.idRejilla, i, this.poloIzquierdo[i], this.poloDerecho[i]);
+         this.usuarioRejilla.polos[i] = new Polos(this.usuarioRejilla.idRejilla, i, this.usuarioRejilla.poloIzquierdo[i], this.usuarioRejilla.poloDerecho[i]);
       }
+      console.log(this.usuarioRejilla.constructos);
+      console.log(this.usuarioRejilla.poloIzquierdo);
+      console.log(this.usuarioRejilla.poloDerecho);
+      console.log(this.usuarioRejilla.polos);
    }
 
 
    guardarConstructos() {
       console.log("YERAY-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
-      console.log(this.polos);
-      this.constructosService.setConstructosUsuario(this.polos);
-      this.constructosService.setElementosUsuario(this.elementosUsuario);
+      console.log(this.usuarioRejilla.polos);
+      this.constructosService.sesion_setConstructosUsuario(this.usuarioRejilla.polos);
+      this.constructosService.sesion_setElementosUsuario(this.usuarioRejilla.elementosUsuario);
       //ykk - Enviar constructos y elementos al back
       this.emitterOutputComponente.emit({ bPuntuarRejilla: true });
    }

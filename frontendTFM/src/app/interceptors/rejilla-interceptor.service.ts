@@ -10,7 +10,7 @@ export class RejillaInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let autReq = req;
-    const token = this.tokenService.getToken();
+    const token = this.tokenService.sesion_getToken();
     if (token != null) {
       autReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     }
@@ -21,4 +21,4 @@ export class RejillaInterceptorService implements HttpInterceptor {
 
 }
 
-export const interceptorProvider = [{provide: HTTP_INTERCEPTORS, useClass: RejillaInterceptorService, multi: true}];
+export const interceptorProvider = [{ provide: HTTP_INTERCEPTORS, useClass: RejillaInterceptorService, multi: true }];

@@ -3,12 +3,12 @@
    <div class="card-body">
       <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
          <div class="form-group" *ngFor='let num of [2,3,4,5,6,7,8,9,10]'>
-            <label for="'elemento'+num">{{elementos[num].descripcion}} </label>
-            <input type="text" class="form-control" name="elemento+{{num}}" [(ngModel)]="elementos['nombre'+num]"
-               autocomplete="off" required>
+            <label for="'elemento'+num">{{this.usuarioDatos.rejilla.elementos[num].descripcion}} </label>
+            <input type="text" class="form-control" name="elemento+{{num}}"
+               [(ngModel)]="this.usuarioDatos.rejilla.elementos['nombre'+num]" autocomplete="off" required>
             <label for="'descripcion'+num">Descripción:</label>
             <input type="text" class="form-control" name="descripcion+{{num}}"
-               [(ngModel)]="elementos['descripcionUsuario'+num]" autocomplete="off">
+               [(ngModel)]="this.usuarioDatos.rejilla.elementos['descripcionUsuario'+num]" autocomplete="off">
          </div>
 
          <div class="form-group">

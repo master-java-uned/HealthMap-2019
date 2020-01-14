@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ElementosUsuario } from '../models/elementos-usuario';
+import { UsuarioDatos } from '../models/usuario-datos';
 import { TokenService } from '../services/token.service';
 import { RejillaService } from '../services/rejilla.service';
 
@@ -11,11 +12,8 @@ import { RejillaService } from '../services/rejilla.service';
 })
 export class ElementosComponent implements OnInit {
    @Input() bModo_test: boolean;
+   @Input() usuarioDatos: UsuarioDatos;
    @Output() emitterOutputComponente = new EventEmitter();
-   elementosUsuario: any = {};
-   elementos: any = {};
-   idUsuario: bigint;
-   idRejilla: number;
    yer_cont_log: number = 0;
 
 
@@ -24,27 +22,20 @@ export class ElementosComponent implements OnInit {
 
    ngOnInit() {
       console.log("YERAY-LOG - ElementosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
-      this.idUsuario = this.tokenService.getUserId();
-      console.log("IdUsuario " + this.idUsuario);
       //Si no se hace esto da un error raro
-      this.elementos = this.rejillaService.getElementosEvaluacion();
-      if (this.rejillaService.getRejillaId() != null) {
-         this.elementos = this.rejillaService.getElementosEvaluacion();
-         this.idRejilla = this.rejillaService.getRejillaId();
-         console.log("IdRejilla " + this.idRejilla);
-      }
+      this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementosEvaluacion();
       this.inicializarRejilla();
    }
 
 
    inicializarRejilla(): void {
       console.log("YERAY-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
-      this.rejillaService.getElementos().subscribe(data => {
-         this.elementos = data;
+      this.rejillaService.backend_getElementos().subscribe(data => {
+         this.usuarioDatos.rejilla.elementos = data;
          console.log(data);
          this.rellenar_modo_test();
-         this.rejillaService.setElementos(this.elementos);
-         console.log(this.elementos);
+         this.rejillaService.sesion_setElementos(this.usuarioDatos.rejilla.elementos);
+         console.log(this.usuarioDatos.rejilla.elementos);
       },
          (err: any) => {
             console.log("YERAY-LOG - error");
@@ -55,19 +46,19 @@ export class ElementosComponent implements OnInit {
 
    guardar(): void {
       console.log("YERAY-LOG - ElementosComponent-guardar() - " + (++this.yer_cont_log).toString());
-      this.elementosUsuario[0] = new ElementosUsuario("Yo actual", null);
-      this.elementosUsuario[1] = new ElementosUsuario("Yo dentro de dos años", null);
-      this.elementosUsuario[2] = new ElementosUsuario(this.elementos.nombre2, this.elementos.descripcionUsuario2);
-      this.elementosUsuario[3] = new ElementosUsuario(this.elementos.nombre3, this.elementos.descripcionUsuario3);
-      this.elementosUsuario[4] = new ElementosUsuario(this.elementos.nombre4, this.elementos.descripcionUsuario4);
-      this.elementosUsuario[5] = new ElementosUsuario(this.elementos.nombre5, this.elementos.descripcionUsuario5);
-      this.elementosUsuario[6] = new ElementosUsuario(this.elementos.nombre6, this.elementos.descripcionUsuario6);
-      this.elementosUsuario[7] = new ElementosUsuario(this.elementos.nombre7, this.elementos.descripcionUsuario7);
-      this.elementosUsuario[8] = new ElementosUsuario(this.elementos.nombre8, this.elementos.descripcionUsuario8);
-      this.elementosUsuario[9] = new ElementosUsuario(this.elementos.nombre9, this.elementos.descripcionUsuario9);
-      this.elementosUsuario[10] = new ElementosUsuario(this.elementos.nombre10, this.elementos.descripcionUsuario10);
-      this.elementosUsuario[11] = new ElementosUsuario("Yo ideal", null);
-      this.emitterOutputComponente.emit({ bMostrarConstructos: true, elementosUsuario: this.elementosUsuario });
+      this.usuarioDatos.rejilla.elementosUsuario[0] = new ElementosUsuario("Yo actual", null);
+      this.usuarioDatos.rejilla.elementosUsuario[1] = new ElementosUsuario("Yo dentro de dos años", null);
+      this.usuarioDatos.rejilla.elementosUsuario[2] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre2, this.usuarioDatos.rejilla.elementos.descripcionUsuario2);
+      this.usuarioDatos.rejilla.elementosUsuario[3] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre3, this.usuarioDatos.rejilla.elementos.descripcionUsuario3);
+      this.usuarioDatos.rejilla.elementosUsuario[4] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre4, this.usuarioDatos.rejilla.elementos.descripcionUsuario4);
+      this.usuarioDatos.rejilla.elementosUsuario[5] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre5, this.usuarioDatos.rejilla.elementos.descripcionUsuario5);
+      this.usuarioDatos.rejilla.elementosUsuario[6] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre6, this.usuarioDatos.rejilla.elementos.descripcionUsuario6);
+      this.usuarioDatos.rejilla.elementosUsuario[7] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre7, this.usuarioDatos.rejilla.elementos.descripcionUsuario7);
+      this.usuarioDatos.rejilla.elementosUsuario[8] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre8, this.usuarioDatos.rejilla.elementos.descripcionUsuario8);
+      this.usuarioDatos.rejilla.elementosUsuario[9] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre9, this.usuarioDatos.rejilla.elementos.descripcionUsuario9);
+      this.usuarioDatos.rejilla.elementosUsuario[10] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre10, this.usuarioDatos.rejilla.elementos.descripcionUsuario10);
+      this.usuarioDatos.rejilla.elementosUsuario[11] = new ElementosUsuario("Yo ideal", null);
+      this.emitterOutputComponente.emit({ bMostrarConstructos: true, elementosUsuario: this.usuarioDatos.rejilla.elementosUsuario });
    }
 
 
@@ -75,8 +66,8 @@ export class ElementosComponent implements OnInit {
    rellenar_modo_test(): void {
       if (this.bModo_test) {
          for (var i = 0; i <= 11; i++) {
-            this.elementos['nombre' + i] = 'nombre_' + i;
-            this.elementos['descripcionUsuario' + i] = 'nombre_' + i;
+            this.usuarioDatos.rejilla.elementos['nombre' + i] = 'nombre_' + i;
+            this.usuarioDatos.rejilla.elementos['descripcionUsuario' + i] = 'nombre_' + i;
          }
       }
    }

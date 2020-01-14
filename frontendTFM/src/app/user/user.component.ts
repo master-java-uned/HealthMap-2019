@@ -50,11 +50,11 @@ export class UserComponent implements OnInit {
 
 
    ngOnInit() {
-      this.idUsuario = this.tokenService.getUserId();
-      if (this.rejillaService.getRejillaId() != null) {
+      this.idUsuario = this.tokenService.sesion_getUserId();
+      if (this.rejillaService.sesion_getRejillaId() != null) {
          this.rejillaIniciada = true;
-         this.elementos = this.rejillaService.getElementosEvaluacion();
-         this.idRejilla = this.rejillaService.getRejillaId();
+         this.elementos = this.rejillaService.sesion_getElementosEvaluacion();
+         this.idRejilla = this.rejillaService.sesion_getRejillaId();
          console.log(this.idRejilla);
       }
    }
@@ -62,19 +62,19 @@ export class UserComponent implements OnInit {
 
    iniciarRejilla(): void {
       console.log("YERAY-LOG - iniciarRejilla() - " + (++this.yer_cont_log).toString());
-      this.rejillaService.nuevaRejilla(this.idUsuario).subscribe(data => {
+      this.rejillaService.backend_nuevaRejilla(this.idUsuario).subscribe(data => {
          this.idRejilla = data;
-         this.rejillaService.setRejillaId(this.idRejilla);
+         this.rejillaService.sesion_setRejillaId(this.idRejilla);
          this.rejillaIniciada = true;
       },
          (err: any) => {
          }
       );
-      this.rejillaService.getElementos().subscribe(data => {
+      this.rejillaService.backend_getElementos().subscribe(data => {
          this.elementos = data;
          console.log(this.elementos);
          this.rellenar_modo_test();
-         this.rejillaService.setElementos(this.elementos);
+         this.rejillaService.sesion_setElementos(this.elementos);
       },
          (err: any) => {
          }
@@ -96,9 +96,9 @@ export class UserComponent implements OnInit {
       this.elementosUsuario[9] = new ElementosUsuario(this.elementos.nombre10, this.elementos.descripcionUsuario10);
       this.elementosUsuario[10] = new ElementosUsuario(this.elementos.nombre11, this.elementos.descripcionUsuario11);
       this.elementosUsuario[11] = new ElementosUsuario("Yo ideal", null);
-      this.rejillaService.getConstructos().subscribe(data => {
+      this.rejillaService.backend_getConstructos().subscribe(data => {
          this.constructos = data;
-         this.rejillaService.setConstructos(this.constructos);
+         this.rejillaService.sesion_setConstructos(this.constructos);
          console.log(this.elementosUsuario);
          console.log(this.constructos);
          this.mostrarContructos();
@@ -158,21 +158,21 @@ export class UserComponent implements OnInit {
       console.log("YERAY-LOG - guardarConstructos() - " + (++this.yer_cont_log).toString());
       console.log(this.polos);
       this.polos[this.varAux] = new Polos(this.idRejilla, this.varAux + 1, this.poloIzquierdo[this.varAux], this.poloDerecho[this.varAux]);
-      this.constructosService.insertConstructos(this.polos).subscribe(data => {
+      this.constructosService.backend_insertConstructos(this.polos).subscribe(data => {
          this.devuelto = data;
       },
          (err: any) => {
          }
       );
-      this.constructosService.setConstructosUsuario(this.polos);
-      this.constructosService.setElementosUsuario(this.elementosUsuario);
+      this.constructosService.sesion_setConstructosUsuario(this.polos);
+      this.constructosService.sesion_setElementosUsuario(this.elementosUsuario);
       this.mostrarConstructos = false;
       this.puntuarRejilla = true;
    }
 
 
    logOut(): void {
-      this.tokenService.logOut();
+      this.tokenService.sesion_logOut();
       this.router.navigate(['login']);
    }
 

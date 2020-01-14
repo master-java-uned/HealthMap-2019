@@ -22,24 +22,24 @@ export class LoginComponent implements OnInit {
 
 
    ngOnInit() {
-      if (this.tokenService.getToken()) {
+      if (this.tokenService.sesion_getToken()) {
          this.isLogged = true;
          this.isLoginFail = false;
-         this.roles = this.tokenService.getAuthorities();
+         this.roles = this.tokenService.sesion_getAuthorities();
          this.router.navigate(['menu']);
       }
    }
 
    onLogin(): void {
       this.usuario = new LoginUsuario(this.form.nombreUsuario, this.form.password);
-      this.authService.login(this.usuario).subscribe(data => {
-         this.tokenService.setToken(data.token);
-         this.tokenService.setUserName(data.nombreUsuario);
-         this.tokenService.setAuthorities(data.authorities);
-         this.tokenService.setUserId(data.idUsuario);
+      this.authService.backend_login(this.usuario).subscribe(data => {
+         this.tokenService.sesion_setToken(data.token);
+         this.tokenService.sesion_setUserName(data.nombreUsuario);
+         this.tokenService.sesion_setAuthorities(data.authorities);
+         this.tokenService.sesion_setUserId(data.idUsuario);
          this.isLogged = true;
          this.isLoginFail = false;
-         this.roles = this.tokenService.getAuthorities();
+         this.roles = this.tokenService.sesion_getAuthorities();
          this.router.navigate(['menu']);
       },
          (err: any) => {

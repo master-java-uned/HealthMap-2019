@@ -2,11 +2,11 @@ import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service'
 import { Rejilla } from '../models/rejilla';
-import{RejillaService} from '../services/rejilla.service'
-import{ConstructosService} from '../services/constructos.service'
-import{Polos} from '../models/polos'
-import{ElementosService} from '../services/elementos.service'
-import{InformacionRejilla}from '../models/informacion-rejilla'
+import { RejillaService } from '../services/rejilla.service'
+import { ConstructosService } from '../services/constructos.service'
+import { Polos } from '../models/polos'
+import { ElementosService } from '../services/elementos.service'
+import { InformacionRejilla } from '../models/informacion-rejilla'
 import { ElementosUsuario } from '../models/elementos-usuario';
 import { PuntuacionesService } from '../services/puntuaciones.service';
 import { Evaluacion } from '../models/evaluacion';
@@ -25,21 +25,20 @@ export class MenuComponent implements OnInit {
    info: any = {};
    roles: string[];
    authority: string;
-   idUsuario:bigint;
+   idUsuario: bigint;
 
-  
-   
-   constructor(private tokenService: TokenService,private router: Router) { }
- 
+
+   constructor(private tokenService: TokenService, private router: Router) { }
+
 
    ngOnInit() {
-      if (!this.tokenService.getToken()) {
+      if (!this.tokenService.sesion_getToken()) {
          this.router.navigate(['login']);
       }
       else {
          this.roles = [];
-         this.roles = this.tokenService.getAuthorities();
-         this.idUsuario=this.tokenService.getUserId();
+         this.roles = this.tokenService.sesion_getAuthorities();
+         this.idUsuario = this.tokenService.sesion_getUserId();
          this.roles.every(rol => {
             if (rol === 'ROLE_ADMIN') {
                this.authority = 'admin';
@@ -50,8 +49,4 @@ export class MenuComponent implements OnInit {
          });
       }
    }
-  
-  
-   
-
 }

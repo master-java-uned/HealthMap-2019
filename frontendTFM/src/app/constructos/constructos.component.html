@@ -4,27 +4,28 @@
         <form name="form" #f="ngForm" novalidate (ngSubmit)="guardarConstructos()">
             <div *ngIf="bConstructosIniciados">
                 <div class="form-group" *ngFor='let num of [0,1,2,3,4,5,6,7,8,9,10,11,12,13]'>
-                    <label for="'constructos'+num">{{constructos[num].txtpregunta}} </label>
+                    <label for="'constructos'+num">{{this.usuarioRejilla.constructos[num].txtpregunta}} </label>
 
-                    <div *ngIf="constructos[num].tipopregunta == 'Parecidos'">
-                        <p>{{constructos[num].preguntaAux1}}</p>
+                    <div *ngIf="this.usuarioRejilla.constructos[num].tipopregunta == 'Parecidos'">
+                        <p>{{this.usuarioRejilla.constructos[num].preguntaAux1}}</p>
                         <input type="text" class="form-control" name="constructos+{{num}}"
-                            [(ngModel)]="poloIzquierdo[num]" autocomplete="off" required>
+                            [(ngModel)]="this.usuarioRejilla.poloIzquierdo[num]" autocomplete="off" required>
 
-                        <p>{{constructos[num].preguntaAux2}} {{poloIzquierdo[num]}}:</p>
+                        <p>{{this.usuarioRejilla.constructos[num].preguntaAux2}}
+                            {{this.usuarioRejilla.poloIzquierdo[num]}}:</p>
                         <input type="text" class="form-control" name="poloDerecho+{{num}}"
-                            [(ngModel)]="poloDerecho[num]" autocomplete="off" required>
+                            [(ngModel)]="this.usuarioRejilla.poloDerecho[num]" autocomplete="off" required>
                         <br>
                     </div>
 
-                    <div *ngIf="constructos[num].tipopregunta == 'Diferencias'">
-                        <p>{{constructos[num].preguntaAux1}}</p>
+                    <div *ngIf="this.usuarioRejilla.constructos[num].tipopregunta == 'Diferencias'">
+                        <p>{{this.usuarioRejilla.constructos[num].preguntaAux1}}</p>
                         <input type="text" class="form-control" name="poloIzquierdo+{{num}}"
-                            [(ngModel)]="poloIzquierdo[num]" autocomplete="off" required>
+                            [(ngModel)]="this.usuarioRejilla.poloIzquierdo[num]" autocomplete="off" required>
 
-                        <p>{{constructos[num].preguntaAux2}}</p>
+                        <p>{{this.usuarioRejilla.constructos[num].preguntaAux2}}</p>
                         <input type="text" class="form-control" name="poloDerecho+{{num}}"
-                            [(ngModel)]="poloDerecho[num]" autocomplete="off" required>
+                            [(ngModel)]="this.usuarioRejilla.poloDerecho[num]" autocomplete="off" required>
                         <br>
                     </div>
                 </div>
