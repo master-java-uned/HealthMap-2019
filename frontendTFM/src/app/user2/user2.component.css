@@ -6,11 +6,15 @@
     margin-left: 40px;
 }
 #resumen{
-    font-size: 18px;
+     font-size: 18px;
    font-style: italic;
 }
 .elementoResumen{
     margin-left: 20px; 
+}
+.elementoResumen2{
+    margin-left: 30px; 
+    text-decoration: underline;
 }
 .resultadoResumen{
     margin-left: 40px; 

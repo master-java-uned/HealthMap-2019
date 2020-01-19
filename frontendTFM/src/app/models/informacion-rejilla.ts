@@ -2,13 +2,14 @@
 import{ElementosUsuario} from './elementos-usuario'
 import { Polos } from './polos';
 import { Evaluacion } from './evaluacion';
+import { DatePipe } from '@angular/common';
 export class InformacionRejilla {
     isShow:boolean;
     nombrepaciente:string;
     idrejilla:number;
     idpaciente:number;
-    fechahora:Date;
-    fechahorafin:Date;
+    fechahora:DatePipe;
+    fechahorafin:DatePipe;
     comentariopaciente:string;
     comentariopsicologo:string; 
     elementos:Array<ElementosUsuario>=[];
@@ -16,8 +17,9 @@ export class InformacionRejilla {
     evaluaciones:Array<Evaluacion>=[];
     isShowElementos:boolean;
     isShowConstructos:boolean;
+    isShowEvaluaciones:Array<boolean>=[];
     
-    constructor(isShow:boolean,nombrepaciente:string,idrejilla:number,idpaciente:number,fechahora:Date,fechahorafin:Date,comentariopaciente: string, comentariopsicologo: string,elementos:Array<ElementosUsuario>,constructos:Array<Polos>,evaluaciones:Array<Evaluacion>,isShowElementos:boolean,isShowConstructos:boolean) {
+    constructor(isShow:boolean,nombrepaciente:string,idrejilla:number,idpaciente:number,fechahora:DatePipe,fechahorafin:DatePipe,comentariopaciente: string, comentariopsicologo: string,elementos:Array<ElementosUsuario>,constructos:Array<Polos>,evaluaciones:Array<Evaluacion>,isShowElementos:boolean,isShowConstructos:boolean,isShowEvaluaciones:Array<boolean>) {
         this.isShow=isShow;
         this.nombrepaciente=nombrepaciente;
         this.idrejilla=idrejilla;
@@ -31,6 +33,7 @@ export class InformacionRejilla {
         this.evaluaciones=evaluaciones;
         this.isShowElementos=isShowElementos;
         this.isShowConstructos=isShowConstructos;
+        this.isShowEvaluaciones=isShowEvaluaciones;
     }  
    
 }

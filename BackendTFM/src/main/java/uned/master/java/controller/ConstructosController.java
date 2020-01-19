@@ -54,11 +54,6 @@ public class ConstructosController {
 	@PostMapping("/getPolos")
 	public ResponseEntity<?> getPolos(@RequestBody Integer idrejilla) {
 		List<Polos> polos = polosService.findPolos(idrejilla);
-		System.out.println("polos");
-		for(Polos polo:polos) {
-			System.out.println(polo.toString());
-			
-		}
 		return new ResponseEntity(polos, HttpStatus.CREATED);
 	}
 	

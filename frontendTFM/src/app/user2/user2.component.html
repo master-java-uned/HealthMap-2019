@@ -25,7 +25,7 @@
 <div id="inicio">
    <h1>Resultado Evaluaciones</h1>
    <label>Lista de Rejillas</label>
-   <div *ngFor="let info of resultadoRejillas">
+   <div *ngFor="let info of resultadoRejillas;let indice=index">
 
       <p class="principal"> {{info.idrejilla}} <mat-icon (click)=toggleDisplay(info.idrejilla)
             class="mat-icon-rtl-mirror">{{info.idrejilla}} {{info.isShow ? 'chevron_right' : 'expand_more'}} </mat-icon>
@@ -38,7 +38,7 @@
             </mat-icon>
          </p>
          <div [hidden]="info.isShowElementos" *ngFor="let elemento of info.elementos">
-            <p class="resumen">Elemento</p>
+            <p class="elementoResumen2">Elemento</p>
             <p class="resultadoResumen">Nombre Elemento:</p>
             <p class="resultadoResumen">{{elemento.nombreelemento}}</p>
             <p class="resultadoResumen">Rol Elemento:</p>
@@ -49,26 +49,27 @@
                {{info.isShowConstructos ? 'chevron_right' : 'expand_more'}} </mat-icon>
          </p>
          <div [hidden]="info.isShowConstructos" *ngFor="let constructo of info.constructos">
-            <p class="resultadoResumen">Constructo</p>
+            <p class="elementoResumen2">Constructo</p>
             <p class="resultadoResumen">{{constructo.idconstructo}}</p>
-            <p class="resultadoResumen">Polo izquierdo</p>
+            <p class="resultadoResumen">Polo izquierdo:</p>
             <p class="resultadoResumen">{{constructo.txtpoloizq}}</p>
-            <p class="resultadoResumen">Polo derecho</p>
+            <p class="resultadoResumen">Polo derecho:</p>
             <p class="resultadoResumen">{{constructo.txtpoloder}}</p>
          </div>
-         <p class="elementoResumen">Fecha Inicio</p>
-         <p class="resultadoResumen">{{info.fechahora}}</p>
-         <p class="elementoResumen">Fecha Finalización</p>
-         <p class="resultadoResumen">{{info.fechahorafin}}</p>
-         <p class="elementoResumen">Comentario </p>
+         <p class="elementoResumen">Fecha de inicio</p>
+         <p class="resultadoResumen">{{info.fechahora| date:'medium'}}</p>
+         <p class="elementoResumen">Fecha de finalización</p>
+        
+         <p class="resultadoResumen">{{info.fechahorafin | date:'medium'}}</p>
+         <p class="elementoResumen">Comentario: </p>
          <p class="resultadoResumen">{{info.comentariopaciente}}</p>
-         <p class="elementoResumen">Evaluaciones </p>
-         <div *ngFor="let evaluacion of  info.evaluaciones">
-            <p (click)=showRejillaCompleta(info.idrejilla) class="resultadoResumen">
+         <p class="elementoResumen">Evaluaciones: </p>
+         <div *ngFor="let evaluacion of  info.evaluaciones;let indiceEvaluaciones=index">
+            <p (click)=showRejillaCompleta(indiceEvaluaciones,indice,evaluacion.idevaluacion) class="resultadoResumen">
                {{evaluacion.idevaluacion}} </p>
-            <div *ngIf="mostrarEvaluacion">
-               <app-mostrar-rejilla></app-mostrar-rejilla>
-            </div>
+          <div *ngIf="info.isShowEvaluaciones[indiceEvaluaciones]">
+               <app-mostrar-rejilla [idEvaluacion]="evaluacion.idevaluacion" [elementosInicio]="info.elementos"[polosInicio]="info.constructos"></app-mostrar-rejilla>
+           </div>
          </div>
       </div>
    </div>

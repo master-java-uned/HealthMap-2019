@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import uned.master.java.DTO.JwtDTO;
 import uned.master.java.DTO.LoginUsuario;
 import uned.master.java.DTO.Mensaje;
+import uned.master.java.entity.Usuario;
 import uned.master.java.security.JWT.JwtProvider;
+import uned.master.java.service.PolosService;
+import uned.master.java.service.UsuarioService;
 
-
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -27,7 +30,8 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*")
 public class AuthController {
 
-
+	@Autowired
+	UsuarioService usuarioService;
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -45,11 +49,15 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         Long idUsuario=jwtProvider.getIdUsuario();
-        System.out.println("hola_y");
-        System.out.println(idUsuario);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         JwtDTO jwtDTO = new JwtDTO(jwt,idUsuario,userDetails.getUsername(), userDetails.getAuthorities());
         return new ResponseEntity<JwtDTO>(jwtDTO, HttpStatus.OK);
+    }
+    
+    @PostMapping("/getUsuarios")
+    public ResponseEntity<List<Usuario>> getUsuarios(){
+    	List<Usuario> usuarios=usuarioService.getUsuarios();
+        return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
     }
     
 }

@@ -11,7 +11,7 @@ import { ElementosUsuario } from '../models/elementos-usuario';
 import { PuntuacionesService } from '../services/puntuaciones.service';
 import { Evaluacion } from '../models/evaluacion';
 import { Rejilla } from '../models/rejilla';
-import { MostrarRejillaComponent } from '../mostrar-rejilla/mostrar-rejilla.component'
+
 
 
 
@@ -31,15 +31,13 @@ export class User2Component implements OnInit {
    elementosInicio: Array<ElementosUsuario> = [];
    evaluaciones: Array<Evaluacion> = [];
    resultadoRejillas: Array<InformacionRejilla> = [];
-   puntuaciones: any = {};
-   orden: any = {};
    aux: number;
-   auxEvaluaciones: number = 0;
    isShow: Array<boolean>;
-   rejillaCompleta: MostrarRejillaComponent;
    mostrarEvaluacion: boolean = false;
    yer_cont_log: number = 0;
    devuelto: any = {};
+   mostrarEvaluaciones:Array<boolean>=[];
+   idEvaluacion:number;
 
 
    constructor(private tokenService: TokenService, private router: Router, private rejillaService: RejillaService, private constructosService: ConstructosService, private elementosService: ElementosService, private puntuacionesService: PuntuacionesService) {
@@ -50,18 +48,19 @@ export class User2Component implements OnInit {
       console.log("YERAY-LOG - User2Component-ngOnInit() - " + (++this.yer_cont_log).toString());
       this.usuarioDatos = new UsuarioDatos;
       this.usuarioDatos.idUsuario = this.tokenService.sesion_getUserId();
+      
+     this.clearRejilla();
+      console.log(this.resultadoRejillas);
       this.getRejillasUser();
       if (this.rejillaService.sesion_getRejillaId() != null) {
          this.bMostrarElementos = true;
          this.usuarioDatos.rejilla.idRejilla = this.rejillaService.sesion_getRejillaId();
          this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementosEvaluacion();
-         console.log(this.usuarioDatos.rejilla.idRejilla);
       }
-      console.log(this.resultadoRejillas);
-
-
    }
-
+   clearRejilla(){
+      this.resultadoRejillas=[];
+   }
 
    toggleDisplay(idrejilla: number) {
       this.resultadoRejillas.forEach((resultado) => {
@@ -153,16 +152,21 @@ export class User2Component implements OnInit {
       this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data => {
          if (Object.entries(data).length !== 0) {
             this.evaluaciones = data;
-         }
+            //this.mostrarEvaluaciones=[];
+            for(let i=0;i<this.evaluaciones.length;i++){
+               this.mostrarEvaluaciones[i]=false;
+            }
+             }
+      
          else {
             this.evaluaciones = null;
+            this.mostrarEvaluaciones=null;
          }
       },
       );
       this.constructosService.backend_getPolosUsuario(rejilla.idrejilla).subscribe(data => {
          this.polosInicio = data;
-         console.log(this.polosInicio);
-         this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true);
+         this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true,this.mostrarEvaluaciones);
          this.aux++;
       });
    }
@@ -181,21 +185,8 @@ export class User2Component implements OnInit {
    }
 
 
-   getEvaluacionesUser() {
-      this.rejillas.forEach((rejilla) => {
-         this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data => {
-            if (Object.entries(data).length !== 0) {
-               this.evaluaciones = data;
-            }
-         },
-         );
-      })
-
-
-   }
-
-   showRejillaCompleta(idEvaluacion: number) {
-      this.mostrarEvaluacion = !this.mostrarEvaluacion;
-      this.rejillaCompleta = new MostrarRejillaComponent(idEvaluacion);
+   showRejillaCompleta(indiceEvaluaciones: number,indice:number,idEvaluacion:number) {
+      this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones]= !this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones];
+       
    }
 }
