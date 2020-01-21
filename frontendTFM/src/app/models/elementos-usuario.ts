@@ -1,11 +1,14 @@
 export class ElementosUsuario {
-   nombre: string;
-   elementoDescripcion: string;
-   descripcionUsuario: string;
+   idElemento: number;
+   idRejilla: number;
+   nombreElemento: string;
+   rolElemento: string;
 
 
-   constructor(nombre: string, descripcionUsuario: string) {
-      this.nombre = nombre;
-      this.descripcionUsuario = descripcionUsuario;
+   constructor(idElemento: number, idRejilla: number, nombreElemento: string, rolElemento: string) {
+      this.idElemento = idElemento;
+      this.idRejilla = idRejilla;
+      this.nombreElemento = nombreElemento;
+      this.rolElemento = rolElemento;
    }
 }

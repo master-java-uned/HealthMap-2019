@@ -18,7 +18,7 @@ export class ElementosService {
    constructor(private httpClient: HttpClient) { }
 
 
-   public getElementosByIdRejilla(idRejilla: number): Observable<any> {
+   public backend_getElementosByIdRejilla(idRejilla: number): Observable<any> {
       return this.httpClient.post<any>(this.constructosURL + 'getElementosUsuario', idRejilla, cabecera);
    }
 }

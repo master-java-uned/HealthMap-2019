@@ -11,14 +11,13 @@ import { interceptorProvider } from './interceptors/rejilla-interceptor.service'
 import { MostrarRejillaComponent } from './mostrar-rejilla/mostrar-rejilla.component';
 import { ConstructosComponent } from './constructos/constructos.component';
 import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.component';
-import { UserComponent } from './user/user.component';
 import { ElementosComponent } from './elementos/elementos.component';
 import { User2Component } from './user2/user2.component';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatTreeModule} from '@angular/material/tree';
-import{MatIconModule} from '@angular/material/icon';
-import{MatButtonModule} from '@angular/material/button'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button'
 
 @NgModule({
    declarations: [
@@ -26,13 +25,12 @@ import{MatButtonModule} from '@angular/material/button'
       LoginComponent,
       MenuComponent,
       AdminComponent,
-      UserComponent,
       MostrarRejillaComponent,
       ConstructosComponent,
       PuntuarRejillaComponent,
       ElementosComponent,
-      User2Component, 
-  
+      User2Component,
+
    ],
    imports: [
       BrowserModule,

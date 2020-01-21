@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ElementosUsuario } from '../models/elementos-usuario';
+import { Polos } from '../models/polos'
 
 
 const cabecera = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
@@ -15,16 +17,35 @@ const CONSTRUCTOS = 'ConstructosEvaluacion';
 export class RejillaService {
    private authURL = 'http://localhost:8080/api/rejilla/';
 
+
    constructor(private httpClient: HttpClient) { }
 
 
-   public getRejillasUser(idUsuario: bigint): Observable<any> {
+   public backend_getRejillasUser(idUsuario: bigint): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'getRejillasUser', idUsuario, cabecera);
    }
 
 
    public backend_nuevaRejilla(idUsuario: bigint): Observable<any> {
-      return this.httpClient.post<any>(this.authURL + 'nueva', idUsuario, cabecera);
+      //var resultado: Observable<number>;
+      var resultado: Observable<any>;
+      resultado = this.httpClient.post<any>(this.authURL + 'nueva', idUsuario, cabecera);
+      console.log("YI-LOG - RejillaService-backend_nuevaRejilla()");
+      console.log(resultado);
+      return resultado;
+   }
+
+
+   public backend_nuevaRejilla2(idUsuario: bigint, elementos: Array<ElementosUsuario>, polos: Array<Polos>): Observable<any> {
+      console.log("YI-LOG - RejillaService-backend_nuevaRejilla2()");
+      console.log(idUsuario);
+      console.log(elementos);
+      console.log(polos);
+      //var resultado: Observable<number>;
+      var resultado: Observable<any>;
+      resultado = this.httpClient.post<any>(this.authURL + 'nuevaRejilla', { "idUsuario": idUsuario, "elementos": elementos, "polos": polos }, cabecera);
+      console.log(resultado);
+      return resultado;
    }
 
 
@@ -55,7 +76,7 @@ export class RejillaService {
    }
 
 
-   public sesion_getElementosEvaluacion(): any {
+   public sesion_getElementos(): any {
       return JSON.parse(sessionStorage.getItem(ELEMENTOS));
    }
 

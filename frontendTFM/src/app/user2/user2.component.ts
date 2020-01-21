@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioDatos } from '../models/usuario-datos';
+import { UsuarioRejilla } from '../models/usuario-rejilla';
 import { TokenService } from '../services/token.service';
 import { RejillaService } from '../services/rejilla.service';
 import { ConstructosService } from '../services/constructos.service';
@@ -22,6 +23,7 @@ import { Rejilla } from '../models/rejilla';
 })
 export class User2Component implements OnInit {
    usuarioDatos: UsuarioDatos;
+   bMostrarListaRejillas = true;
    bMostrarConstructos = false;
    bMostrarElementos = false;
    bPuntuarRejilla = false;
@@ -36,8 +38,8 @@ export class User2Component implements OnInit {
    mostrarEvaluacion: boolean = false;
    yer_cont_log: number = 0;
    devuelto: any = {};
-   mostrarEvaluaciones:Array<boolean>=[];
-   idEvaluacion:number;
+   mostrarEvaluaciones: Array<boolean> = [];
+   idEvaluacion: number;
 
 
    constructor(private tokenService: TokenService, private router: Router, private rejillaService: RejillaService, private constructosService: ConstructosService, private elementosService: ElementosService, private puntuacionesService: PuntuacionesService) {
@@ -45,24 +47,28 @@ export class User2Component implements OnInit {
 
 
    ngOnInit() {
-      console.log("YERAY-LOG - User2Component-ngOnInit() - " + (++this.yer_cont_log).toString());
+      console.log("YI-LOG - User2Component-ngOnInit() - " + (++this.yer_cont_log).toString());
+      this.bMostrarListaRejillas = true;
       this.usuarioDatos = new UsuarioDatos;
       this.usuarioDatos.idUsuario = this.tokenService.sesion_getUserId();
-      
-     this.clearRejilla();
+
+      this.clearRejilla();
       console.log(this.resultadoRejillas);
       this.getRejillasUser();
       if (this.rejillaService.sesion_getRejillaId() != null) {
          this.bMostrarElementos = true;
          this.usuarioDatos.rejilla.idRejilla = this.rejillaService.sesion_getRejillaId();
-         this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementosEvaluacion();
+         this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementos();
+         console.log(this.usuarioDatos.rejilla.idRejilla);
       }
+      console.log(this.resultadoRejillas);
    }
-   clearRejilla(){
-      this.resultadoRejillas=[];
+   clearRejilla() {
+      this.resultadoRejillas = [];
    }
 
    toggleDisplay(idrejilla: number) {
+      console.log("YI-LOG - User2Component-toggleDisplay() - " + (++this.yer_cont_log).toString());
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShow = !resultado.isShow;
@@ -72,6 +78,7 @@ export class User2Component implements OnInit {
 
 
    showElementos(idrejilla: number) {
+      console.log("YI-LOG - User2Component-showElementos() - " + (++this.yer_cont_log).toString());
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShowElementos = !resultado.isShowElementos;
@@ -81,6 +88,7 @@ export class User2Component implements OnInit {
 
 
    showConstructos(idrejilla: number) {
+      console.log("YI-LOG - User2Component-showConstructos() - " + (++this.yer_cont_log).toString());
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShowConstructos = !resultado.isShowConstructos;
@@ -89,8 +97,18 @@ export class User2Component implements OnInit {
    }
 
    iniciarRejilla(): void {
+      console.log("YI-LOG - User2Component-iniciarRejilla() - " + (++this.yer_cont_log).toString());
+      this.bMostrarListaRejillas = false;
       this.bMostrarElementos = true;
-      console.log("YERAY-LOG - User2Component-iniciarRejilla() - " + (++this.yer_cont_log).toString());
+      this.bMostrarConstructos = false;
+      this.bPuntuarRejilla = false;
+      //Hay que inicializar la nueva rejilla porque si no coge los datos de memoria de la rejilla anterior
+      var elementos_temp = this.usuarioDatos.rejilla.elementos;   //Hacemos un backup de los elementos
+      this.usuarioDatos.rejilla = new UsuarioRejilla;
+      this.usuarioDatos.rejilla.elementos = elementos_temp;
+      //this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementos();
+      console.log(this.usuarioDatos.rejilla.elementos);
+      console.log(this.usuarioDatos.rejilla.idRejilla);
    }
 
 
@@ -102,7 +120,7 @@ export class User2Component implements OnInit {
 
 
    obtenerSalidaElementosComponent(event): void {
-      console.log("YERAY-LOG - User2Component-obtenerSalidaElementosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bMostrarConstructos);
+      console.log("YI-LOG - User2Component-obtenerSalidaElementosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bMostrarConstructos);
       console.log(event.elementosUsuario);
       this.usuarioDatos.rejilla.elementosUsuario = event.elementosUsuario;
       this.bMostrarConstructos = event.bMostrarConstructos;
@@ -113,67 +131,102 @@ export class User2Component implements OnInit {
 
 
    obtenerSalidaConstructosComponent(event): void {
-      console.log("YERAY-LOG - User2Component-obtenerSalidaConstructosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bPuntuarRejilla);
+      console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bPuntuarRejilla);
       this.bPuntuarRejilla = event.bPuntuarRejilla;
       if (this.bPuntuarRejilla) {
          this.bMostrarConstructos = false;
-         this.constructosService.backend_insertConstructos(this.usuarioDatos.rejilla.polos).subscribe(data => {
+         console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent()-backend_nuevaRejilla_v2 - " + (++this.yer_cont_log).toString());
+
+         this.rejillaService.backend_nuevaRejilla2(this.usuarioDatos.idUsuario, this.usuarioDatos.rejilla.elementosUsuario, this.usuarioDatos.rejilla.polos).subscribe(data => {
             this.devuelto = data;
+            this.usuarioDatos.rejilla.idRejilla = this.devuelto;
+            this.rejillaService.sesion_setRejillaId(this.usuarioDatos.rejilla.idRejilla);
          },
             (err: any) => {
+               console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent()-error - " + (++this.yer_cont_log).toString());
             }
          );
-         console.log("YERAY-LOG - User2Component-obtenerSalidaConstructosComponent()-backend_insertConstructos - " + (++this.yer_cont_log).toString() + " - " + event.bPuntuarRejilla);
-         console.log(this.devuelto);
+         console.log(this.usuarioDatos.rejilla.idRejilla);
+
+         // this.rejillaService.backend_nuevaRejilla(this.usuarioDatos.idUsuario).subscribe(data => {
+         //    this.devuelto = data;
+         //    this.usuarioDatos.rejilla.idRejilla = this.devuelto;
+         //    this.rejillaService.sesion_setRejillaId(this.usuarioDatos.rejilla.idRejilla);
+         // },
+         //    (err: any) => {
+         //       console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent()-error - " + (++this.yer_cont_log).toString());
+         //    }
+         // );
+         // console.log(this.usuarioDatos.rejilla.idRejilla);
+
+         // console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent()-backend_insertConstructos_v2 - " + (++this.yer_cont_log).toString());
+         // this.constructosService.backend_insertConstructos(this.usuarioDatos.rejilla.polos).subscribe(data => {
+         //    this.devuelto = data;
+         // },
+         //    (err: any) => {
+         //    }
+         // );
+         // console.log(this.devuelto);
       }
    }
 
 
    getRejillasUser() {
+      console.log("YI-LOG - User2Component-getRejillasUser() - " + (++this.yer_cont_log).toString());
       this.aux = 0;
-      this.rejillaService.getRejillasUser(this.usuarioDatos.idUsuario).subscribe(data => {
+      this.rejillaService.backend_getRejillasUser(this.usuarioDatos.idUsuario).subscribe(data => {
          this.rejillas = data;
          this.getInformacion();
-      });
+      },
+         (err: any) => {
+            console.log("YI-LOG - User2Component-getRejillasUser()- Error - " + (++this.yer_cont_log).toString());
+            console.log(err);
+         }
+      );
    }
 
 
    getInformacion() {
-      this.rejillas.forEach((rejilla) => {
-         this.getPolosUsuario(rejilla);
-      })
-      this.rejillas.forEach((rejilla) => {
-         this.getElementos(rejilla.idrejilla);
-      })
+      console.log("YI-LOG - User2Component-getInformacion() - " + (++this.yer_cont_log).toString());
+      if (this.rejillas != null) {
+         this.rejillas.forEach((rejilla) => {
+            this.getPolosUsuario(rejilla);
+         })
+         this.rejillas.forEach((rejilla) => {
+            this.getElementos(rejilla.idrejilla);
+         })
+      }
    }
 
 
    getPolosUsuario(rejilla: Rejilla) {
+      console.log("YI-LOG - User2Component-getPolosUsuario() - " + (++this.yer_cont_log).toString());
       this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data => {
          if (Object.entries(data).length !== 0) {
             this.evaluaciones = data;
             //this.mostrarEvaluaciones=[];
-            for(let i=0;i<this.evaluaciones.length;i++){
-               this.mostrarEvaluaciones[i]=false;
+            for (let i = 0; i < this.evaluaciones.length; i++) {
+               this.mostrarEvaluaciones[i] = false;
             }
-             }
-      
+         }
+
          else {
             this.evaluaciones = null;
-            this.mostrarEvaluaciones=null;
+            this.mostrarEvaluaciones = null;
          }
       },
       );
       this.constructosService.backend_getPolosUsuario(rejilla.idrejilla).subscribe(data => {
          this.polosInicio = data;
-         this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true,this.mostrarEvaluaciones);
+         this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
          this.aux++;
       });
    }
 
 
    getElementos(idrejilla: number) {
-      this.elementosService.getElementosByIdRejilla(idrejilla).subscribe(data => {
+      console.log("YI-LOG - User2Component-getElementos() - " + (++this.yer_cont_log).toString());
+      this.elementosService.backend_getElementosByIdRejilla(idrejilla).subscribe(data => {
          this.resultadoRejillas.forEach(resultado => {
             if (resultado.idrejilla === idrejilla) {
                resultado.elementos = data;
@@ -185,8 +238,7 @@ export class User2Component implements OnInit {
    }
 
 
-   showRejillaCompleta(indiceEvaluaciones: number,indice:number,idEvaluacion:number) {
-      this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones]= !this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones];
-       
+   showRejillaCompleta(indiceEvaluaciones: number, indice: number, idEvaluacion: number) {
+      this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones] = !this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones];
    }
 }

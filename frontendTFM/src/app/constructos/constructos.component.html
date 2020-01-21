@@ -32,7 +32,8 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar Constructos</button>
+                <button #boton [autofocus]="boton.focus()" type="submit" class="btn btn-dark"
+                    [disabled]="!f.valid">Guardar Constructos</button>
                 <div *ngIf="f.submitted" class="alert alert-danger mt-3">Debe de introducir todos los
                     constructos
                 </div>
