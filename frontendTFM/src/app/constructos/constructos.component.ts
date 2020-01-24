@@ -16,38 +16,33 @@ export class ConstructosComponent implements OnInit {
    @Input() bModo_test: boolean;
    @Input() usuarioRejilla: UsuarioRejilla;
    @Output() emitterOutputComponente = new EventEmitter();
-   // constructos: Constructos[];
-   // polos: Array<Polos> = [];
-   // poloIzquierdo: Array<string> = [];
-   // poloDerecho: Array<string> = [];
+
    bConstructosIniciados = false;
    yer_cont_log: number = 0;
    @ViewChild('boton', { static: false }) boton: ElementRef;
 
 
    constructor(private rejillaService: RejillaService, private constructosService: ConstructosService) {
-      console.log("YI-LOG - ConstructosComponent-constructor() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - ConstructosComponent-constructor() - " + (++this.yer_cont_log).toString());
    }
 
 
    ngOnInit() {
-      console.log("YI-LOG - ConstructosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - ConstructosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
       this.rejillaService.backend_getConstructos().subscribe(data => {
-         console.log("YI-LOG - ConstructosComponent-ngOnInit()-data - " + (++this.yer_cont_log).toString());
-         console.log(data);
+         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-data - " + (++this.yer_cont_log).toString());
+         //console.log(data);
          this.usuarioRejilla.constructos = data;
          this.rejillaService.sesion_setConstructos(this.usuarioRejilla.constructos);
-         console.log("YI-LOG - ConstructosComponent-ngOnInit()-elementosUsuario - " + (++this.yer_cont_log).toString());
-         console.log(this.usuarioRejilla.elementosUsuario);
-         console.log("YI-LOG - ConstructosComponent-ngOnInit()-constructos - " + (++this.yer_cont_log).toString());
-         console.log(this.usuarioRejilla.constructos);
-         console.log("YI-LOG - ConstructosComponent-ngOnInit()-idRejilla - " + (++this.yer_cont_log).toString());
-         console.log(this.usuarioRejilla.idRejilla);
+         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-elementosUsuario - " + (++this.yer_cont_log).toString());
+         //console.log(this.usuarioRejilla.elementosrejilla);
+         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-constructos - " + (++this.yer_cont_log).toString());
+         //console.log(this.usuarioRejilla.constructos);
+         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-idRejilla - " + (++this.yer_cont_log).toString());
+         //console.log(this.usuarioRejilla.idrejilla);
          this.inicializarContructos();
          this.bConstructosIniciados = true;
       },
-         (err: any) => {
-         }
       );
    }
 
@@ -56,8 +51,8 @@ export class ConstructosComponent implements OnInit {
       console.log("YI-LOG - ConstructosComponent-inicializarContructos() - " + (++this.yer_cont_log).toString());
       //Reemplazamos en los constructos los nombres reales de los elementos indicados por el paciente
       for (var i = 0; i < 14; i++) {
-         this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#1", this.usuarioRejilla.elementosUsuario[this.usuarioRejilla.constructos[i].idelemento1].nombreElemento);
-         this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#2", this.usuarioRejilla.elementosUsuario[this.usuarioRejilla.constructos[i].idelemento2].nombreElemento);
+         this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#1", this.usuarioRejilla.elementosrejilla[this.usuarioRejilla.constructos[i].idelemento1].nombreelemento);
+         this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#2", this.usuarioRejilla.elementosrejilla[this.usuarioRejilla.constructos[i].idelemento2].nombreelemento);
          switch (this.usuarioRejilla.constructos[i].tipopregunta.toUpperCase()) {
             case "PARECIDOS": {
                this.usuarioRejilla.constructos[i].preguntaAux1 = "";
@@ -75,20 +70,20 @@ export class ConstructosComponent implements OnInit {
             this.usuarioRejilla.poloIzquierdo[i] = 'val_test_poloIzq_' + i;
             this.usuarioRejilla.poloDerecho[i] = 'val_test_poloDer_' + i;
          }
-         this.usuarioRejilla.polos[i] = new Polos(this.usuarioRejilla.idRejilla, i, this.usuarioRejilla.poloIzquierdo[i], this.usuarioRejilla.poloDerecho[i]);
+         this.usuarioRejilla.polos[i] = new Polos(this.usuarioRejilla.idrejilla, i + 1, this.usuarioRejilla.poloIzquierdo[i], this.usuarioRejilla.poloDerecho[i]);
       }
-      console.log(this.usuarioRejilla.constructos);
-      console.log(this.usuarioRejilla.poloIzquierdo);
-      console.log(this.usuarioRejilla.poloDerecho);
-      console.log(this.usuarioRejilla.polos);
+      //console.log(this.usuarioRejilla.constructos);
+      //console.log(this.usuarioRejilla.poloIzquierdo);
+      //console.log(this.usuarioRejilla.poloDerecho);
+      //   console.log(this.usuarioRejilla.polos);
    }
 
 
    guardarConstructos() {
-      console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
-      console.log(this.usuarioRejilla.polos);
+      // console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
+      // console.log(this.usuarioRejilla.polos);
       this.constructosService.sesion_setConstructosUsuario(this.usuarioRejilla.polos);
-      this.constructosService.sesion_setElementosUsuario(this.usuarioRejilla.elementosUsuario);
+      this.constructosService.sesion_setElementosUsuario(this.usuarioRejilla.elementosrejilla);
       //ykk - Enviar constructos y elementos al back
       this.emitterOutputComponente.emit({ bPuntuarRejilla: true });
    }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Polos } from '../models/polos';
-import { ElementosUsuario } from '../models/elementos-usuario';
+import { Elementosrejilla } from '../models/elementosrejilla';
 
 
 const ELEMENTOSUSUARIO = 'ElementosUsuario';
@@ -17,8 +17,6 @@ export class ConstructosService {
 
 
    public backend_insertConstructos(polos: Array<Polos>): Observable<any> {
-      console.log("Entra en el bucle");
-      //console.log(polos);
       return this.httpClient.post<any>(this.constructosURL + 'insertPolos', polos, cabecera);
    }
 
@@ -33,13 +31,13 @@ export class ConstructosService {
    }
 
 
-   public sesion_setElementosUsuario(elementosUsuario: Array<ElementosUsuario>): void {
+   public sesion_setElementosUsuario(elementosUsuario: Array<Elementosrejilla>): void {
       window.sessionStorage.removeItem(ELEMENTOSUSUARIO);
       window.sessionStorage.setItem(ELEMENTOSUSUARIO, JSON.stringify(elementosUsuario));
    }
 
 
-   public sesion_getElementosUsuario(): Array<ElementosUsuario> {
+   public sesion_getElementosUsuario(): Array<Elementosrejilla> {
       return JSON.parse(sessionStorage.getItem(ELEMENTOSUSUARIO));
    }
 

@@ -1,7 +1,7 @@
 import { UsuarioRejilla } from '../models/usuario-rejilla';
 
 export class UsuarioDatos {
-   idUsuario: bigint;
+   idusuario: bigint;
    rejilla: UsuarioRejilla;
    // idRejilla: number;
    // elementos: any = {};

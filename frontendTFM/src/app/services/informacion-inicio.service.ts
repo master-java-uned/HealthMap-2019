@@ -25,8 +25,6 @@ export class InformacionInicioService {
  }
 
  public setInformacionRejillas(rejillas: any={}): void {
-  
-  
   console.log(rejillas);
   console.log(JSON.stringify( rejillas));
    window.sessionStorage.removeItem(INFORMACIONEVALUACIONES);

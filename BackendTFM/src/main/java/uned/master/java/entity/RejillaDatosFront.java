@@ -5,50 +5,31 @@ import java.util.List;
 
 
 public class RejillaDatosFront {
-	private int idrejilla;
-	private List<ElementosRejilla> elementosusuario;
+	private int idusuario;
+	private List<Elementosrejilla> elementosrejilla;
 	private List<Polos> polos;
-
-
-	public RejillaDatosFront() {
+	
+	
+	public int getIdusuario() {
+		return idusuario;
 	}
-
-
-	public RejillaDatosFront(int idrejilla, List<ElementosRejilla> elementosusuario, List<Polos> polos) {
-		super();
-		this.idrejilla = idrejilla;
-		this.elementosusuario = elementosusuario;
-		this.polos = polos;
+	public void setIdusuario(int idusuario) {
+		this.idusuario = idusuario;
 	}
-
-
-	public int getIdrejilla() {
-		return idrejilla;
+	public List<Elementosrejilla> getElementosrejilla() {
+		return elementosrejilla;
 	}
-
-
-	public void setIdrejilla(int idrejilla) {
-		this.idrejilla = idrejilla;
+	public void setElementosrejilla(List<Elementosrejilla> elementosrejilla) {
+		this.elementosrejilla = elementosrejilla;
 	}
-
-
-	public List<ElementosRejilla> getElementosUsuario() {
-		return elementosusuario;
-	}
-
-
-	public void setElementosUsuario(List<ElementosRejilla> elementosusuario) {
-		this.elementosusuario = elementosusuario;
-	}
-
-
 	public List<Polos> getPolos() {
 		return polos;
 	}
-
-
 	public void setPolos(List<Polos> polos) {
 		this.polos = polos;
 	}
+
+
+	
 
 }

@@ -1,16 +1,16 @@
 import { Constructos } from '../models/constructos';
 import { Polos } from '../models/polos';
-import { ElementosUsuario } from '../models/elementos-usuario';
+import { Elementosrejilla } from './elementosrejilla';
 import { Elementos } from '../models/elementos';
 
 
 export class UsuarioRejilla {
-   idRejilla: number;
+   idrejilla: number;
    //elementos: any = {};
    elementos: Elementos[];
    //elementosUsuario: any = {};
    //elementosUsuario: ElementosUsuario[];
-   elementosUsuario: Array<ElementosUsuario> = [];
+   elementosrejilla: Array<Elementosrejilla> = [];
    constructos: Constructos[];
    polos: Array<Polos> = [];
    //polos: Polos[];

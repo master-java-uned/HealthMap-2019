@@ -38,7 +38,12 @@ public class AuthController {
     @Autowired
     JwtProvider jwtProvider;
 
-    
+    /**
+     * Comprueba que el usuario y la contraseña coincidan con los datos de la base de datos
+     * @param loginUsuario
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<JwtDTO> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
@@ -54,6 +59,10 @@ public class AuthController {
         return new ResponseEntity<JwtDTO>(jwtDTO, HttpStatus.OK);
     }
     
+    /**
+     * Obtiene los datos de los pacientes
+     * @return
+     */
     @PostMapping("/getUsuarios")
     public ResponseEntity<List<Usuario>> getUsuarios(){
     	List<Usuario> usuarios=usuarioService.getUsuarios();

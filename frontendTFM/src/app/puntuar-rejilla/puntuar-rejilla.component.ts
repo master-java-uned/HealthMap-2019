@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ElementosUsuario } from '../models/elementos-usuario';
+import { Elementosrejilla } from '../models/elementosrejilla';
 import { Polos } from '../models/polos'
 import { ConstructosService } from '../services/constructos.service';
 import { Puntuaciones } from '../models/puntuaciones';
@@ -13,7 +13,7 @@ const modo_test: boolean = true;
   styleUrls: ['./puntuar-rejilla.component.css']
 })
 export class PuntuarRejillaComponent implements OnInit {
-  elementosUsuario: Array<ElementosUsuario> = [];
+  elementosUsuario: Array<Elementosrejilla> = [];
   polosUsuario: Array<Polos> = [];
   puntuaciones: number[][] = [[], []];
   ordenConstructos: Array<number> = new Array;
@@ -30,7 +30,12 @@ export class PuntuarRejillaComponent implements OnInit {
     }
     this.elementosUsuario = this.constructosService.sesion_getElementosUsuario();
     this.polosUsuario = this.constructosService.sesion_getConstructosUsuario();
-    this.idRejilla = this.rejillaService.sesion_getRejillaId();
+    //this.idRejilla = this.rejillaService.sesion_getRejillaId();
+    
+    console.log(this.idRejilla);
+    console.log(this.polosUsuario);
+    console.log(this.elementosUsuario);
+    
     if (modo_test) {
       for (var i: number = 0; i < 14; i++) {
         this.ordenConstructos[i] = i;
@@ -42,12 +47,12 @@ export class PuntuarRejillaComponent implements OnInit {
   }
 
   guardarPuntuaciones(): void {
+    this.idRejilla = this.rejillaService.sesion_getRejillaId();
     this.puntuacionesService.backend_insertEvaluacion(this.idRejilla).subscribe(data => {
       this.idEvaluacion = data
       console.log(this.idEvaluacion);
       for (var i: number = 0; i < 14; i++) {
         this.ordenConstructosFinales[i] = new OrdenConstructos(0, this.idEvaluacion, i + 1, this.ordenConstructos[i]);
-        //console.log(this.ordenConstructosFinales[i]);
         for (var j: number = 0; j < 12; j++) {
 
           this.puntuacionesFinales[this.k] = new Puntuaciones(this.idEvaluacion, i + 1, j + 1, this.puntuaciones[i][j]);
@@ -56,18 +61,13 @@ export class PuntuarRejillaComponent implements OnInit {
       }
       this.insertPuntuaciones();
     },
-      (err: any) => {
-      }
     );
 
   }
   insertPuntuaciones(): void {
     this.puntuacionesService.backend_insertPuntuaciones(this.puntuacionesFinales).subscribe(data => {
       this.idEvaluacion = data;
-
     },
-      (err: any) => {
-      }
     );
     this.insertOrdenConstructos();
   }
@@ -75,8 +75,6 @@ export class PuntuarRejillaComponent implements OnInit {
     this.puntuacionesService.backend_insertOrdenConstructos(this.ordenConstructosFinales).subscribe(data => {
       this.idEvaluacion = data;
     },
-      (err: any) => {
-      }
     );
   }
 

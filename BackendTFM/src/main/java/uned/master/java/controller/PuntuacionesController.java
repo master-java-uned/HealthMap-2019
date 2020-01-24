@@ -22,6 +22,7 @@ import uned.master.java.service.PuntuacionesService;
 @RequestMapping(value = "/api", headers = "Accept=application/json")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PuntuacionesController {
+	
 	@Autowired
 	EvaluacionService evaluacionService;
 
@@ -91,11 +92,9 @@ public class PuntuacionesController {
 	 */
 	@PostMapping("/getPuntuaciones")
 	public ResponseEntity<List<Puntuaciones>> getPuntuaciones(@RequestBody int idEvaluacion) {
-		System.out.println("evaluacion44444:::" + idEvaluacion);
+	
 		List<Puntuaciones> puntuaciones = puntuacionesService.getPuntuaciones(idEvaluacion);
-		for (Puntuaciones puntuacion : puntuaciones) {
-			System.out.println("puntuaciones:::" + puntuacion.getIdevaluacion());
-		}
+		
 		return new ResponseEntity(puntuaciones, HttpStatus.CREATED);
 
 	}

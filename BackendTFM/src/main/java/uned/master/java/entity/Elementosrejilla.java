@@ -11,42 +11,16 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "elementosrejillas")
 @IdClass(idElementosRejilla.class)
-public class ElementosRejilla {
+public class Elementosrejilla {
 	@Id
-	private int idelemento;
+	public int idelemento;
 	@Id
-	private int idrejilla;
+	public int idrejilla;
 	@NotNull
-	private String nombreelemento;
-	private String rolelemento;
+	public String nombreelemento;
+	public String rolelemento;
 
 
-	public ElementosRejilla() {
-	}
-
-
-	public ElementosRejilla(int idelemento, int idrejilla, @NotNull String nombreelemento, String rolelemento) {
-		super();
-		this.idelemento = idelemento;
-		this.idrejilla = idrejilla;
-		this.nombreelemento = nombreelemento;
-		this.rolelemento = rolelemento;
-	}
-
-
-	public ElementosRejilla(int idrejilla, @NotNull String nombreelemento, String rolelemento) {
-		super();
-		this.idrejilla = idrejilla;
-		this.nombreelemento = nombreelemento;
-		this.rolelemento = rolelemento;
-	}
-
-
-	public ElementosRejilla(@NotNull String nombreelemento, String rolelemento) {
-		super();
-		this.nombreelemento = nombreelemento;
-		this.rolelemento = rolelemento;
-	}
 
 
 	public int getIdelemento() {

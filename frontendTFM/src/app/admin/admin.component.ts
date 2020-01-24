@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router';
 import { InformacionRejilla } from '../models/informacion-rejilla'
 import { Evaluacion } from '../models/evaluacion'
-import { ElementosUsuario } from '../models/elementos-usuario'
+import { Elementosrejilla } from '../models/elementosrejilla'
 import { Polos } from '../models/polos'
 import { Rejilla } from '../models/rejilla'
 import { RejillaService } from '../services/rejilla.service';
@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
    resultadoRejillas: Array<InformacionRejilla> = [];
    rejillas: Array<Rejilla> = [];
    polosInicio: Array<Polos> = [];
-   elementosInicio: Array<ElementosUsuario> = [];
+   elementosInicio: Array<Elementosrejilla> = [];
    evaluaciones: Array<Evaluacion> = [];
    aux: number;
    isShow: Array<boolean>;

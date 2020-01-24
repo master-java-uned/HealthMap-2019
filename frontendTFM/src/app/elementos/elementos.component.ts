@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { ElementosUsuario } from '../models/elementos-usuario';
+import { Elementosrejilla } from '../models/elementosrejilla';
 import { UsuarioDatos } from '../models/usuario-datos';
 import { Elementos } from '../models/elementos';
 import { TokenService } from '../services/token.service';
@@ -19,54 +19,42 @@ export class ElementosComponent implements OnInit {
    yer_cont_log: number = 0;
    //elementosUsuario_temp: ElementosUsuario[] = new Array(null, null, null);
 
-
    constructor(private tokenService: TokenService, private rejillaService: RejillaService) { }
 
 
    ngOnInit() {
-      console.log("YI-LOG - ElementosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
-      console.log(this.usuarioDatos.rejilla.elementos);
+      //console.log("YI-LOG - ElementosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
+      //console.log(this.usuarioDatos.rejilla.elementos);
       this.inicializarRejilla();
    }
 
-
-   // ngAfterViewInit() {
-   //    if (this.bModo_test) {
-   //       this.boton.nativeElement.focus();
-   //    }
-   // }
-
-
    inicializarRejilla(): void {
-      console.log("YI-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
       this.rejillaService.backend_getElementos().subscribe(data => {
          this.usuarioDatos.rejilla.elementos = data;
-         console.log(this.usuarioDatos.rejilla.elementos);
+        // console.log(this.usuarioDatos.rejilla.elementos);
          this.rellenar_modo_test();
          this.rejillaService.sesion_setElementos(this.usuarioDatos.rejilla.elementos);
       },
-         (err: any) => {
-            console.log("YI-LOG - error");
-         }
       );
    }
 
 
    guardar(): void {
-      console.log("YI-LOG - ElementosComponent-guardar() - " + (++this.yer_cont_log).toString());
-      console.log(this.usuarioDatos.rejilla.elementos);
+     // console.log("YI-LOG - ElementosComponent-guardar() - " + (++this.yer_cont_log).toString());
+      //console.log(this.usuarioDatos.rejilla.elementos);
       var aux: Elementos = this.usuarioDatos.rejilla.elementos[0];
       for (var i = 0; i <= 11; i++) {
-         this.usuarioDatos.rejilla.elementosUsuario[i].idElemento = this.usuarioDatos.rejilla.elementos[i].idelemento;
-         this.usuarioDatos.rejilla.elementosUsuario[i].idRejilla = this.usuarioDatos.rejilla.idRejilla;
+         this.usuarioDatos.rejilla.elementosrejilla[i].idelemento = this.usuarioDatos.rejilla.elementos[i].idelemento;
+         this.usuarioDatos.rejilla.elementosrejilla[i].idrejilla = this.usuarioDatos.rejilla.idrejilla;
 
          //Tratamos los casos especiales: "Yo actual", "Yo dentro de dos años" y "Yo ideal"
          if (this.usuarioDatos.rejilla.elementos[i].descripcion in new Array("Yo actual", "Yo dentro de dos años", "Yo ideal")) {
-            this.usuarioDatos.rejilla.elementosUsuario[i].nombreElemento = this.usuarioDatos.rejilla.elementos[i].descripcion;
-            this.usuarioDatos.rejilla.elementosUsuario[i].rolElemento = null;
+            this.usuarioDatos.rejilla.elementosrejilla[i].nombreelemento = this.usuarioDatos.rejilla.elementos[i].descripcion;
+            this.usuarioDatos.rejilla.elementosrejilla[i].rolelemento = null;
          }
       }
-      console.log(this.usuarioDatos.rejilla.elementosUsuario);
+      //console.log(this.usuarioDatos.rejilla.elementosrejilla);
 
       //ykk
       //YKK esto hay que cambiarlo porque está mal, se está liando entre elementos y elementosrejillas. elementosrejillas tiene que tener el id.
@@ -89,15 +77,15 @@ export class ElementosComponent implements OnInit {
       // this.usuarioDatos.rejilla.elementosUsuario[11] = new ElementosUsuario("Yo ideal", null, this.usuarioDatos.rejilla.elementos.id[11]);
 
 
-      this.emitterOutputComponente.emit({ bMostrarConstructos: true, elementosUsuario: this.usuarioDatos.rejilla.elementosUsuario });
+      this.emitterOutputComponente.emit({ bMostrarConstructos: true, elementosUsuario: this.usuarioDatos.rejilla.elementosrejilla });
    }
 
 
    //Para hacer pruebas, usamos este método que rellena todo de forma automática
    rellenar_modo_test(): void {
-      console.log("YI-LOG - ElementosComponent-rellenar_modo_test() - " + (++this.yer_cont_log).toString());
+     // console.log("YI-LOG - ElementosComponent-rellenar_modo_test() - " + (++this.yer_cont_log).toString());
       //Si no se hace esto da un error de inicialización del objeto
-      this.usuarioDatos.rejilla.elementosUsuario = new Array;
+      this.usuarioDatos.rejilla.elementosrejilla = new Array;
       if (this.bModo_test) {
          for (var i = 0; i <= 11; i++) {
             // this.usuarioDatos.rejilla.elementos['nombre' + i] = 'nombre_' + i;
@@ -106,9 +94,9 @@ export class ElementosComponent implements OnInit {
             // this.usuarioDatos.rejilla.elementosUsuario[i].nombreElemento = 'nombre_' + i;
             // this.usuarioDatos.rejilla.elementosUsuario[i].rolElemento = 'rol_desc_' + i;
 
-            this.usuarioDatos.rejilla.elementosUsuario[i] = new ElementosUsuario(i, this.usuarioDatos.rejilla.idRejilla, 'nombre_' + i, 'rol_desc_' + i);
+            this.usuarioDatos.rejilla.elementosrejilla[i] = new Elementosrejilla(i, this.usuarioDatos.rejilla.idrejilla, 'nombre_' + i, 'rol_desc_' + i);
          }
       }
-      console.log(this.usuarioDatos.rejilla.elementosUsuario);
+      //console.log(this.usuarioDatos.rejilla.elementosrejilla);
    }
 }

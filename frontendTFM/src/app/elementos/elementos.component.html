@@ -1,6 +1,6 @@
 <h1 class="text-center">Elementos</h1>
 <div class="card">
-   <div *ngIf="this.usuarioDatos.rejilla.elementosUsuario" class="card-body">
+   <div *ngIf="this.usuarioDatos.rejilla.elementosrejilla" class="card-body">
       <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
          <div class="form-group" *ngFor='let num of [2,3,4,5,6,7,8,9,10]'>
             <!--  this.usuarioDatos?.rejilla?.elementos[num]?.descripcion sin los interrogantes da un error en la consola, los interrogantes son somo un if 
@@ -9,10 +9,10 @@
             -->
             <label for="'elemento'+num">{{this.usuarioDatos?.rejilla?.elementos[num]?.descripcion}} </label>
             <input type="text" class="form-control" name="elemento+{{num}}"
-               [(ngModel)]="this.usuarioDatos.rejilla.elementosUsuario[num].nombreElemento" autocomplete="off" required>
+               [(ngModel)]="this.usuarioDatos.rejilla.elementosrejilla[num].nombreelemento" autocomplete="off" required>
             <label for="'descripcion'+num">Descripción:</label>
             <input type="text" class="form-control" name="descripcion+{{num}}"
-               [(ngModel)]="this.usuarioDatos.rejilla.elementosUsuario[num].rolElemento" autocomplete="off">
+               [(ngModel)]="this.usuarioDatos.rejilla.elementosrejilla[num].rolelemento" autocomplete="off">
          </div>
 
          <div class="form-group">

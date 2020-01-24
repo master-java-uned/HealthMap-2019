@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ElementosUsuario } from '../models/elementos-usuario';
+import { Elementosrejilla } from '../models/elementosrejilla';
 import { Polos } from '../models/polos'
 
 
@@ -36,14 +36,14 @@ export class RejillaService {
    }
 
 
-   public backend_nuevaRejilla2(idUsuario: bigint, elementos: Array<ElementosUsuario>, polos: Array<Polos>): Observable<any> {
+   public backend_nuevaRejilla2(idusuario: bigint, elementosrejilla: Array<Elementosrejilla>, polos: Array<Polos>): Observable<any> {
       console.log("YI-LOG - RejillaService-backend_nuevaRejilla2()");
-      console.log(idUsuario);
-      console.log(elementos);
+      console.log(idusuario);
+      console.log(elementosrejilla);
       console.log(polos);
       //var resultado: Observable<number>;
       var resultado: Observable<any>;
-      resultado = this.httpClient.post<any>(this.authURL + 'nuevaRejilla', { "idUsuario": idUsuario, "elementos": elementos, "polos": polos }, cabecera);
+      resultado = this.httpClient.post<any>(this.authURL + 'nuevaRejilla', { "idusuario": idusuario, "elementosrejilla": elementosrejilla, "polos": polos }, cabecera);
       console.log(resultado);
       return resultado;
    }
@@ -59,13 +59,14 @@ export class RejillaService {
    }
 
 
-   public sesion_setRejillaId(rejillaId: number): void {
+   public sesion_setRejillaId(rejillaId: any): void {
       window.sessionStorage.removeItem(REJILLA_KEY);
       window.sessionStorage.setItem(REJILLA_KEY, JSON.stringify(rejillaId));
    }
 
 
-   public sesion_getRejillaId(): number {
+   public sesion_getRejillaId(): any {
+      console.log(sessionStorage.getItem(REJILLA_KEY));
       return JSON.parse(sessionStorage.getItem(REJILLA_KEY));
    }
 
