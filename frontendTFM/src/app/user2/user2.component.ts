@@ -35,7 +35,7 @@ export class User2Component implements OnInit {
    resultadoRejillas: Array<InformacionRejilla> = [];
    aux: number;
    isShow: Array<boolean>;
-   mostrarEvaluacion: boolean = false;
+   bMostrarEvaluacion: boolean = false;
    yer_cont_log: number = 0;
    devuelto: any = {};
    mostrarEvaluaciones: Array<boolean> = [];
@@ -63,6 +63,8 @@ export class User2Component implements OnInit {
       }
       console.log(this.resultadoRejillas);
    }
+
+
    clearRejilla() {
       this.resultadoRejillas = [];
    }
@@ -96,6 +98,7 @@ export class User2Component implements OnInit {
       })
    }
 
+
    iniciarRejilla(): void {
       console.log("YI-LOG - User2Component-iniciarRejilla() - " + (++this.yer_cont_log).toString());
       this.bMostrarListaRejillas = false;
@@ -107,14 +110,22 @@ export class User2Component implements OnInit {
       this.usuarioDatos.rejilla = new UsuarioRejilla;
       this.usuarioDatos.rejilla.elementos = elementos_temp;
       //this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementos();
-     // console.log(this.usuarioDatos.rejilla.elementos);
-     // console.log(this.usuarioDatos.rejilla.idrejilla);
+      // console.log(this.usuarioDatos.rejilla.elementos);
+      // console.log(this.usuarioDatos.rejilla.idrejilla);
    }
 
 
-   logOut(): void {
+   htmlLogOut(): void {
       this.tokenService.sesion_logOut();
       this.router.navigate(['login']);
+   }
+
+
+   htmlInicio(): void {
+      this.bMostrarListaRejillas = true;
+      this.bMostrarElementos = false;
+      this.bMostrarConstructos = false;
+      this.bPuntuarRejilla = false;
    }
 
 
@@ -163,6 +174,7 @@ export class User2Component implements OnInit {
       );
    }
 
+
    getInformacion() {
       // console.log("YI-LOG - User2Component-getInformacion() - " + (++this.yer_cont_log).toString());
       if (this.rejillas != null) {
@@ -177,11 +189,12 @@ export class User2Component implements OnInit {
 
 
    getPolosUsuario(rejilla: Rejilla) {
-      // console.log("YI-LOG - User2Component-getPolosUsuario() - " + (++this.yer_cont_log).toString());
+      console.log("YI-LOG - User2Component-getPolosUsuario() - " + (++this.yer_cont_log).toString());
+      console.log("Id rejilla - " + rejilla.idrejilla);
       this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data => {
          if (Object.entries(data).length !== 0) {
             this.evaluaciones = data;
-            this.mostrarEvaluaciones=[];
+            this.mostrarEvaluaciones = [];
             for (let i = 0; i < this.evaluaciones.length; i++) {
                this.mostrarEvaluaciones[i] = false;
             }
@@ -214,7 +227,33 @@ export class User2Component implements OnInit {
    }
 
 
-   showRejillaCompleta(indiceEvaluaciones: number, indice: number, idEvaluacion: number) {
+   showRejillaCompleta(indiceEvaluaciones: number, indice: number) {
+      console.log("YI-LOG - User2Component-showRejillaCompleta() - " + (++this.yer_cont_log).toString());
+      console.log(indiceEvaluaciones + " - " + indice);
+      console.log(this.resultadoRejillas);
+      console.log(this.resultadoRejillas[indice].isShowEvaluaciones);
       this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones] = !this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones];
+   }
+
+
+   nuevaEvaluacionRejilla(idRejilla: number, elementosRejillaAux: Array<Elementosrejilla>, polosAux: Array<Polos>) {
+      console.log("YI-LOG - User2Component-nuevaEvaluacionRejilla() - " + (++this.yer_cont_log).toString());
+      console.log(idRejilla);
+
+      // this.usuarioDatos.rejilla.elementosrejilla = elementosRejillaAux;
+      // this.usuarioDatos.rejilla.polos = polosAux;
+      // console.log(this.usuarioDatos.rejilla.elementosrejilla);
+      // console.log(this.usuarioDatos.rejilla.polos);
+
+      this.rejillaService.sesion_setRejillaId(idRejilla);
+      this.constructosService.sesion_setElementosUsuario(elementosRejillaAux);
+      this.constructosService.sesion_setConstructosUsuario(polosAux);
+      console.log(elementosRejillaAux);
+      console.log(polosAux);
+
+      this.bMostrarListaRejillas = false;
+      this.bMostrarElementos = false;
+      this.bMostrarConstructos = false;
+      this.bPuntuarRejilla = true;
    }
 }

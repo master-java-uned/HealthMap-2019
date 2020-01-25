@@ -4,12 +4,13 @@ import { Puntuaciones } from '../models/puntuaciones';
 import { Polos } from '../models/polos';
 import { Elementosrejilla } from '../models/elementosrejilla';
 
+
 @Component({
-   selector: 'app-mostrar-rejilla',
-   templateUrl: './mostrar-rejilla.component.html',
-   styleUrls: ['./mostrar-rejilla.component.css']
+   selector: 'app-mostrar-puntuaciones',
+   templateUrl: './mostrar-puntuaciones.component.html',
+   styleUrls: ['./mostrar-puntuaciones.component.css']
 })
-export class MostrarRejillaComponent implements OnInit {
+export class MostrarPuntuacionesComponent implements OnInit {
    @Input() idEvaluacion: number;
    @Input() polosInicio: Array<Polos> = [];
    @Input() elementosInicio: Array<Elementosrejilla> = [];
@@ -18,8 +19,10 @@ export class MostrarRejillaComponent implements OnInit {
    puntuacionesRejilla: Array<Puntuaciones> = [];
    aux: number = 0;
 
-   constructor( private puntuacionesService: PuntuacionesService) {
+
+   constructor(private puntuacionesService: PuntuacionesService) {
    }
+
 
    ngOnInit() {
       for (var i: number = 0; i < 14; i++) {
@@ -27,6 +30,7 @@ export class MostrarRejillaComponent implements OnInit {
       }
       this.getPuntuaciones();
    }
+
 
    getPuntuaciones() {
       this.puntuacionesService.backend_getPuntuaciones(this.idEvaluacion).subscribe(data => {
@@ -45,10 +49,10 @@ export class MostrarRejillaComponent implements OnInit {
       );
    }
 
+
    getOrden(idEvaluacion: number) {
       this.puntuacionesService.backend_getOrden(idEvaluacion).subscribe(data => {
          this.ordenConstructos = data;
       })
    }
-
 }

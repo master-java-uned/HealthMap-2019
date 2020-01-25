@@ -148,12 +148,7 @@ export class AdminComponent implements OnInit {
    }
 
 
-
-
-
    showRejillaCompleta(indiceEvaluaciones: number, indice: number) {
       this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones] = !this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones];
-
    }
-
 }

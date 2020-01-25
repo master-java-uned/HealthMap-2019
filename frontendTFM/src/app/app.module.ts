@@ -8,16 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { AdminComponent } from './admin/admin.component';
 import { interceptorProvider } from './interceptors/rejilla-interceptor.service';
-import { MostrarRejillaComponent } from './mostrar-rejilla/mostrar-rejilla.component';
 import { ConstructosComponent } from './constructos/constructos.component';
 import { PuntuarRejillaComponent } from './puntuar-rejilla/puntuar-rejilla.component';
 import { ElementosComponent } from './elementos/elementos.component';
 import { User2Component } from './user2/user2.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
+import { MostrarPuntuacionesComponent } from './mostrar-puntuaciones/mostrar-puntuaciones.component'
 
 @NgModule({
    declarations: [
@@ -25,11 +24,11 @@ import { MatButtonModule } from '@angular/material/button'
       LoginComponent,
       MenuComponent,
       AdminComponent,
-      MostrarRejillaComponent,
       ConstructosComponent,
       PuntuarRejillaComponent,
       ElementosComponent,
       User2Component,
+      MostrarPuntuacionesComponent,
 
    ],
    imports: [

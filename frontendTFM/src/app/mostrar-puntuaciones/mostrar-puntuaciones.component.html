@@ -1,0 +1,30 @@
+<div class="col-12 col-md-10">
+   <div class="table-responsive">
+      <form name="form" #f="ngForm" novalidate (ngSubmit)="guardarPuntuaciones()">
+         <table class="table table-bordered table-hover table-sm" id="resultadoRejilla">
+            <thead>
+               <tr>
+                  <th scope="col">Orden</th>
+                  <th scope="col"></th>
+                  <th scope="col">Polo izquierdo</th>
+                  <th scope="col">Polo derecho</th>
+                  <th scope="col" *ngFor='let num of [0,1,2,3,4,5,6,7,8,9,10,11]'>
+                     <p class="vertical">{{elementosInicio[num].nombreelemento}}</p>
+                  </th>
+               </tr>
+            </thead>
+            <tbody>
+
+               <tr *ngFor='let num1 of [0,1,2]'>
+                  <td>{{ordenConstructos[num1].ordenconstructo}}</td>
+                  <td scope="row">{{num1+1}}</td>
+                  <td>{{polosInicio[num1].txtpoloizq}}</td>
+                  <td>{{polosInicio[num1].txtpoloder}}</td>
+                  <td *ngFor='let aux of [0,1,2,3,4,5,6,7,8,9,10,11]'>{{puntuaciones[num1][aux]}}</td>
+               </tr>
+
+            </tbody>
+         </table>
+      </form>
+   </div>
+</div>

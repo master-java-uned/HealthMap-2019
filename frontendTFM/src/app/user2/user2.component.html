@@ -9,25 +9,28 @@
       <ul class="navbar-nav mr-auto">
          <!--En el navbar se muestran todas las opciones de la aplicación-->
          <li class="nav-item">
-            <a class="nav-link" href="#inicio">Inicio</a>
+            <a class="nav-link" href="#" (click)="htmlInicio()">Inicio</a>
          </li>
-         <li class="nav-item"><a class="nav-link" href="#nuevaeva" data-toggle="modal" data-target="#nuevaEvaluacion">
-               Nueva evaluación</a></li>
-         <li class="nav-item"><a class="nav-link" href="#repetireva"> Repetir evaluación</a></li>
+         <li class="nav-item"><a class="nav-link" href="#nuevaeva" data-toggle="modal" data-target="#nuevaRejilla">
+               Nueva rejilla</a></li>
          <li>
-            <a class="nav-link" href="#" (click)=logOut()>Logout</a>
+            <a class="nav-link" href="#" (click)="htmlLogOut()">Logout</a>
          </li>
       </ul>
    </div>
 </nav>
 
+
 <div *ngIf="bMostrarListaRejillas">
    <div id="inicio">
       <h1>Resultado Evaluaciones</h1>
       <label>Lista de Rejillas</label>
-      <div *ngFor="let info of resultadoRejillas;let indice=index">
-         <p class="principal"> {{info.idrejilla}} <mat-icon (click)=toggleDisplay(info.idrejilla)
-               class="mat-icon-rtl-mirror">{{info.idrejilla}} {{info.isShow ? 'chevron_right' : 'expand_more'}}
+      <div *ngFor="let info of resultadoRejillas; let indice=index">
+         <p class="principal"> ID rejilla: {{info.idrejilla}}
+            <button type="button" (click)="nuevaEvaluacionRejilla(info.idrejilla, info.elementos, info.constructos)"
+               id="nuevaEvaluacionRejilla" class="btn btn-dark">Nueva evaluación</button>
+            <mat-icon (click)=toggleDisplay(info.idrejilla) class="mat-icon-rtl-mirror">{{info.idrejilla}}
+               {{info.isShow ? 'chevron_right' : 'expand_more'}}
             </mat-icon>
          </p>
 
@@ -64,11 +67,12 @@
             <p class="elementoResumen">Comentario </p>
             <p class="resultadoResumen">{{info.comentariopaciente}}</p>
             <p class="elementoResumen">Evaluaciones </p>
-            <div *ngFor="let evaluacion of  info.evaluaciones">
-               <p (click)=showRejillaCompleta(info.idrejilla) class="resultadoResumen">
-                  {{evaluacion.idevaluacion}} </p>
-               <div *ngIf="mostrarEvaluacion">
-                  <app-mostrar-rejilla></app-mostrar-rejilla>
+            <div *ngFor="let evaluacion of info.evaluaciones; let indiceEvaluaciones=index">
+               <p (click)=showRejillaCompleta(indiceEvaluaciones,indice) class="resultadoResumen">
+                  Evaluación {{evaluacion.idevaluacion}} </p>
+               <div *ngIf="bMostrarEvaluacion">
+                  <app-mostrar-puntuaciones [idEvaluacion]="evaluacion.idevaluacion" [elementosInicio]="info.elementos"
+                     [polosInicio]="info.constructos"></app-mostrar-puntuaciones>
                </div>
             </div>
          </div>
@@ -96,7 +100,7 @@
 </div>
 
 
-<div class="modal" id="nuevaEvaluacion" tabindex="-1" role="dialog">
+<div class="modal" id="nuevaRejilla" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
