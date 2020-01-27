@@ -2,6 +2,7 @@ import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service'
 
+
 @Component({
    selector: 'app-menu',
    templateUrl: './menu.component.html',
@@ -30,8 +31,10 @@ export class MenuComponent implements OnInit {
                this.authority = 'admin';
                return false;
             }
-            this.authority = 'user';
-            return true;
+            else {
+               this.authority = 'user';
+               return true;
+            }
          });
       }
    }

@@ -6,6 +6,9 @@ import { Puntuaciones } from '../models/puntuaciones';
 import { PuntuacionesService } from '../services/puntuaciones.service';
 import { RejillaService } from '../services/rejilla.service';
 import { OrdenConstructos } from '../models/orden-constructos';
+import { Router } from '@angular/router';
+
+
 const modo_test: boolean = true;
 @Component({
    selector: 'app-puntuar-rejilla',
@@ -22,7 +25,7 @@ export class PuntuarRejillaComponent implements OnInit {
    idEvaluacion: number;
    idRejilla: number;
    k: number = 0;
-   constructor(private constructosService: ConstructosService, private puntuacionesService: PuntuacionesService, private rejillaService: RejillaService) { }
+   constructor(private constructosService: ConstructosService, private puntuacionesService: PuntuacionesService, private rejillaService: RejillaService, private router: Router) { }
 
    ngOnInit() {
       for (var i: number = 0; i < 14; i++) {
@@ -48,7 +51,7 @@ export class PuntuarRejillaComponent implements OnInit {
 
 
    guardarPuntuaciones(): void {
-      console.log("YI-LOG - PuntuarRejillaComponent-guardarPuntuaciones()");
+      //console.log("YI-LOG - PuntuarRejillaComponent-guardarPuntuaciones()");
       this.idRejilla = this.rejillaService.sesion_getRejillaId();
       console.log(this.idRejilla);
       this.puntuacionesService.backend_insertEvaluacion(this.idRejilla).subscribe(data => {
@@ -64,7 +67,7 @@ export class PuntuarRejillaComponent implements OnInit {
          this.insertPuntuaciones();
       },
       );
-
+      this.router.navigate(['menu']);
    }
 
 

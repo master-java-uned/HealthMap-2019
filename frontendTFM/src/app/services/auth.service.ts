@@ -22,11 +22,8 @@ export class AuthService {
       return this.httpClient.post<JwtModel>(this.authURL + 'login', usuario, cabecera);
    }
 
+
    public backend_getUsuarios(): Observable<any> {
       return this.httpClient.post<any>(this.authURL + 'getUsuarios', cabecera);
    }
-
-
-
-
 }

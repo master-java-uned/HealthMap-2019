@@ -23,16 +23,16 @@ export class ElementosComponent implements OnInit {
 
 
    ngOnInit() {
-      //console.log("YI-LOG - ElementosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
+      ////console.log("YI-LOG - ElementosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
       //console.log(this.usuarioDatos.rejilla.elementos);
       this.inicializarRejilla();
    }
 
    inicializarRejilla(): void {
-      //console.log("YI-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
+      ////console.log("YI-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
       this.rejillaService.backend_getElementos().subscribe(data => {
          this.usuarioDatos.rejilla.elementos = data;
-        // console.log(this.usuarioDatos.rejilla.elementos);
+         // console.log(this.usuarioDatos.rejilla.elementos);
          this.rellenar_modo_test();
          this.rejillaService.sesion_setElementos(this.usuarioDatos.rejilla.elementos);
       },
@@ -41,7 +41,7 @@ export class ElementosComponent implements OnInit {
 
 
    guardar(): void {
-     // console.log("YI-LOG - ElementosComponent-guardar() - " + (++this.yer_cont_log).toString());
+      // //console.log("YI-LOG - ElementosComponent-guardar() - " + (++this.yer_cont_log).toString());
       //console.log(this.usuarioDatos.rejilla.elementos);
       var aux: Elementos = this.usuarioDatos.rejilla.elementos[0];
       for (var i = 0; i <= 11; i++) {
@@ -83,7 +83,7 @@ export class ElementosComponent implements OnInit {
 
    //Para hacer pruebas, usamos este método que rellena todo de forma automática
    rellenar_modo_test(): void {
-     // console.log("YI-LOG - ElementosComponent-rellenar_modo_test() - " + (++this.yer_cont_log).toString());
+      // //console.log("YI-LOG - ElementosComponent-rellenar_modo_test() - " + (++this.yer_cont_log).toString());
       //Si no se hace esto da un error de inicialización del objeto
       this.usuarioDatos.rejilla.elementosrejilla = new Array;
       if (this.bModo_test) {

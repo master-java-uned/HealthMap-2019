@@ -2,6 +2,7 @@ import { UsuarioRejilla } from '../models/usuario-rejilla';
 
 export class UsuarioDatos {
    idusuario: bigint;
+   nombreUsuario: string;
    rejilla: UsuarioRejilla;
    // idRejilla: number;
    // elementos: any = {};

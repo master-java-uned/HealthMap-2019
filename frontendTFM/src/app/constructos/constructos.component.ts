@@ -23,22 +23,22 @@ export class ConstructosComponent implements OnInit {
 
 
    constructor(private rejillaService: RejillaService, private constructosService: ConstructosService) {
-      //console.log("YI-LOG - ConstructosComponent-constructor() - " + (++this.yer_cont_log).toString());
+      ////console.log("YI-LOG - ConstructosComponent-constructor() - " + (++this.yer_cont_log).toString());
    }
 
 
    ngOnInit() {
-      //console.log("YI-LOG - ConstructosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
+      ////console.log("YI-LOG - ConstructosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
       this.rejillaService.backend_getConstructos().subscribe(data => {
-         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-data - " + (++this.yer_cont_log).toString());
+         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-data - " + (++this.yer_cont_log).toString());
          //console.log(data);
          this.usuarioRejilla.constructos = data;
          this.rejillaService.sesion_setConstructos(this.usuarioRejilla.constructos);
-         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-elementosUsuario - " + (++this.yer_cont_log).toString());
+         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-elementosUsuario - " + (++this.yer_cont_log).toString());
          //console.log(this.usuarioRejilla.elementosrejilla);
-         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-constructos - " + (++this.yer_cont_log).toString());
+         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-constructos - " + (++this.yer_cont_log).toString());
          //console.log(this.usuarioRejilla.constructos);
-         //console.log("YI-LOG - ConstructosComponent-ngOnInit()-idRejilla - " + (++this.yer_cont_log).toString());
+         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-idRejilla - " + (++this.yer_cont_log).toString());
          //console.log(this.usuarioRejilla.idrejilla);
          this.inicializarContructos();
          this.bConstructosIniciados = true;
@@ -48,7 +48,7 @@ export class ConstructosComponent implements OnInit {
 
 
    inicializarContructos() {
-      console.log("YI-LOG - ConstructosComponent-inicializarContructos() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - ConstructosComponent-inicializarContructos() - " + (++this.yer_cont_log).toString());
       //Reemplazamos en los constructos los nombres reales de los elementos indicados por el paciente
       for (var i = 0; i < 14; i++) {
          this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#1", this.usuarioRejilla.elementosrejilla[this.usuarioRejilla.constructos[i].idelemento1].nombreelemento);
@@ -80,7 +80,7 @@ export class ConstructosComponent implements OnInit {
 
 
    guardarConstructos() {
-      // console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
+      // //console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
       // console.log(this.usuarioRejilla.polos);
       this.constructosService.sesion_setConstructosUsuario(this.usuarioRejilla.polos);
       this.constructosService.sesion_setElementosUsuario(this.usuarioRejilla.elementosrejilla);

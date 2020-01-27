@@ -110,6 +110,7 @@ public class PuntuacionesController {
 	public ResponseEntity<?> getOrden(@RequestBody int idEvaluacion) {
 		System.out.println("evaluacion:::" + idEvaluacion);
 		List<OrdenConstructos> orden = puntuacionesService.getOrden(idEvaluacion);
+		System.out.println(orden);
 		return new ResponseEntity(orden, HttpStatus.CREATED);
 	}
 }

@@ -40,17 +40,25 @@ export class User2Component implements OnInit {
    devuelto: any = {};
    mostrarEvaluaciones: Array<boolean> = [];
    idEvaluacion: number;
+   listaUsuarios: Array<UsuarioDatos> = [];
+
 
 
    constructor(private tokenService: TokenService, private router: Router, private rejillaService: RejillaService, private constructosService: ConstructosService, private elementosService: ElementosService, private puntuacionesService: PuntuacionesService) {
    }
 
 
+
    ngOnInit() {
-      console.log("YI-LOG - User2Component-ngOnInit() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-ngOnInit() - " + (++this.yer_cont_log).toString());
       this.bMostrarListaRejillas = true;
       this.usuarioDatos = new UsuarioDatos;
       this.usuarioDatos.idusuario = this.tokenService.sesion_getUserId();
+
+      var usuarioAux: UsuarioDatos = new UsuarioDatos;
+      usuarioAux.idusuario = this.usuarioDatos.idusuario;
+      usuarioAux.nombreUsuario = this.tokenService.sesion_getUserName();
+      this.listaUsuarios.push(usuarioAux);
 
       this.clearRejilla();
       console.log(this.resultadoRejillas);
@@ -69,8 +77,9 @@ export class User2Component implements OnInit {
       this.resultadoRejillas = [];
    }
 
+
    toggleDisplay(idrejilla: number) {
-      console.log("YI-LOG - User2Component-toggleDisplay() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-toggleDisplay() - " + (++this.yer_cont_log).toString());
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShow = !resultado.isShow;
@@ -80,7 +89,7 @@ export class User2Component implements OnInit {
 
 
    showElementos(idrejilla: number) {
-      console.log("YI-LOG - User2Component-showElementos() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-showElementos() - " + (++this.yer_cont_log).toString());
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShowElementos = !resultado.isShowElementos;
@@ -90,7 +99,7 @@ export class User2Component implements OnInit {
 
 
    showConstructos(idrejilla: number) {
-      console.log("YI-LOG - User2Component-showConstructos() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-showConstructos() - " + (++this.yer_cont_log).toString());
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShowConstructos = !resultado.isShowConstructos;
@@ -100,7 +109,7 @@ export class User2Component implements OnInit {
 
 
    iniciarRejilla(): void {
-      console.log("YI-LOG - User2Component-iniciarRejilla() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-iniciarRejilla() - " + (++this.yer_cont_log).toString());
       this.bMostrarListaRejillas = false;
       this.bMostrarElementos = true;
       this.bMostrarConstructos = false;
@@ -121,6 +130,7 @@ export class User2Component implements OnInit {
    }
 
 
+
    htmlInicio(): void {
       this.bMostrarListaRejillas = true;
       this.bMostrarElementos = false;
@@ -131,7 +141,7 @@ export class User2Component implements OnInit {
 
 
    obtenerSalidaElementosComponent(event): void {
-      console.log("YI-LOG - User2Component-obtenerSalidaElementosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bMostrarConstructos);
+      //console.log("YI-LOG - User2Component-obtenerSalidaElementosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bMostrarConstructos);
       console.log(event.elementosUsuario);
       this.usuarioDatos.rejilla.elementosrejilla = event.elementosUsuario;
       this.bMostrarConstructos = event.bMostrarConstructos;
@@ -142,11 +152,11 @@ export class User2Component implements OnInit {
 
 
    obtenerSalidaConstructosComponent(event): void {
-      //    console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bPuntuarRejilla);
+      //    //console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bPuntuarRejilla);
       this.bPuntuarRejilla = event.bPuntuarRejilla;
       if (this.bPuntuarRejilla) {
          this.bMostrarConstructos = false;
-         //     console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent()-backend_nuevaRejilla_v2 - " + (++this.yer_cont_log).toString());
+         //     //console.log("YI-LOG - User2Component-obtenerSalidaConstructosComponent()-backend_nuevaRejilla_v2 - " + (++this.yer_cont_log).toString());
 
          this.rejillaService.backend_nuevaRejilla2(this.usuarioDatos.idusuario, this.usuarioDatos.rejilla.elementosrejilla, this.usuarioDatos.rejilla.polos).subscribe(data => {
             this.devuelto = data;
@@ -162,7 +172,7 @@ export class User2Component implements OnInit {
 
 
    getRejillasUser() {
-      //  console.log("YI-LOG - User2Component-getRejillasUser() - " + (++this.yer_cont_log).toString());
+      //  //console.log("YI-LOG - User2Component-getRejillasUser() - " + (++this.yer_cont_log).toString());
       this.aux = 0;
       this.rejillaService.backend_getRejillasUser(this.usuarioDatos.idusuario).subscribe(data => {
          this.rejillas = data;
@@ -176,7 +186,7 @@ export class User2Component implements OnInit {
 
 
    getInformacion() {
-      // console.log("YI-LOG - User2Component-getInformacion() - " + (++this.yer_cont_log).toString());
+      // //console.log("YI-LOG - User2Component-getInformacion() - " + (++this.yer_cont_log).toString());
       if (this.rejillas != null) {
          this.rejillas.forEach((rejilla) => {
             this.getPolosUsuario(rejilla);
@@ -189,7 +199,7 @@ export class User2Component implements OnInit {
 
 
    getPolosUsuario(rejilla: Rejilla) {
-      console.log("YI-LOG - User2Component-getPolosUsuario() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-getPolosUsuario() - " + (++this.yer_cont_log).toString());
       console.log("Id rejilla - " + rejilla.idrejilla);
       this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data => {
          if (Object.entries(data).length !== 0) {
@@ -214,7 +224,7 @@ export class User2Component implements OnInit {
 
 
    getElementos(idrejilla: number) {
-      //   console.log("YI-LOG - User2Component-getElementos() - " + (++this.yer_cont_log).toString());
+      //   //console.log("YI-LOG - User2Component-getElementos() - " + (++this.yer_cont_log).toString());
       this.elementosService.backend_getElementosByIdRejilla(idrejilla).subscribe(data => {
          this.resultadoRejillas.forEach(resultado => {
             if (resultado.idrejilla === idrejilla) {
@@ -228,7 +238,7 @@ export class User2Component implements OnInit {
 
 
    showRejillaCompleta(indiceEvaluaciones: number, indice: number) {
-      console.log("YI-LOG - User2Component-showRejillaCompleta() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-showRejillaCompleta() - " + (++this.yer_cont_log).toString());
       console.log(indiceEvaluaciones + " - " + indice);
       console.log(this.resultadoRejillas);
       console.log(this.resultadoRejillas[indice].isShowEvaluaciones);
@@ -237,7 +247,7 @@ export class User2Component implements OnInit {
 
 
    nuevaEvaluacionRejilla(idRejilla: number, elementosRejillaAux: Array<Elementosrejilla>, polosAux: Array<Polos>) {
-      console.log("YI-LOG - User2Component-nuevaEvaluacionRejilla() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - User2Component-nuevaEvaluacionRejilla() - " + (++this.yer_cont_log).toString());
       console.log(idRejilla);
 
       // this.usuarioDatos.rejilla.elementosrejilla = elementosRejillaAux;

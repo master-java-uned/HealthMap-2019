@@ -1,0 +1,40 @@
+
+#inicio{
+    margin-top: 100px;
+    margin-left: 80px;
+}
+#segundaRama{
+    margin-left: 40px;
+}
+#resumen{
+     font-size: 18px;
+   font-style: italic;
+}
+.elementoResumen{
+    margin-left: 20px; 
+}
+.elementoResumen2{
+    margin-left: 30px; 
+    text-decoration: underline;
+}
+.resultadoResumen{
+    margin-left: 40px; 
+}
+.principal{
+   margin-left: 20px;
+}
+.mat-icon-rtl-mirror{
+    display: inline-flex;
+    vertical-align: middle;
+    margin-left:0;
+}
+#usuarios{
+    margin-top: 40px;
+}
+.titulo{
+    font-size: 18px;
+    font-weight: bold;
+}
+#primeraRama{
+    margin-left:20px;
+}

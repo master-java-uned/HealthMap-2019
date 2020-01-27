@@ -18,7 +18,13 @@
         </ul>
     </div>
 </nav>
-<div id="inicio">
+
+<div *ngIf="bMostrarListaRejillas">
+    <app-mostrar-rejillas [listaUsuarios]="this.listaUsuarios" [bIsAdmin]="true"></app-mostrar-rejillas>
+</div>
+
+
+<!-- <div id="inicio">
     <h1>Pacientes</h1>
     <div id="usuarios" *ngFor="let usuario of usuarios;let indiceUsuario=index">
         <p class="titulo">{{usuario.nombreUsuario}}<mat-icon (click)=mostrarUsuarios(indiceUsuario)
@@ -82,4 +88,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
