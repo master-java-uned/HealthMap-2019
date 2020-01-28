@@ -9,31 +9,31 @@ const INFORMACIONREJILLAS = 'InformacionRejillas';
   providedIn: 'root'
 })
 export class InformacionInicioService {
-  rejillasCopia:Array<string>;
-  
+  rejillasCopia: Array<string>;
+
   constructor() { }
- 
+
 
   public setInformacionEvaluaciones(evaluaciones: Array<InformacionEvaluaciones>): void {
     window.sessionStorage.removeItem(INFORMACIONEVALUACIONES);
     window.sessionStorage.setItem(INFORMACIONEVALUACIONES, JSON.stringify(evaluaciones));
- }
+  }
 
 
- public getEvaluaciones(): any {
+  public getEvaluaciones(): any {
     return JSON.parse(sessionStorage.getItem(INFORMACIONEVALUACIONES));
- }
+  }
 
- public setInformacionRejillas(rejillas: any={}): void {
-  console.log(rejillas);
-  console.log(JSON.stringify( rejillas));
-   window.sessionStorage.removeItem(INFORMACIONEVALUACIONES);
-  window.sessionStorage.setItem(INFORMACIONREJILLAS,  JSON.stringify(rejillas));
-}
+  public setInformacionRejillas(rejillas: any = {}): void {
+    //console.log(rejillas);
+    //console.log(JSON.stringify( rejillas));
+    window.sessionStorage.removeItem(INFORMACIONEVALUACIONES);
+    window.sessionStorage.setItem(INFORMACIONREJILLAS, JSON.stringify(rejillas));
+  }
 
 
-public getRejillas(): any {
-  return JSON.parse(sessionStorage.getItem(INFORMACIONREJILLAS));
-  
-}
+  public getRejillas(): any {
+    return JSON.parse(sessionStorage.getItem(INFORMACIONREJILLAS));
+
+  }
 }

@@ -52,12 +52,12 @@ export class AdminComponent implements OnInit {
             this.usuarioAux.nombreUsuario = usuario.nombreUsuario;
             this.listaUsuarios.push(this.usuarioAux);
          });
-         console.log(this.listaUsuarios);
+         //console.log(this.listaUsuarios);
          this.bMostrarListaRejillas = true;
          //console.log("YI-LOG - AdminComponent-ngOnInit() - 2");
       },
          (err: any) => {
-            console.log("Error" + err);
+            //console.log("Error" + err);
          }
       );
 
@@ -69,7 +69,7 @@ export class AdminComponent implements OnInit {
       //       this.mostrarUsuario[i] = true;
       //    }
       //    this.resultadoRejillas = [];
-      //    console.log(this.usuarios);
+      //    //console.log(this.usuarios);
       //    this.getRejillas();
       //    this.bMostrarListaRejillas = true;
       //    //console.log("YI-LOG - AdminComponent-ngOnInit() - 2");
@@ -131,9 +131,9 @@ export class AdminComponent implements OnInit {
                this.nombreUsuario = usuario.nombreUsuario;
             }
          })
-         console.log(this.nombreUsuario);
+         //console.log(this.nombreUsuario);
          this.resultadoRejillas[this.aux] = new InformacionRejilla(true, this.nombreUsuario, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
-         console.log(this.resultadoRejillas[this.aux])
+         //console.log(this.resultadoRejillas[this.aux])
          this.aux++;
       });
    }

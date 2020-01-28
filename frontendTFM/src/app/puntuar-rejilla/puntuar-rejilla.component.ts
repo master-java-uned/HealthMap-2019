@@ -35,9 +35,9 @@ export class PuntuarRejillaComponent implements OnInit {
       this.polosUsuario = this.constructosService.sesion_getConstructosUsuario();
       //this.idRejilla = this.rejillaService.sesion_getRejillaId();
 
-      console.log(this.idRejilla);
-      console.log(this.polosUsuario);
-      console.log(this.elementosUsuario);
+      //console.log(this.idRejilla);
+      //console.log(this.polosUsuario);
+      //console.log(this.elementosUsuario);
 
       if (modo_test) {
          for (var i: number = 0; i < 14; i++) {
@@ -53,10 +53,10 @@ export class PuntuarRejillaComponent implements OnInit {
    guardarPuntuaciones(): void {
       //console.log("YI-LOG - PuntuarRejillaComponent-guardarPuntuaciones()");
       this.idRejilla = this.rejillaService.sesion_getRejillaId();
-      console.log(this.idRejilla);
+      //console.log(this.idRejilla);
       this.puntuacionesService.backend_insertEvaluacion(this.idRejilla).subscribe(data => {
          this.idEvaluacion = data
-         console.log(this.idEvaluacion);
+         //console.log(this.idEvaluacion);
          for (var i: number = 0; i < 14; i++) {
             this.ordenConstructosFinales[i] = new OrdenConstructos(0, this.idEvaluacion, i + 1, this.ordenConstructos[i]);
             for (var j: number = 0; j < 12; j++) {

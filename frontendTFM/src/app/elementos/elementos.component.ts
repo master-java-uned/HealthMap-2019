@@ -32,7 +32,7 @@ export class ElementosComponent implements OnInit {
       ////console.log("YI-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
       this.rejillaService.backend_getElementos().subscribe(data => {
          this.usuarioDatos.rejilla.elementos = data;
-         // console.log(this.usuarioDatos.rejilla.elementos);
+         // //console.log(this.usuarioDatos.rejilla.elementos);
          this.rellenar_modo_test();
          this.rejillaService.sesion_setElementos(this.usuarioDatos.rejilla.elementos);
       },
@@ -61,8 +61,8 @@ export class ElementosComponent implements OnInit {
       //    Lo que ella llama this.usuarioDatos.rejilla.elementos.descripcionUsuario2 es en realidad el campo RolElemento de la tabla elementosrejillas
       //    Aqui ya tiene que venir el campo IdRejilla de la elementosrejillas rellenado. El campo "Yo actual" se coge de la tabla elementos (campo descripcion)
       //YKK UsuarioRejilla tiene que usar tipos de datos que no sean Any
-      // console.log(this.usuarioDatos.rejilla.elementos);
-      // console.log(this.usuarioDatos.rejilla.elementos[0].id);
+      // //console.log(this.usuarioDatos.rejilla.elementos);
+      // //console.log(this.usuarioDatos.rejilla.elementos[0].id);
       // this.usuarioDatos.rejilla.elementosUsuario[0] = new ElementosUsuario("Yo actual", null, this.usuarioDatos.rejilla.elementos.id[0]);
       // this.usuarioDatos.rejilla.elementosUsuario[1] = new ElementosUsuario("Yo dentro de dos años", null, this.usuarioDatos.rejilla.elementos.id[1]);
       // this.usuarioDatos.rejilla.elementosUsuario[2] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre2, this.usuarioDatos.rejilla.elementos.descripcionUsuario2, this.usuarioDatos.rejilla.elementos.id[2]);

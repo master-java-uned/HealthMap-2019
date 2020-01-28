@@ -61,15 +61,15 @@ export class User2Component implements OnInit {
       this.listaUsuarios.push(usuarioAux);
 
       this.clearRejilla();
-      console.log(this.resultadoRejillas);
+      //console.log(this.resultadoRejillas);
       this.getRejillasUser();
       if (this.rejillaService.sesion_getRejillaId() != null) {
          this.bMostrarElementos = true;
          this.usuarioDatos.rejilla.idrejilla = this.rejillaService.sesion_getRejillaId();
          this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementos();
-         console.log(this.usuarioDatos.rejilla.idrejilla);
+         //console.log(this.usuarioDatos.rejilla.idrejilla);
       }
-      console.log(this.resultadoRejillas);
+      //console.log(this.resultadoRejillas);
    }
 
 
@@ -119,8 +119,8 @@ export class User2Component implements OnInit {
       this.usuarioDatos.rejilla = new UsuarioRejilla;
       this.usuarioDatos.rejilla.elementos = elementos_temp;
       //this.usuarioDatos.rejilla.elementos = this.rejillaService.sesion_getElementos();
-      // console.log(this.usuarioDatos.rejilla.elementos);
-      // console.log(this.usuarioDatos.rejilla.idrejilla);
+      // //console.log(this.usuarioDatos.rejilla.elementos);
+      // //console.log(this.usuarioDatos.rejilla.idrejilla);
    }
 
 
@@ -142,7 +142,7 @@ export class User2Component implements OnInit {
 
    obtenerSalidaElementosComponent(event): void {
       //console.log("YI-LOG - User2Component-obtenerSalidaElementosComponent() - " + (++this.yer_cont_log).toString() + " - " + event.bMostrarConstructos);
-      console.log(event.elementosUsuario);
+      //console.log(event.elementosUsuario);
       this.usuarioDatos.rejilla.elementosrejilla = event.elementosUsuario;
       this.bMostrarConstructos = event.bMostrarConstructos;
       if (this.bMostrarConstructos) {
@@ -162,7 +162,7 @@ export class User2Component implements OnInit {
             this.devuelto = data;
             this.usuarioDatos.rejilla.idrejilla = this.devuelto;
             this.rejillaService.sesion_setRejillaId(this.usuarioDatos.rejilla.idrejilla);
-            //            console.log(this.usuarioDatos.rejilla.idrejilla);
+            //            //console.log(this.usuarioDatos.rejilla.idrejilla);
 
          },
          );
@@ -179,7 +179,7 @@ export class User2Component implements OnInit {
          this.getInformacion();
       },
          // (err: any) => {
-         ///     console.log(err);
+         ///     //console.log(err);
          // }
       );
    }
@@ -200,7 +200,7 @@ export class User2Component implements OnInit {
 
    getPolosUsuario(rejilla: Rejilla) {
       //console.log("YI-LOG - User2Component-getPolosUsuario() - " + (++this.yer_cont_log).toString());
-      console.log("Id rejilla - " + rejilla.idrejilla);
+      //console.log("Id rejilla - " + rejilla.idrejilla);
       this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data => {
          if (Object.entries(data).length !== 0) {
             this.evaluaciones = data;
@@ -239,27 +239,27 @@ export class User2Component implements OnInit {
 
    showRejillaCompleta(indiceEvaluaciones: number, indice: number) {
       //console.log("YI-LOG - User2Component-showRejillaCompleta() - " + (++this.yer_cont_log).toString());
-      console.log(indiceEvaluaciones + " - " + indice);
-      console.log(this.resultadoRejillas);
-      console.log(this.resultadoRejillas[indice].isShowEvaluaciones);
+      //console.log(indiceEvaluaciones + " - " + indice);
+      //console.log(this.resultadoRejillas);
+      //console.log(this.resultadoRejillas[indice].isShowEvaluaciones);
       this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones] = !this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones];
    }
 
 
    nuevaEvaluacionRejilla(idRejilla: number, elementosRejillaAux: Array<Elementosrejilla>, polosAux: Array<Polos>) {
       //console.log("YI-LOG - User2Component-nuevaEvaluacionRejilla() - " + (++this.yer_cont_log).toString());
-      console.log(idRejilla);
+      //console.log(idRejilla);
 
       // this.usuarioDatos.rejilla.elementosrejilla = elementosRejillaAux;
       // this.usuarioDatos.rejilla.polos = polosAux;
-      // console.log(this.usuarioDatos.rejilla.elementosrejilla);
-      // console.log(this.usuarioDatos.rejilla.polos);
+      // //console.log(this.usuarioDatos.rejilla.elementosrejilla);
+      // //console.log(this.usuarioDatos.rejilla.polos);
 
       this.rejillaService.sesion_setRejillaId(idRejilla);
       this.constructosService.sesion_setElementosUsuario(elementosRejillaAux);
       this.constructosService.sesion_setConstructosUsuario(polosAux);
-      console.log(elementosRejillaAux);
-      console.log(polosAux);
+      //console.log(elementosRejillaAux);
+      //console.log(polosAux);
 
       this.bMostrarListaRejillas = false;
       this.bMostrarElementos = false;

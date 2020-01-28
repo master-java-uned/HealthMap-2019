@@ -37,7 +37,7 @@ export class MostrarRejillasComponent implements OnInit {
    idEvaluacion: number;
    nombreUsuario: string;
    mostrarUsuario: Array<boolean> = [];
-   bMostrarListaRejillas = true;
+   bMostrarListaRejillas = false;
    bPuntuarRejilla = false;
 
 
@@ -51,15 +51,24 @@ export class MostrarRejillasComponent implements OnInit {
       //this.usuarios = this.listaUsuarios;
       //console.log("YI-LOG - MostrarRejillasComponent-ngOnInit() - 1");
       if (this.listaUsuarios != null) {
-         console.log(this.listaUsuarios);
+         //console.log(this.listaUsuarios);
          //console.log("YI-LOG - MostrarRejillasComponent-ngOnInit() - 2");
          for (let i = 0; i < this.listaUsuarios.length; i++) {
             this.mostrarUsuario[i] = true;
          }
+         //Inicializamos las variables
+         this.rejillas = [];
+         this.evaluaciones = [];
+         this.mostrarEvaluaciones = [];
+         this.polosInicio = [];
          this.resultadoRejillas = [];
          this.getRejillas();
-         console.log(this.mostrarUsuario);
-         //console.log("YI-LOG - MostrarRejillasComponent-ngOnInit() - 3");
+         //console.log(this.mostrarUsuario);
+         //console.log("YI-LOG - MostrarRejillasComponent-ngOnInit() - 3");         
+      }
+      else {
+         this.bMostrarListaRejillas = false;
+         this.bPuntuarRejilla = false;
       }
    }
 
@@ -67,21 +76,24 @@ export class MostrarRejillasComponent implements OnInit {
 
    getRejillas() {
       //console.log("YI-LOG - MostrarRejillasComponent-getRejillas() - 1");
-      console.log(this.listaUsuarios);
+      //console.log(this.listaUsuarios);
       this.aux = 0;
       this.listaUsuarios.forEach((usuario) => {
          //console.log("YI-LOG - MostrarRejillasComponent-getRejillas() - 2");
-         console.log(usuario);
+         //console.log(usuario);
          this.rejillaService.backend_getRejillasUser(usuario.idusuario).subscribe(data => {
             this.rejillas = data;
-            console.log(this.rejillas);
+            //console.log(this.rejillas);            
             this.getInformacion();
+            //console.log(this.resultadoRejillas);
+            console.log(this.aux);
+            this.bMostrarListaRejillas = true;
          });
       })
 
       // for (var i = 0; i < this.listaUsuarios.length; i++) {
       //    //console.log("YI-LOG - MostrarRejillasComponent-getRejillas() - 2");
-      //    console.log(this.listaUsuarios[i]);
+      //    //console.log(this.listaUsuarios[i]);
       //    this.rejillaService.backend_getRejillasUser(this.listaUsuarios[i].idusuario).subscribe(data => {
       //       this.rejillas = data;
       //       this.getInformacion();
@@ -95,8 +107,10 @@ export class MostrarRejillasComponent implements OnInit {
       //console.log("YI-LOG - MostrarRejillasComponent-getInformacion() - ");
       this.rejillas.forEach((rejilla) => {
          this.getPolosUsuario(rejilla);
-      })
-      this.rejillas.forEach((rejilla) => {
+         console.log(rejilla.idrejilla);
+         console.log(this.resultadoRejillas);
+         // })
+         // this.rejillas.forEach((rejilla) => {
          this.getElementos(rejilla.idrejilla);
       })
    }
@@ -104,47 +118,70 @@ export class MostrarRejillasComponent implements OnInit {
 
 
    getPolosUsuario(rejilla: Rejilla) {
-      //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - ");
-      this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data => {
-         if (Object.entries(data).length !== 0) {
-            this.evaluaciones = data;
+      //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 1");
+      this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data1 => {
+         if (Object.entries(data1).length !== 0) {
+            this.evaluaciones = data1;
+            //console.log(this.evaluaciones);
+            //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 2");
             for (let i = 0; i < this.evaluaciones.length; i++) {
                this.mostrarEvaluaciones[i] = false;
             }
          }
          else {
-            this.evaluaciones = null;
+            //this.evaluaciones = null;
+            this.evaluaciones = [];
             this.mostrarEvaluaciones = [];
          }
+         //console.log(rejilla.idrejilla);
+         //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 3");
+         this.constructosService.backend_getPolosUsuario(rejilla.idrejilla).subscribe(data2 => {
+            this.polosInicio = data2;
+            // this.listaUsuarios.forEach((usuario) => {
+            //    //if (rejilla.idpaciente === usuario.id) {
+            //    if (rejilla.idpaciente == Number(usuario.idusuario)) {
+            //       this.nombreUsuario = usuario.nombreUsuario;
+            //    }
+            // })
+            //console.log(this.nombreUsuario);
+            //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 4");
+            //this.resultadoRejillas[this.aux] = new InformacionRejilla(true, this.nombreUsuario, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
+            //this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
+            this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, data2, data1, true, true, this.mostrarEvaluaciones);
+            //console.log(this.resultadoRejillas[this.aux])
+            //console.log(this.aux);
+            this.aux++;
+         });
       },
       );
-      this.constructosService.backend_getPolosUsuario(rejilla.idrejilla).subscribe(data => {
-         this.polosInicio = data;
-         this.listaUsuarios.forEach((usuario) => {
-            //if (rejilla.idpaciente === usuario.id) {
-            if (rejilla.idpaciente == Number(usuario.idusuario)) {
-               this.nombreUsuario = usuario.nombreUsuario;
-            }
-         })
-         console.log(this.nombreUsuario);
-         this.resultadoRejillas[this.aux] = new InformacionRejilla(true, this.nombreUsuario, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
-         console.log(this.resultadoRejillas[this.aux])
-         this.aux++;
-      });
+      // this.constructosService.backend_getPolosUsuario(rejilla.idrejilla).subscribe(data => {
+      //    this.polosInicio = data;
+      //    this.listaUsuarios.forEach((usuario) => {
+      //       //if (rejilla.idpaciente === usuario.id) {
+      //       if (rejilla.idpaciente == Number(usuario.idusuario)) {
+      //          this.nombreUsuario = usuario.nombreUsuario;
+      //       }
+      //    })
+      //    //console.log(this.nombreUsuario);
+      //    //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 3");
+      //    this.resultadoRejillas[this.aux] = new InformacionRejilla(true, this.nombreUsuario, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
+      //    //console.log(this.resultadoRejillas[this.aux])
+      //    this.aux++;
+      // });
    }
 
 
 
    getElementos(idrejilla: number) {
-      console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 1");
+      //console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 1");
       this.elementosService.backend_getElementosByIdRejilla(idrejilla).subscribe(data => {
          this.resultadoRejillas.forEach(resultado => {
             if (resultado.idrejilla === idrejilla) {
                resultado.elementos = data;
-               console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 2");
+               //console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 2");
             }
          })
-         console.log(this.resultadoRejillas);
+         //console.log(this.resultadoRejillas);
       },
       );
    }
@@ -197,18 +234,18 @@ export class MostrarRejillasComponent implements OnInit {
 
    nuevaEvaluacionRejilla(idRejilla: number, elementosRejillaAux: Array<Elementosrejilla>, polosAux: Array<Polos>) {
       //console.log("YI-LOG - MostrarRejillasComponent-nuevaEvaluacionRejilla() - ");
-      console.log(idRejilla);
+      //console.log(idRejilla);
 
       // this.usuarioDatos.rejilla.elementosrejilla = elementosRejillaAux;
       // this.usuarioDatos.rejilla.polos = polosAux;
-      // console.log(this.usuarioDatos.rejilla.elementosrejilla);
-      // console.log(this.usuarioDatos.rejilla.polos);
+      // //console.log(this.usuarioDatos.rejilla.elementosrejilla);
+      // //console.log(this.usuarioDatos.rejilla.polos);
 
       this.rejillaService.sesion_setRejillaId(idRejilla);
       this.constructosService.sesion_setElementosUsuario(elementosRejillaAux);
       this.constructosService.sesion_setConstructosUsuario(polosAux);
-      console.log(elementosRejillaAux);
-      console.log(polosAux);
+      //console.log(elementosRejillaAux);
+      //console.log(polosAux);
 
       this.bMostrarListaRejillas = false;
       this.bPuntuarRejilla = true;

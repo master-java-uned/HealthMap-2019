@@ -30,9 +30,12 @@ export class LoginComponent implements OnInit {
       }
    }
 
+
    onLogin(): void {
       this.usuario = new LoginUsuario(this.form.nombreUsuario, this.form.password);
       this.authService.backend_login(this.usuario).subscribe(data => {
+         //Al loguearnos limpiamos las variables de sesión para asegurarnos que no se queda basura en memoria
+         window.sessionStorage.clear()
          this.tokenService.sesion_setToken(data.token);
          this.tokenService.sesion_setUserName(data.nombreUsuario);
          this.tokenService.sesion_setAuthorities(data.authorities);
@@ -48,5 +51,4 @@ export class LoginComponent implements OnInit {
          }
       );
    }
-
 }

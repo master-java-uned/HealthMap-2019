@@ -48,7 +48,7 @@
                             <p class="elementoResumen">Evaluaciones: </p>
                             <div *ngFor="let evaluacion of info.evaluaciones; let indiceEvaluaciones=index">
                                 <p (click)=showRejillaCompleta(indiceEvaluaciones,indice) class="resultadoResumen">
-                                    {{evaluacion.idevaluacion}} </p>
+                                    ID evaluación: {{evaluacion.idevaluacion}} </p>
                                 <div *ngIf="info.isShowEvaluaciones[indiceEvaluaciones]">
                                     <app-mostrar-puntuaciones [idEvaluacion]="evaluacion.idevaluacion"
                                         [elementosInicio]="info.elementos" [polosInicio]="info.constructos">

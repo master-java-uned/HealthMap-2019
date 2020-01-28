@@ -31,20 +31,20 @@ export class RejillaService {
       var resultado: Observable<any>;
       resultado = this.httpClient.post<any>(this.authURL + 'nueva', idUsuario, cabecera);
       //console.log("YI-LOG - RejillaService-backend_nuevaRejilla()");
-      console.log(resultado);
+      //console.log(resultado);
       return resultado;
    }
 
 
    public backend_nuevaRejilla2(idusuario: bigint, elementosrejilla: Array<Elementosrejilla>, polos: Array<Polos>): Observable<any> {
       //console.log("YI-LOG - RejillaService-backend_nuevaRejilla2()");
-      console.log(idusuario);
-      console.log(elementosrejilla);
-      console.log(polos);
+      //console.log(idusuario);
+      //console.log(elementosrejilla);
+      //console.log(polos);
       //var resultado: Observable<number>;
       var resultado: Observable<any>;
       resultado = this.httpClient.post<any>(this.authURL + 'nuevaRejilla', { "idusuario": idusuario, "elementosrejilla": elementosrejilla, "polos": polos }, cabecera);
-      console.log(resultado);
+      //console.log(resultado);
       return resultado;
    }
 
@@ -66,7 +66,7 @@ export class RejillaService {
 
 
    public sesion_getRejillaId(): any {
-      console.log(sessionStorage.getItem(REJILLA_KEY));
+      //console.log(sessionStorage.getItem(REJILLA_KEY));
       return JSON.parse(sessionStorage.getItem(REJILLA_KEY));
    }
 

@@ -75,13 +75,13 @@ export class ConstructosComponent implements OnInit {
       //console.log(this.usuarioRejilla.constructos);
       //console.log(this.usuarioRejilla.poloIzquierdo);
       //console.log(this.usuarioRejilla.poloDerecho);
-      //   console.log(this.usuarioRejilla.polos);
+      //   //console.log(this.usuarioRejilla.polos);
    }
 
 
    guardarConstructos() {
       // //console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
-      // console.log(this.usuarioRejilla.polos);
+      // //console.log(this.usuarioRejilla.polos);
       this.constructosService.sesion_setConstructosUsuario(this.usuarioRejilla.polos);
       this.constructosService.sesion_setElementosUsuario(this.usuarioRejilla.elementosrejilla);
       //ykk - Enviar constructos y elementos al back

@@ -27,15 +27,15 @@ export class MostrarPuntuacionesComponent implements OnInit {
 
 
    ngOnInit() {
-      console.log("YI-LOG - MostrarPuntuacionesComponent-ngOnInit() - 1");
-      console.log(this.idEvaluacion);
-      console.log(this.polosInicio);
-      console.log(this.elementosInicio);
+      //console.log("YI-LOG - MostrarPuntuacionesComponent-ngOnInit() - 1");
+      //console.log(this.idEvaluacion);
+      //console.log(this.polosInicio);
+      //console.log(this.elementosInicio);
       for (var i: number = 0; i < 14; i++) {
          this.puntuaciones[i] = [];
       }
       this.getPuntuaciones();
-      console.log("YI-LOG - MostrarPuntuacionesComponent-ngOnInit() - 2");
+      //console.log("YI-LOG - MostrarPuntuacionesComponent-ngOnInit() - 2");
    }
 
 
@@ -59,11 +59,13 @@ export class MostrarPuntuacionesComponent implements OnInit {
 
 
    getOrden(idEvaluacion: number) {
-      console.log("YI-LOG - MostrarPuntuacionesComponent-getOrden() - 1");
-      console.log(idEvaluacion);
-      this.puntuacionesService.backend_getOrden(idEvaluacion).subscribe(data => {
-         this.ordenConstructos = data;
-         console.log("YI-LOG - MostrarPuntuacionesComponent-getOrden() - 2");
-      })
+      //console.log("YI-LOG - MostrarPuntuacionesComponent-getOrden() - 1");
+      //console.log(idEvaluacion);
+      this.puntuacionesService.backend_getOrden(idEvaluacion).subscribe(
+         data => {
+            this.ordenConstructos = data;
+            //console.log("YI-LOG - MostrarPuntuacionesComponent-getOrden() - 2");
+         }
+      )
    }
 }
