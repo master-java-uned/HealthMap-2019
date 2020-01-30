@@ -1,32 +1,34 @@
 <div class="col-12 col-md-10">
-    <div class="table-responsive">
-       <form name="form" #f="ngForm" novalidate (ngSubmit)="guardarPuntuaciones()">  
-        <table class="table table-bordered table-hover table-sm" id="resultadoRejilla" >
-        <thead>
-          <tr>
-            <th scope="col">Orden</th>
-            <th scope="col"></th>
-            <th scope="col">Polo izquierdo</th>
-            <th scope="col">Polo derecho</th>
-            <th scope="col" *ngFor='let num of [0,1,2,3,4,5,6,7,8,9,10,11]' ><p class="vertical">{{elementosUsuario[num].nombreelemento}}</p></th>
-          </tr>
-        </thead>
-        <tbody>
-           
-                   
-         <tr *ngFor='let num1 of [0,1,2,3,4,5,6,7,8,9,10,11,12,13]'>
-            <td><input type="text" class="form-control" name="ordenConstructos+{{num1}}" [(ngModel)]="ordenConstructos[num1]"
-                autocomplete="off" required></td>
-            <td scope="row">{{num1+1}}</td>
-            <td>{{polosUsuario[num1].txtpoloizq}}</td>
-            <td>{{polosUsuario[num1].txtpoloder}}</td>
-          <td  *ngFor='let aux of [0,1,2,3,4,5,6,7,8,9,10,11]'><input type="text" class="form-control" name="puntuacion+{{num1}}+{{aux}}" [(ngModel)]="puntuaciones[num1][aux]"
-                    autocomplete="off" required></td>
-         </tr>
-          
-        </tbody>
-      </table>
-     <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar Puntuaciones</button>
-          </form>
-    </div>
-    </div>
+   <div class="table-responsive">
+      <form name="form" #f="ngForm" novalidate (ngSubmit)="guardarPuntuaciones()">
+         <table class="table table-bordered table-hover table-sm" id="resultadoRejilla">
+            <thead>
+               <tr>
+                  <th scope="col">Orden</th>
+                  <th scope="col"></th>
+                  <th scope="col">Polo izquierdo</th>
+                  <th scope="col">Polo derecho</th>
+                  <th scope="col" *ngFor='let num of [0,1,2,3,4,5,6,7,8,9,10,11]'>
+                     <p class="vertical">{{elementosUsuario[num].nombreelemento}}</p>
+                  </th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor='let num1 of [0,1,2,3,4,5,6,7,8,9,10,11,12,13]'>
+                  <td><input type="text" class="form-control" name="ordenConstructos+{{num1}}"
+                        [(ngModel)]="ordenConstructos[num1]" autocomplete="off" required></td>
+                  <td scope="row">{{num1+1}}</td>
+                  <td>{{polosUsuario[num1].txtpoloizq}}</td>
+                  <td>{{polosUsuario[num1].txtpoloder}}</td>
+                  <td *ngFor='let aux of [0,1,2,3,4,5,6,7,8,9,10,11]'><input type="text" class="form-control"
+                        name="puntuacion+{{num1}}+{{aux}}" [(ngModel)]="puntuaciones[num1][aux]" autocomplete="off"
+                        required>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+         <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar Puntuaciones</button>
+         <button class="btn btn-dark" style="margin: 10px">Cancelar</button>
+      </form>
+   </div>
+</div>

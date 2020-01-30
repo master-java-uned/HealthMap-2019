@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Constructos } from '../models/constructos';
 import { Polos } from '../models/polos';
 import { UsuarioRejilla } from '../models/usuario-rejilla';
 import { RejillaService } from '../services/rejilla.service';
@@ -31,15 +30,15 @@ export class ConstructosComponent implements OnInit {
       ////console.log("YI-LOG - ConstructosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
       this.rejillaService.backend_getConstructos().subscribe(data => {
          ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-data - " + (++this.yer_cont_log).toString());
-         //console.log(data);
+         //console.log("YI-LOGdata);
          this.usuarioRejilla.constructos = data;
          this.rejillaService.sesion_setConstructos(this.usuarioRejilla.constructos);
          ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-elementosUsuario - " + (++this.yer_cont_log).toString());
-         //console.log(this.usuarioRejilla.elementosrejilla);
+         //console.log("YI-LOGthis.usuarioRejilla.elementosrejilla);
          ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-constructos - " + (++this.yer_cont_log).toString());
-         //console.log(this.usuarioRejilla.constructos);
+         //console.log("YI-LOGthis.usuarioRejilla.constructos);
          ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-idRejilla - " + (++this.yer_cont_log).toString());
-         //console.log(this.usuarioRejilla.idrejilla);
+         //console.log("YI-LOGthis.usuarioRejilla.idrejilla);
          this.inicializarContructos();
          this.bConstructosIniciados = true;
       },
@@ -72,16 +71,16 @@ export class ConstructosComponent implements OnInit {
          }
          this.usuarioRejilla.polos[i] = new Polos(this.usuarioRejilla.idrejilla, i + 1, this.usuarioRejilla.poloIzquierdo[i], this.usuarioRejilla.poloDerecho[i]);
       }
-      //console.log(this.usuarioRejilla.constructos);
-      //console.log(this.usuarioRejilla.poloIzquierdo);
-      //console.log(this.usuarioRejilla.poloDerecho);
-      //   //console.log(this.usuarioRejilla.polos);
+      //console.log("YI-LOGthis.usuarioRejilla.constructos);
+      //console.log("YI-LOGthis.usuarioRejilla.poloIzquierdo);
+      //console.log("YI-LOGthis.usuarioRejilla.poloDerecho);
+      //   //console.log("YI-LOGthis.usuarioRejilla.polos);
    }
 
 
    guardarConstructos() {
-      // //console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
-      // //console.log(this.usuarioRejilla.polos);
+      //console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOGthis.usuarioRejilla.polos);
       this.constructosService.sesion_setConstructosUsuario(this.usuarioRejilla.polos);
       this.constructosService.sesion_setElementosUsuario(this.usuarioRejilla.elementosrejilla);
       //ykk - Enviar constructos y elementos al back

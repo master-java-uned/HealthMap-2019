@@ -25,8 +25,8 @@ export class InformacionInicioService {
   }
 
   public setInformacionRejillas(rejillas: any = {}): void {
-    //console.log(rejillas);
-    //console.log(JSON.stringify( rejillas));
+    //console.log("YI-LOGrejillas);
+    //console.log("YI-LOGJSON.stringify( rejillas));
     window.sessionStorage.removeItem(INFORMACIONEVALUACIONES);
     window.sessionStorage.setItem(INFORMACIONREJILLAS, JSON.stringify(rejillas));
   }

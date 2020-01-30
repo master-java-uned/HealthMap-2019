@@ -24,7 +24,7 @@ export class ElementosComponent implements OnInit {
 
    ngOnInit() {
       ////console.log("YI-LOG - ElementosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
-      //console.log(this.usuarioDatos.rejilla.elementos);
+      //console.log("YI-LOGthis.usuarioDatos.rejilla.elementos);
       this.inicializarRejilla();
    }
 
@@ -32,7 +32,7 @@ export class ElementosComponent implements OnInit {
       ////console.log("YI-LOG - ElementosComponent-inicializarRejilla() - " + (++this.yer_cont_log).toString());
       this.rejillaService.backend_getElementos().subscribe(data => {
          this.usuarioDatos.rejilla.elementos = data;
-         // //console.log(this.usuarioDatos.rejilla.elementos);
+         //console.log("YI-LOGthis.usuarioDatos.rejilla.elementos);
          this.rellenar_modo_test();
          this.rejillaService.sesion_setElementos(this.usuarioDatos.rejilla.elementos);
       },
@@ -41,8 +41,8 @@ export class ElementosComponent implements OnInit {
 
 
    guardar(): void {
-      // //console.log("YI-LOG - ElementosComponent-guardar() - " + (++this.yer_cont_log).toString());
-      //console.log(this.usuarioDatos.rejilla.elementos);
+      //console.log("YI-LOG - ElementosComponent-guardar() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOGthis.usuarioDatos.rejilla.elementos);
       var aux: Elementos = this.usuarioDatos.rejilla.elementos[0];
       for (var i = 0; i <= 11; i++) {
          this.usuarioDatos.rejilla.elementosrejilla[i].idelemento = this.usuarioDatos.rejilla.elementos[i].idelemento;
@@ -54,15 +54,15 @@ export class ElementosComponent implements OnInit {
             this.usuarioDatos.rejilla.elementosrejilla[i].rolelemento = null;
          }
       }
-      //console.log(this.usuarioDatos.rejilla.elementosrejilla);
+      //console.log("YI-LOGthis.usuarioDatos.rejilla.elementosrejilla);
 
       //ykk
       //YKK esto hay que cambiarlo porque está mal, se está liando entre elementos y elementosrejillas. elementosrejillas tiene que tener el id.
       //    Lo que ella llama this.usuarioDatos.rejilla.elementos.descripcionUsuario2 es en realidad el campo RolElemento de la tabla elementosrejillas
       //    Aqui ya tiene que venir el campo IdRejilla de la elementosrejillas rellenado. El campo "Yo actual" se coge de la tabla elementos (campo descripcion)
       //YKK UsuarioRejilla tiene que usar tipos de datos que no sean Any
-      // //console.log(this.usuarioDatos.rejilla.elementos);
-      // //console.log(this.usuarioDatos.rejilla.elementos[0].id);
+      //console.log("YI-LOGthis.usuarioDatos.rejilla.elementos);
+      //console.log("YI-LOGthis.usuarioDatos.rejilla.elementos[0].id);
       // this.usuarioDatos.rejilla.elementosUsuario[0] = new ElementosUsuario("Yo actual", null, this.usuarioDatos.rejilla.elementos.id[0]);
       // this.usuarioDatos.rejilla.elementosUsuario[1] = new ElementosUsuario("Yo dentro de dos años", null, this.usuarioDatos.rejilla.elementos.id[1]);
       // this.usuarioDatos.rejilla.elementosUsuario[2] = new ElementosUsuario(this.usuarioDatos.rejilla.elementos.nombre2, this.usuarioDatos.rejilla.elementos.descripcionUsuario2, this.usuarioDatos.rejilla.elementos.id[2]);
@@ -83,7 +83,7 @@ export class ElementosComponent implements OnInit {
 
    //Para hacer pruebas, usamos este método que rellena todo de forma automática
    rellenar_modo_test(): void {
-      // //console.log("YI-LOG - ElementosComponent-rellenar_modo_test() - " + (++this.yer_cont_log).toString());
+      //console.log("YI-LOG - ElementosComponent-rellenar_modo_test() - " + (++this.yer_cont_log).toString());
       //Si no se hace esto da un error de inicialización del objeto
       this.usuarioDatos.rejilla.elementosrejilla = new Array;
       if (this.bModo_test) {
@@ -97,6 +97,6 @@ export class ElementosComponent implements OnInit {
             this.usuarioDatos.rejilla.elementosrejilla[i] = new Elementosrejilla(i, this.usuarioDatos.rejilla.idrejilla, 'nombre_' + i, 'rol_desc_' + i);
          }
       }
-      //console.log(this.usuarioDatos.rejilla.elementosrejilla);
+      //console.log("YI-LOGthis.usuarioDatos.rejilla.elementosrejilla);
    }
 }

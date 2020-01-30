@@ -64,7 +64,7 @@
 </div>
 
 <div *ngIf="bPuntuarRejilla">
-    <app-puntuar-rejilla></app-puntuar-rejilla>
+    <app-puntuar-rejilla (emitterOutputComponente)="obtenerSalidaPuntuarRejillaComponent($event)"></app-puntuar-rejilla>
 </div>
 
 

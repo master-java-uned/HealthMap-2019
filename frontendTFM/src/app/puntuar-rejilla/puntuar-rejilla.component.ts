@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Elementosrejilla } from '../models/elementosrejilla';
 import { Polos } from '../models/polos'
 import { ConstructosService } from '../services/constructos.service';
@@ -9,6 +9,7 @@ import { OrdenConstructos } from '../models/orden-constructos';
 import { Router } from '@angular/router';
 
 
+
 const modo_test: boolean = true;
 @Component({
    selector: 'app-puntuar-rejilla',
@@ -16,6 +17,7 @@ const modo_test: boolean = true;
    styleUrls: ['./puntuar-rejilla.component.css']
 })
 export class PuntuarRejillaComponent implements OnInit {
+   @Output() emitterOutputComponente = new EventEmitter();
    elementosUsuario: Array<Elementosrejilla> = [];
    polosUsuario: Array<Polos> = [];
    puntuaciones: number[][] = [[], []];
@@ -27,6 +29,8 @@ export class PuntuarRejillaComponent implements OnInit {
    k: number = 0;
    constructor(private constructosService: ConstructosService, private puntuacionesService: PuntuacionesService, private rejillaService: RejillaService, private router: Router) { }
 
+
+
    ngOnInit() {
       for (var i: number = 0; i < 14; i++) {
          this.puntuaciones[i] = [];
@@ -35,9 +39,9 @@ export class PuntuarRejillaComponent implements OnInit {
       this.polosUsuario = this.constructosService.sesion_getConstructosUsuario();
       //this.idRejilla = this.rejillaService.sesion_getRejillaId();
 
-      //console.log(this.idRejilla);
-      //console.log(this.polosUsuario);
-      //console.log(this.elementosUsuario);
+      //console.log("YI-LOGthis.idRejilla);
+      //console.log("YI-LOGthis.polosUsuario);
+      //console.log("YI-LOGthis.elementosUsuario);
 
       if (modo_test) {
          for (var i: number = 0; i < 14; i++) {
@@ -50,13 +54,14 @@ export class PuntuarRejillaComponent implements OnInit {
    }
 
 
+
    guardarPuntuaciones(): void {
       //console.log("YI-LOG - PuntuarRejillaComponent-guardarPuntuaciones()");
       this.idRejilla = this.rejillaService.sesion_getRejillaId();
-      //console.log(this.idRejilla);
+      //console.log("YI-LOGthis.idRejilla);
       this.puntuacionesService.backend_insertEvaluacion(this.idRejilla).subscribe(data => {
          this.idEvaluacion = data
-         //console.log(this.idEvaluacion);
+         //console.log("YI-LOGthis.idEvaluacion);
          for (var i: number = 0; i < 14; i++) {
             this.ordenConstructosFinales[i] = new OrdenConstructos(0, this.idEvaluacion, i + 1, this.ordenConstructos[i]);
             for (var j: number = 0; j < 12; j++) {
@@ -65,19 +70,22 @@ export class PuntuarRejillaComponent implements OnInit {
             }
          }
          this.insertPuntuaciones();
+         this.emitterOutputComponente.emit({ bComponenteTerminado: true });
       },
       );
-      this.router.navigate(['menu']);
    }
+
 
 
    insertPuntuaciones(): void {
       this.puntuacionesService.backend_insertPuntuaciones(this.puntuacionesFinales).subscribe(data => {
          this.idEvaluacion = data;
+         this.insertOrdenConstructos();
       },
       );
-      this.insertOrdenConstructos();
+      //this.insertOrdenConstructos();
    }
+
 
 
    insertOrdenConstructos(): void {
