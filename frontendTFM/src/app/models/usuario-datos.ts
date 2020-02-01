@@ -4,9 +4,6 @@ export class UsuarioDatos {
    idusuario: bigint;
    nombreUsuario: string;
    rejilla: UsuarioRejilla;
-   // idRejilla: number;
-   // elementos: any = {};
-   // elementosUsuario: any = {};
 
 
    constructor() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Elementosrejilla } from '../models/elementosrejilla';
 import { Polos } from '../models/polos'
 import { ConstructosService } from '../services/constructos.service';
@@ -9,14 +9,15 @@ import { OrdenConstructos } from '../models/orden-constructos';
 import { Router } from '@angular/router';
 
 
-
-const modo_test: boolean = true;
 @Component({
    selector: 'app-puntuar-rejilla',
    templateUrl: './puntuar-rejilla.component.html',
    styleUrls: ['./puntuar-rejilla.component.css']
 })
 export class PuntuarRejillaComponent implements OnInit {
+   //Indica si estamos ejecutando la aplicación en modo test
+   @Input() bModo_test: boolean;
+   //SALIDA - Emitter en el que se vuelcan los datos de salida
    @Output() emitterOutputComponente = new EventEmitter();
    elementosUsuario: Array<Elementosrejilla> = [];
    polosUsuario: Array<Polos> = [];
@@ -27,8 +28,10 @@ export class PuntuarRejillaComponent implements OnInit {
    idEvaluacion: number;
    idRejilla: number;
    k: number = 0;
-   constructor(private constructosService: ConstructosService, private puntuacionesService: PuntuacionesService, private rejillaService: RejillaService, private router: Router) { }
 
+
+   constructor(private constructosService: ConstructosService, private puntuacionesService: PuntuacionesService, private rejillaService: RejillaService, private router: Router) {
+   }
 
 
    ngOnInit() {
@@ -37,13 +40,8 @@ export class PuntuarRejillaComponent implements OnInit {
       }
       this.elementosUsuario = this.constructosService.sesion_getElementosUsuario();
       this.polosUsuario = this.constructosService.sesion_getConstructosUsuario();
-      //this.idRejilla = this.rejillaService.sesion_getRejillaId();
-
-      //console.log("YI-LOGthis.idRejilla);
-      //console.log("YI-LOGthis.polosUsuario);
-      //console.log("YI-LOGthis.elementosUsuario);
-
-      if (modo_test) {
+      //Si estamos en modo test puntuamos de forma automática la rejilla
+      if (this.bModo_test) {
          for (var i: number = 0; i < 14; i++) {
             this.ordenConstructos[i] = i;
             for (var j: number = 0; j < 12; j++) {
@@ -54,14 +52,11 @@ export class PuntuarRejillaComponent implements OnInit {
    }
 
 
-
    guardarPuntuaciones(): void {
-      //console.log("YI-LOG - PuntuarRejillaComponent-guardarPuntuaciones()");
       this.idRejilla = this.rejillaService.sesion_getRejillaId();
-      //console.log("YI-LOGthis.idRejilla);
+      //Guardamos en el backend la nueva evaluación hecha
       this.puntuacionesService.backend_insertEvaluacion(this.idRejilla).subscribe(data => {
          this.idEvaluacion = data
-         //console.log("YI-LOGthis.idEvaluacion);
          for (var i: number = 0; i < 14; i++) {
             this.ordenConstructosFinales[i] = new OrdenConstructos(0, this.idEvaluacion, i + 1, this.ordenConstructos[i]);
             for (var j: number = 0; j < 12; j++) {
@@ -69,29 +64,27 @@ export class PuntuarRejillaComponent implements OnInit {
                this.k++;
             }
          }
+         //Guardamos en el backend las puntuaciones de la nueva evaluación hecha
          this.insertPuntuaciones();
          this.emitterOutputComponente.emit({ bComponenteTerminado: true });
-      },
-      );
+      });
    }
-
 
 
    insertPuntuaciones(): void {
+      //Guardamos en el backend las puntuaciones de la nueva evaluación hecha
       this.puntuacionesService.backend_insertPuntuaciones(this.puntuacionesFinales).subscribe(data => {
          this.idEvaluacion = data;
+         //Guardamos en el backend el orden establecido por el paciente de la nueva evaluación hecha
          this.insertOrdenConstructos();
-      },
-      );
-      //this.insertOrdenConstructos();
+      });
    }
 
 
-
    insertOrdenConstructos(): void {
+      //Guardamos en el backend el orden establecido por el paciente de la nueva evaluación hecha
       this.puntuacionesService.backend_insertOrdenConstructos(this.ordenConstructosFinales).subscribe(data => {
          this.idEvaluacion = data;
-      },
-      );
+      });
    }
 }

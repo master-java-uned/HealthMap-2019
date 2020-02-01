@@ -20,12 +20,14 @@ import { UsuarioDatos } from '../models/usuario-datos';
    styleUrls: ['./mostrar-rejillas.component.css']
 })
 export class MostrarRejillasComponent implements OnInit {
-   //@Input() listaUsuarios: Array<UsuarioDatos> = [];
-   //@Input() listaUsuarios: Array<UsuarioDatos>;
+   //Indica si estamos ejecutando la aplicación en modo test
+   @Input() bModo_test: boolean;
+   //Lista de usuarios a mostrar sus rejillas y evaluaciones (puede ser uno [si soy un paciente, solo tiene que mostrar las 
+   //rejillas de ese paciente, por lo que la lista es de un único paciente] o varios [si el usuario es psicólogo])
    @Input() listaUsuarios: UsuarioDatos[];
-   //@Input() listaUsuarios: any;
+   //Indica si el usuario es de tipo administrador (psicologo). Esto se usa para permitir o no, puntuar una rejilla existente (sólo
+   //los usuarios que son pacientes pueden hacerlo)
    @Input() bIsAdmin: boolean;
-   //usuarios: any;
    resultadoRejillas: Array<InformacionRejilla> = [];
    rejillas: Array<Rejilla> = [];
    polosInicio: Array<Polos> = [];
@@ -42,17 +44,11 @@ export class MostrarRejillasComponent implements OnInit {
 
 
    constructor(private tokenService: TokenService, private router: Router, private authService: AuthService, private elementosService: ElementosService, private constructosService: ConstructosService, private rejillaService: RejillaService, private puntuacionesService: PuntuacionesService) {
-      //console.log("YI-LOG - MostrarRejillasComponent-constructor() - ");
    }
 
 
-
    ngOnInit() {
-      //this.usuarios = this.listaUsuarios;
-      //console.log("YI-LOG - MostrarRejillasComponent-ngOnInit() - 1");
       if (this.listaUsuarios != null) {
-         //console.log("YI-LOGthis.listaUsuarios);
-         //console.log("YI-LOG - MostrarRejillasComponent-ngOnInit() - 2");
          for (let i = 0; i < this.listaUsuarios.length; i++) {
             this.mostrarUsuario[i] = true;
          }
@@ -62,9 +58,8 @@ export class MostrarRejillasComponent implements OnInit {
          this.mostrarEvaluaciones = [];
          this.polosInicio = [];
          this.resultadoRejillas = [];
+         //Obtenemos las rejillas
          this.getRejillas();
-         //console.log("YI-LOGthis.mostrarUsuario);
-         //console.log("YI-LOG - MostrarRejillasComponent-ngOnInit() - 3");         
       }
       else {
          this.bMostrarListaRejillas = false;
@@ -73,190 +68,121 @@ export class MostrarRejillasComponent implements OnInit {
    }
 
 
-
    getRejillas() {
-      //console.log("YI-LOG - MostrarRejillasComponent-getRejillas() - 1");
-      //console.log("YI-LOGthis.listaUsuarios);
       this.aux = 0;
+      //Para cada usuario que le hemos indicado al componente
       this.listaUsuarios.forEach((usuario) => {
-         //console.log("YI-LOG - MostrarRejillasComponent-getRejillas() - 2");
-         //console.log("YI-LOGusuario);
+         //Obtenemos del backend las rejillas del usuario
          this.rejillaService.backend_getRejillasUser(usuario.idusuario).subscribe(data => {
             this.rejillas = data;
-            //console.log("YI-LOGthis.rejillas);            
+            //Obtenemos los datos asociados a las rejillas del usuario
             this.getInformacion();
-            //console.log("YI-LOGthis.resultadoRejillas);
-            //console.log("YI-LOGthis.aux);
             this.bMostrarListaRejillas = true;
          });
-      })
-
-      // for (var i = 0; i < this.listaUsuarios.length; i++) {
-      //    //console.log("YI-LOG - MostrarRejillasComponent-getRejillas() - 2");
-      //    //console.log("YI-LOGthis.listaUsuarios[i]);
-      //    this.rejillaService.backend_getRejillasUser(this.listaUsuarios[i].idusuario).subscribe(data => {
-      //       this.rejillas = data;
-      //       this.getInformacion();
-      //    });
-      // }
+      });
    }
-
 
 
    getInformacion() {
-      //console.log("YI-LOG - MostrarRejillasComponent-getInformacion() - ");
+      //Para cada rejilla del usuario
       this.rejillas.forEach((rejilla) => {
-         this.getPolosUsuario(rejilla);
-         //console.log("YI-LOGrejilla.idrejilla);
-         //console.log("YI-LOGthis.resultadoRejillas);
-         // })
-         // this.rejillas.forEach((rejilla) => {
-         //YKK this.getElementos(rejilla.idrejilla);
-      })
+         //Obtenemos los datos asociados a la rejilla del usuario
+         this.getDatosRejilla(rejilla);
+      });
    }
 
 
-
-   getPolosUsuario(rejilla: Rejilla) {
-      //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 1");
+   getDatosRejilla(rejilla: Rejilla) {
+      //Obtenemos del backend las evaluaciones que el paciente ha hecho de la misma rejilla
       this.puntuacionesService.backend_getEvaluacionesUsuario(rejilla.idrejilla).subscribe(data1 => {
          if (Object.entries(data1).length !== 0) {
             this.evaluaciones = data1;
-            //console.log("YI-LOGthis.evaluaciones);
-            //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 2");
             for (let i = 0; i < this.evaluaciones.length; i++) {
                this.mostrarEvaluaciones[i] = false;
             }
          }
          else {
-            //this.evaluaciones = null;
             this.evaluaciones = [];
             this.mostrarEvaluaciones = [];
          }
-         //console.log("YI-LOGrejilla.idrejilla);
-         //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 3");
+         //Obtenemos del backend los datos de los polos que el paciente ha indicado para la rejilla. OJO que tiene que hacerse dentro del
+         //subscribe para que no haya incongruencias con las llamadas asíncronas que hace el Angular al backend
          this.constructosService.backend_getPolosUsuario(rejilla.idrejilla).subscribe(data2 => {
             this.polosInicio = data2;
-            // this.listaUsuarios.forEach((usuario) => {
-            //    //if (rejilla.idpaciente === usuario.id) {
-            //    if (rejilla.idpaciente == Number(usuario.idusuario)) {
-            //       this.nombreUsuario = usuario.nombreUsuario;
-            //    }
-            // })
-            //console.log("YI-LOGthis.nombreUsuario);
-            //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 4");
-            //this.resultadoRejillas[this.aux] = new InformacionRejilla(true, this.nombreUsuario, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
-            //this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
             this.resultadoRejillas[this.aux] = new InformacionRejilla(true, null, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, data2, data1, true, true, this.mostrarEvaluaciones);
-            //console.log("YI-LOGthis.resultadoRejillas[this.aux])
-            //console.log("YI-LOGthis.aux);
             this.aux++;
             this.getElementos(rejilla.idrejilla);
          });
-      },
-      );
-      // this.constructosService.backend_getPolosUsuario(rejilla.idrejilla).subscribe(data => {
-      //    this.polosInicio = data;
-      //    this.listaUsuarios.forEach((usuario) => {
-      //       //if (rejilla.idpaciente === usuario.id) {
-      //       if (rejilla.idpaciente == Number(usuario.idusuario)) {
-      //          this.nombreUsuario = usuario.nombreUsuario;
-      //       }
-      //    })
-      //    //console.log("YI-LOGthis.nombreUsuario);
-      //    //console.log("YI-LOG - MostrarRejillasComponent-getPolosUsuario() - 3");
-      //    this.resultadoRejillas[this.aux] = new InformacionRejilla(true, this.nombreUsuario, rejilla.idrejilla, rejilla.idpaciente, rejilla.fechahora, rejilla.fechahorafin, rejilla.comentariopaciente, rejilla.comentariopsicologo, null, this.polosInicio, this.evaluaciones, true, true, this.mostrarEvaluaciones);
-      //    //console.log("YI-LOGthis.resultadoRejillas[this.aux])
-      //    this.aux++;
-      // });
+      });
    }
-
 
 
    getElementos(idrejilla: number) {
-      //console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 1");
+      //Obtenemos del backend los datos de los elementos que el paciente ha indicado
       this.elementosService.backend_getElementosByIdRejilla(idrejilla).subscribe(data3 => {
-         //console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 2A");
          this.resultadoRejillas.forEach(resultado => {
             if (resultado.idrejilla == idrejilla) {
-               //console.log(data3);
                resultado.elementos = data3;
-               //console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 2B");
             }
-         })
-         //console.log("YI-LOGthis.resultadoRejillas);
-         //console.log("YI-LOG - MostrarRejillasComponent-getElementos() - 3");
-      },
-      );
+         });
+      });
    }
 
 
-
-   mostrarUsuarios(idUsuario: number) {
+   html_mostrarUsuarios(idUsuario: number) {
+      //Método usado en la parte HTML - Muestra los datos del usario
       this.mostrarUsuario[idUsuario] = !this.mostrarUsuario[idUsuario];
    }
 
 
-
-   mostrarRejilla(idrejilla: number) {
-      //console.log("YI-LOG - MostrarRejillasComponent-mostrarRejilla() - ");
+   html_mostrarRejilla(idrejilla: number) {
+      //Método usado en la parte HTML - Muestra los datos de la rejilla
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShow = !resultado.isShow;
          }
-      })
+      });
    }
 
 
-
-   mostrarElementos(idrejilla: number) {
-      //console.log("YI-LOG - MostrarRejillasComponent-mostrarElementos() - ");
+   html_mostrarElementos(idrejilla: number) {
+      //Método usado en la parte HTML - Muestra los datos de los elementos
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShowElementos = !resultado.isShowElementos;
          }
-      })
+      });
    }
 
 
-
-   mostrarConstructos(idrejilla: number) {
+   html_mostrarConstructos(idrejilla: number) {
+      //Método usado en la parte HTML - Muestra los datos de los constructos
       this.resultadoRejillas.forEach((resultado) => {
          if (resultado.idrejilla == idrejilla) {
             resultado.isShowConstructos = !resultado.isShowConstructos;
          }
-      })
+      });
    }
 
 
-
-   showRejillaCompleta(indiceEvaluaciones: number, indice: number) {
+   html_MostrarPuntuacionesRejilla(indiceEvaluaciones: number, indice: number) {
+      //Método usado en la parte HTML - Muestra las puntuaciones de la rejilla de una evaluación concreta
       this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones] = !this.resultadoRejillas[indice].isShowEvaluaciones[indiceEvaluaciones];
    }
 
 
-
    nuevaEvaluacionRejilla(idRejilla: number, elementosRejillaAux: Array<Elementosrejilla>, polosAux: Array<Polos>) {
-      //console.log("YI-LOG - MostrarRejillasComponent-nuevaEvaluacionRejilla() - ");
-      //console.log("YI-LOGidRejilla);
-
-      // this.usuarioDatos.rejilla.elementosrejilla = elementosRejillaAux;
-      // this.usuarioDatos.rejilla.polos = polosAux;
-      //console.log("YI-LOGthis.usuarioDatos.rejilla.elementosrejilla);
-      //console.log("YI-LOGthis.usuarioDatos.rejilla.polos);
-
       this.rejillaService.sesion_setRejillaId(idRejilla);
       this.constructosService.sesion_setElementosUsuario(elementosRejillaAux);
       this.constructosService.sesion_setConstructosUsuario(polosAux);
-      //console.log("YI-LOGelementosRejillaAux);
-      //console.log("YI-LOGpolosAux);
-
       this.bMostrarListaRejillas = false;
       this.bPuntuarRejilla = true;
    }
 
 
    obtenerSalidaPuntuarRejillaComponent(event): void {
+      //Obtiene el resultado del componente app-puntuar-rejilla. Si el componente ya terminó, lo ocultamos y mostramos la lista 
+      //de rejillas otra vez
       if (event.bComponenteTerminado) {
          this.bMostrarListaRejillas = true;
          this.bPuntuarRejilla = false;

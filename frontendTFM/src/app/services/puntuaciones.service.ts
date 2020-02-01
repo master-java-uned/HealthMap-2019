@@ -5,8 +5,8 @@ import { Puntuaciones } from '../models/puntuaciones';
 import { OrdenConstructos } from '../models/orden-constructos';
 
 
-
 const cabecera = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+
 
 @Injectable({
    providedIn: 'root'

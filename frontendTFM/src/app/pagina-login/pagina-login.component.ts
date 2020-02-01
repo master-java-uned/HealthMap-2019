@@ -6,11 +6,11 @@ import { TokenService } from '../services/token.service';
 
 
 @Component({
-   selector: 'app-login',
-   templateUrl: './login.component.html',
-   styleUrls: ['./login.component.css']
+   selector: 'app-pagina-login',
+   templateUrl: './pagina-login.component.html',
+   styleUrls: ['./pagina-login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class PaginaLoginComponent implements OnInit {
    form: any = {};
    usuario: LoginUsuario;
    isLogged = false;
@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
          this.isLogged = true;
          this.isLoginFail = false;
          this.roles = this.tokenService.sesion_getAuthorities();
+         //Vamos a la página de inicio
          this.router.navigate(['menu']);
       },
          (err: any) => {

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { InformacionEvaluaciones } from '../models/informacion-evaluaciones';
-import { InformacionRejilla } from '../models/informacion-rejilla';
 
 
 const INFORMACIONEVALUACIONES = 'InformacionEvaluaciones';
@@ -11,29 +10,28 @@ const INFORMACIONREJILLAS = 'InformacionRejillas';
 export class InformacionInicioService {
   rejillasCopia: Array<string>;
 
+
   constructor() { }
 
 
-  public setInformacionEvaluaciones(evaluaciones: Array<InformacionEvaluaciones>): void {
+  public sesion_setInformacionEvaluaciones(evaluaciones: Array<InformacionEvaluaciones>): void {
     window.sessionStorage.removeItem(INFORMACIONEVALUACIONES);
     window.sessionStorage.setItem(INFORMACIONEVALUACIONES, JSON.stringify(evaluaciones));
   }
 
 
-  public getEvaluaciones(): any {
+  public sesion_getEvaluaciones(): any {
     return JSON.parse(sessionStorage.getItem(INFORMACIONEVALUACIONES));
   }
 
-  public setInformacionRejillas(rejillas: any = {}): void {
-    //console.log("YI-LOGrejillas);
-    //console.log("YI-LOGJSON.stringify( rejillas));
+
+  public sesion_setInformacionRejillas(rejillas: any = {}): void {
     window.sessionStorage.removeItem(INFORMACIONEVALUACIONES);
     window.sessionStorage.setItem(INFORMACIONREJILLAS, JSON.stringify(rejillas));
   }
 
 
-  public getRejillas(): any {
+  public sesion_getRejillas(): any {
     return JSON.parse(sessionStorage.getItem(INFORMACIONREJILLAS));
-
   }
 }

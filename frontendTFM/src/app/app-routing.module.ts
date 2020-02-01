@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { PaginaLoginComponent } from './pagina-login/pagina-login.component';
 import { MenuComponent } from './menu/menu.component'
 
 
 const routes: Routes = [
-   { path: '', component: LoginComponent },
-   { path: 'login', component: LoginComponent },
+   { path: '', component: PaginaLoginComponent },
+   { path: 'login', component: PaginaLoginComponent },
    { path: 'menu', component: MenuComponent },
    { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

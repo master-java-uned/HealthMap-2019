@@ -12,42 +12,32 @@ import { ConstructosService } from '../services/constructos.service';
    styleUrls: ['./constructos.component.css']
 })
 export class ConstructosComponent implements OnInit {
+   //Indica si estamos ejecutando la aplicación en modo test
    @Input() bModo_test: boolean;
+   //Objeto del usuario de la rejilla con todos sus campos
    @Input() usuarioRejilla: UsuarioRejilla;
+   //SALIDA - Emitter en el que se vuelcan los datos de salida
    @Output() emitterOutputComponente = new EventEmitter();
-
    bConstructosIniciados = false;
-   yer_cont_log: number = 0;
-   @ViewChild('boton', { static: false }) boton: ElementRef;
 
 
    constructor(private rejillaService: RejillaService, private constructosService: ConstructosService) {
-      ////console.log("YI-LOG - ConstructosComponent-constructor() - " + (++this.yer_cont_log).toString());
    }
 
 
    ngOnInit() {
-      ////console.log("YI-LOG - ConstructosComponent-ngOnInit() - " + (++this.yer_cont_log).toString());
+      //Obtenemos las definiciones de los constructos de la BD
       this.rejillaService.backend_getConstructos().subscribe(data => {
-         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-data - " + (++this.yer_cont_log).toString());
-         //console.log("YI-LOGdata);
          this.usuarioRejilla.constructos = data;
          this.rejillaService.sesion_setConstructos(this.usuarioRejilla.constructos);
-         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-elementosUsuario - " + (++this.yer_cont_log).toString());
-         //console.log("YI-LOGthis.usuarioRejilla.elementosrejilla);
-         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-constructos - " + (++this.yer_cont_log).toString());
-         //console.log("YI-LOGthis.usuarioRejilla.constructos);
-         ////console.log("YI-LOG - ConstructosComponent-ngOnInit()-idRejilla - " + (++this.yer_cont_log).toString());
-         //console.log("YI-LOGthis.usuarioRejilla.idrejilla);
+         //Ajustamos los constructos y sus preguntas asociadas
          this.inicializarContructos();
          this.bConstructosIniciados = true;
-      },
-      );
+      });
    }
 
 
    inicializarContructos() {
-      //console.log("YI-LOG - ConstructosComponent-inicializarContructos() - " + (++this.yer_cont_log).toString());
       //Reemplazamos en los constructos los nombres reales de los elementos indicados por el paciente
       for (var i = 0; i < 14; i++) {
          this.usuarioRejilla.constructos[i].txtpregunta = this.usuarioRejilla.constructos[i].txtpregunta.replace("#1", this.usuarioRejilla.elementosrejilla[this.usuarioRejilla.constructos[i].idelemento1].nombreelemento);
@@ -64,26 +54,19 @@ export class ConstructosComponent implements OnInit {
                break;
             }
          }
-         //Si estamos en modo test
+         //Si estamos en modo test -> Rellenamos los campos para hacer pruebas rápidas
          if (this.bModo_test) {
             this.usuarioRejilla.poloIzquierdo[i] = 'val_test_poloIzq_' + i;
             this.usuarioRejilla.poloDerecho[i] = 'val_test_poloDer_' + i;
          }
          this.usuarioRejilla.polos[i] = new Polos(this.usuarioRejilla.idrejilla, i + 1, this.usuarioRejilla.poloIzquierdo[i], this.usuarioRejilla.poloDerecho[i]);
       }
-      //console.log("YI-LOGthis.usuarioRejilla.constructos);
-      //console.log("YI-LOGthis.usuarioRejilla.poloIzquierdo);
-      //console.log("YI-LOGthis.usuarioRejilla.poloDerecho);
-      //   //console.log("YI-LOGthis.usuarioRejilla.polos);
    }
 
 
    guardarConstructos() {
-      //console.log("YI-LOG - ConstructosComponent-guardarConstructos() - " + (++this.yer_cont_log).toString());
-      //console.log("YI-LOGthis.usuarioRejilla.polos);
       this.constructosService.sesion_setConstructosUsuario(this.usuarioRejilla.polos);
       this.constructosService.sesion_setElementosUsuario(this.usuarioRejilla.elementosrejilla);
-      //ykk - Enviar constructos y elementos al back
       this.emitterOutputComponente.emit({ bPuntuarRejilla: true });
    }
 }

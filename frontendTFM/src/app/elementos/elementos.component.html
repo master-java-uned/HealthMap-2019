@@ -3,10 +3,6 @@
    <div *ngIf="this.usuarioDatos.rejilla.elementosrejilla" class="card-body">
       <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
          <div class="form-group" *ngFor='let num of [2,3,4,5,6,7,8,9,10]'>
-            <!--  this.usuarioDatos?.rejilla?.elementos[num]?.descripcion sin los interrogantes da un error en la consola, los interrogantes son somo un if 
-                  object?.categories[0]?.slug
-                  object == null ? null : object.categories[0] == null ? null : object.categories[0].slug;
-            -->
             <label for="'elemento'+num">{{this.usuarioDatos?.rejilla?.elementos[num]?.descripcion}} </label>
             <input type="text" class="form-control" name="elemento+{{num}}"
                [(ngModel)]="this.usuarioDatos.rejilla.elementosrejilla[num].nombreelemento" autocomplete="off" required>
@@ -18,8 +14,6 @@
          <div class="form-group">
             <button #boton [autofocus]="boton.focus()" type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar
                elementos</button>
-            <!-- <button type="submit" class="btn btn-dark" #boton [disabled]="!f.valid">Guardar
-               elementos</button> -->
             <div *ngIf="f.submitted" class="alert alert-danger mt-3">Debe de introducir todos los
                elementos
             </div>
@@ -27,31 +21,3 @@
       </form>
    </div>
 </div>
-
-
-<!-- <h1 class="text-center">Elementos</h1>
-<div class="card">
-   <div class="card-body">
-      <form name="form" #f="ngForm" novalidate (ngSubmit)="guardar()">
-         <div class="form-group" *ngFor='let num of [2,3,4,5,6,7,8,9,10]'> -->
-<!--  this.usuarioDatos?.rejilla?.elementos[num]?.descripcion sin los interrogantes da un error en la consola, los interrogantes son somo un if 
-                  object?.categories[0]?.slug
-                  object == null ? null : object.categories[0] == null ? null : object.categories[0].slug;
-            -->
-<!-- <label for="'elemento'+num">{{this.usuarioDatos?.rejilla?.elementos[num]?.descripcion}} </label>
-            <input type="text" class="form-control" name="elemento+{{num}}"
-               [(ngModel)]="this.usuarioDatos.rejilla.elementos['nombre'+num]" autocomplete="off" required>
-            <label for="'descripcion'+num">Descripción:</label>
-            <input type="text" class="form-control" name="descripcion+{{num}}"
-               [(ngModel)]="this.usuarioDatos.rejilla.elementos['descripcionUsuario'+num]" autocomplete="off">
-         </div>
-
-         <div class="form-group">
-            <button type="submit" class="btn btn-dark" [disabled]="!f.valid">Guardar elementos</button>
-            <div *ngIf="f.submitted" class="alert alert-danger mt-3">Debe de introducir todos los
-               elementos
-            </div>
-         </div>
-      </form>
-   </div>
-</div> -->

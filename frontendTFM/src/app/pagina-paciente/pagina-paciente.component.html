@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+   <div><a href="#" class="navbar-brand">Proyecto</a></div>
+   <!--boton asociado con collapse como indica data-toggle. La clase collapse navbar-collapse indica que parte estará oculta en el navbar para tamaños inferiores a lg-->
+   <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navigation"
+      aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navigation">
+      <ul class="navbar-nav mr-auto">
+         <!--En el navbar se muestran todas las opciones de la aplicación-->
+         <li class="nav-item">
+            <a class="nav-link" href="#" (click)="htmlInicio()">Inicio</a>
+         </li>
+         <li class="nav-item"><a class="nav-link" href="#nuevaeva" data-toggle="modal" data-target="#nuevaRejilla">
+               Nueva rejilla</a></li>
+         <li>
+            <a class="nav-link" href="#" (click)="htmlLogOut()">Logout</a>
+         </li>
+      </ul>
+   </div>
+</nav>
+
+
+<div *ngIf="bMostrarListaRejillas">
+   <app-mostrar-rejillas [bModo_test]="this.modo_test" [listaUsuarios]="this.listaUsuarios" [bIsAdmin]="false">
+   </app-mostrar-rejillas>
+</div>
+
+
+<div *ngIf="bMostrarElementos">
+   <app-elementos [bModo_test]="this.modo_test" [usuarioDatos]="this.usuarioDatos"
+      (emitterOutputComponente)="obtenerSalidaElementosComponent($event)">
+   </app-elementos>
+</div>
+
+
+<div *ngIf="bMostrarConstructos">
+   <app-constructos [bModo_test]="this.modo_test" [usuarioRejilla]="this.usuarioDatos.rejilla"
+      (emitterOutputComponente)="obtenerSalidaConstructosComponent($event)">
+   </app-constructos>
+</div>
+
+
+<div *ngIf="bPuntuarRejilla">
+   <app-puntuar-rejilla [bModo_test]="this.modo_test"
+      (emitterOutputComponente)="obtenerSalidaPuntuarRejillaComponent($event)"></app-puntuar-rejilla>
+</div>
+
+
+<div class="modal" id="nuevaRejilla" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="modificarDatos">Nueva evaluación</h5>
+         </div>
+         <div class="modal-body">
+            <table>
+               <tr>
+                  <td align="justify" colspan="10">A continuación iniciará una nueva evaluación. En primer lugar
+                     deberá
+                     rellenar los 12 elementos que se le piden.
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left">
+                     <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                  </td>
+                  <td colspan="6"></td>
+                  <td colspan="2" align="right">
+                     <button type="button" (click)="iniciarRejilla()" id="guardarcambios" data-dismiss="modal"
+                        class="btn btn-dark">Continuar</button>
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <div class="modal-footer">
+         </div>
+      </div>
+   </div>
+</div>
