@@ -8,5 +8,9 @@ import uned.master.java.entity.Constructo;
 
 
 public interface ConstructosRepository extends JpaRepository<Constructo, Integer> {
-	 Optional<Constructo> findById(Integer idConstructo);
+	
+	/**
+	 * Obtiene los constructos a partir de su id 
+	 */
+	Optional<Constructo> findById(Integer idConstructo);
 }

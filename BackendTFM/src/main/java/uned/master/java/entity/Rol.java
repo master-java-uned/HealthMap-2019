@@ -3,39 +3,37 @@ package uned.master.java.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import uned.master.java.enums.RolNombre;
-
 @Entity
 public class Rol {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private RolNombre rolNombre;
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private RolNombre rolNombre;
 
-    public Rol() {
-    }
+	public Rol() {
+	}
 
-    public Rol(@NotNull RolNombre rolNombre) {
-        this.rolNombre = rolNombre;
-    }
+	public Rol(@NotNull RolNombre rolNombre) {
+		this.rolNombre = rolNombre;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public RolNombre getRolNombre() {
-        return rolNombre;
-    }
+	public RolNombre getRolNombre() {
+		return rolNombre;
+	}
 
-    public void setRolNombre(RolNombre rolNombre) {
-        this.rolNombre = rolNombre;
-    }
+	public void setRolNombre(RolNombre rolNombre) {
+		this.rolNombre = rolNombre;
+	}
 }

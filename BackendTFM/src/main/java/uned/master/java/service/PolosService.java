@@ -26,7 +26,7 @@ public class PolosService {
 	}
 
 	/**
-	 * Obtiene los polos de una rejilla concreta
+	 * Obtiene los polos de una rejilla concreta a partir de su id
 	 * 
 	 * @param idrejilla
 	 * @return

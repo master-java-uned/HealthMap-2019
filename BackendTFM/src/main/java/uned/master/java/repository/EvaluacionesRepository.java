@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import uned.master.java.entity.Evaluacion;
 
 public interface EvaluacionesRepository extends JpaRepository<Evaluacion, Integer> {
-	
+
 	/**
 	 * Consulta las evaluaciones en función de un id de rejilla
 	 * 

@@ -21,26 +21,23 @@ import uned.master.java.service.ElementoService;
 import uned.master.java.service.PolosService;
 import uned.master.java.service.RejillaService;
 
-
 @SuppressWarnings({ "rawtypes", "unchecked" })
 @RestController
 @RequestMapping("/api/rejilla")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RejillaController {
-	
+
 	@Autowired
 	RejillaService rejillaService;
-	
+
 	@Autowired
 	ElementoService elementoService;
-	
+
 	@Autowired
 	ConstructosService constructosService;
-	
+
 	@Autowired
 	PolosService polosService;
-	
-	
 
 	/**
 	 * Obtiene las rejillas de un usuario concreto
@@ -51,6 +48,7 @@ public class RejillaController {
 	@PostMapping("/getRejillasUser")
 	public ResponseEntity<?> getRejillasUser(@RequestBody Long idUsuario) {
 		List<Rejilla> rejillas = rejillaService.getRejillaUser(idUsuario);
+
 		return new ResponseEntity(rejillas, HttpStatus.CREATED);
 	}
 
@@ -63,6 +61,7 @@ public class RejillaController {
 	private int insertNuevaRejilla(Long idUsuario) {
 		Rejilla nuevaRejilla = new Rejilla(0, idUsuario, new Timestamp(System.currentTimeMillis()), null, "", "");
 		int newRejilla = rejillaService.guardar(nuevaRejilla);
+
 		return newRejilla;
 	}
 
@@ -85,16 +84,19 @@ public class RejillaController {
 
 	/**
 	 * Obtiene los elementos que debe de rellenar el usuario
+	 * 
 	 * @return
 	 */
 	@PostMapping("/getElementos")
 	public ResponseEntity<Elemento> getElementos() {
-		List<Elemento> elementos =elementoService.getElementos();
+		List<Elemento> elementos = elementoService.getElementos();
+
 		return new ResponseEntity(elementos, HttpStatus.CREATED);
 	}
 
 	/**
 	 * Obtiene los constructos que debe de rellenar el usuario
+	 * 
 	 * @return
 	 */
 	@PostMapping("/getConstructos")
@@ -103,10 +105,13 @@ public class RejillaController {
 		for (int i = 0; i < 14; i++) {
 			constructos[i] = constructosService.getConstructos(i + 1).get();
 		}
+
 		return new ResponseEntity(constructos, HttpStatus.CREATED);
 	}
+
 	/**
-	 * Actualiza el valor de el id de la rejilla
+	 * Actualiza el valor del id de la rejilla
+	 * 
 	 * @param elementos
 	 * @param polos
 	 * @param idRejilla

@@ -40,6 +40,7 @@ public class PuntuacionesController {
 	public ResponseEntity<?> insertEvaluacion(@RequestBody int idRejilla) {
 		Evaluacion evaluacion = new Evaluacion(0, idRejilla, "", "");
 		int idEvaluacion = evaluacionService.insertEvaluacion(evaluacion);
+		
 		return new ResponseEntity(idEvaluacion, HttpStatus.CREATED);
 	}
 
@@ -53,7 +54,7 @@ public class PuntuacionesController {
 	@PostMapping("/getEvaluacionesUsuario")
 	public ResponseEntity<?> getEvaluacionesUsuario(@RequestBody int idRejilla) {
 		List<Evaluacion> evaluaciones = evaluacionService.getEvaluacionesUsuario(idRejilla);
-		System.out.println("evaluaciones" + evaluaciones);
+
 		return new ResponseEntity(evaluaciones, HttpStatus.CREATED);
 	}
 
@@ -67,6 +68,7 @@ public class PuntuacionesController {
 	@PostMapping("/insertPuntuaciones")
 	public ResponseEntity<?> insertPuntuaciones(@RequestBody List<Puntuaciones> puntuaciones) {
 		puntuacionesService.guardar(puntuaciones);
+	
 		return new ResponseEntity("Puntuaciones insertadas", HttpStatus.CREATED);
 	}
 
@@ -80,6 +82,7 @@ public class PuntuacionesController {
 	@PostMapping("/insertOrdenConstructos")
 	public ResponseEntity<?> insertOrdenConstructos(@RequestBody List<OrdenConstructos> ordenConstructos) {
 		puntuacionesService.guardarOrdenConstructos(ordenConstructos);
+		
 		return new ResponseEntity("Orden Constructos", HttpStatus.CREATED);
 	}
 
@@ -92,13 +95,11 @@ public class PuntuacionesController {
 	 */
 	@PostMapping("/getPuntuaciones")
 	public ResponseEntity<List<Puntuaciones>> getPuntuaciones(@RequestBody int idEvaluacion) {
-	
 		List<Puntuaciones> puntuaciones = puntuacionesService.getPuntuaciones(idEvaluacion);
 		
 		return new ResponseEntity(puntuaciones, HttpStatus.CREATED);
 
 	}
-
 
 	/**
 	 * Recupera el orden de los constructos para una evaluación
@@ -108,9 +109,8 @@ public class PuntuacionesController {
 	 */
 	@PostMapping("/getOrden")
 	public ResponseEntity<?> getOrden(@RequestBody int idEvaluacion) {
-		System.out.println("evaluacion:::" + idEvaluacion);
 		List<OrdenConstructos> orden = puntuacionesService.getOrden(idEvaluacion);
-		System.out.println(orden);
+
 		return new ResponseEntity(orden, HttpStatus.CREATED);
 	}
 }

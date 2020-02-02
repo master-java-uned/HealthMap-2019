@@ -1,6 +1,5 @@
 package uned.master.java.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,13 +13,17 @@ import uned.master.java.security.UsuarioPrincipal;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    UsuarioService usuarioService;
+	@Autowired
+	UsuarioService usuarioService;
 
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
-        return UsuarioPrincipal.build(usuario);
-    }
+	@Override
+	@Transactional
+	/**
+	 * Obtiene el usuario si existe a partir de nombre de usuario
+	 * 
+	 */
+	public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
+		Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
+		return UsuarioPrincipal.build(usuario);
+	}
 }

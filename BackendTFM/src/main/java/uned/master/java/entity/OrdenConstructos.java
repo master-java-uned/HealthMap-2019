@@ -14,11 +14,11 @@ public class OrdenConstructos {
 
 	@Id
 	public int idevaluacion;
+
 	@Id
 	public int idconstructo;
-	
-	public int ordenconstructo;
 
+	public int ordenconstructo;
 
 	public int getIdevaluacion() {
 		return idevaluacion;
@@ -43,6 +43,5 @@ public class OrdenConstructos {
 	public void setOrdenconstructo(int ordenconstructo) {
 		this.ordenconstructo = ordenconstructo;
 	}
-	
-	
+
 }

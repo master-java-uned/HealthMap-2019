@@ -11,9 +11,22 @@ import uned.master.java.entity.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Optional<Usuario> findByNombreUsuario(String nu);
-    
-    @Query(value="SELECT * from usuario WHERE id IN (SELECT usuario_id FROM usuario_rol WHERE  rol_id=:rolId)", nativeQuery = true)
-    List<Usuario> findByRol(Long rolId);
-    
+
+	/**
+	 * Obtiene el usuario a partir del nombre de usuario
+	 * 
+	 * @param nombreUsuario
+	 * @return
+	 */
+	Optional<Usuario> findByNombreUsuario(String nombreUsuario);
+
+	/**
+	 * Obtiene la lista de usuarios a partir del id del rol
+	 * 
+	 * @param rolId
+	 * @return
+	 */
+	@Query(value = "SELECT * from usuario WHERE id IN (SELECT usuario_id FROM usuario_rol WHERE  rol_id=:rolId)", nativeQuery = true)
+	List<Usuario> findByRol(Long rolId);
+
 }

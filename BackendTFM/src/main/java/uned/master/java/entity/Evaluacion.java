@@ -2,7 +2,6 @@ package uned.master.java.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
@@ -11,20 +10,21 @@ import javax.persistence.Table;
 @Table(name = "evaluaciones")
 @IdClass(idEvaluacion.class)
 public class Evaluacion {
+
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@GeneratedValue
 	public int idevaluacion;
+
 	@Id
 	public int idrejilla;
-		
-	public String comentariopaciente;
-	
-	public String comentariopsicologo;
-	
-	public Evaluacion() {} 
 
-	
+	public String comentariopaciente;
+
+	public String comentariopsicologo;
+
+	public Evaluacion() {
+	}
+
 	public Evaluacion(int idevaluacion, int idrejilla, String comentariopaciente, String comentariopsicologo) {
 		this.idevaluacion = idevaluacion;
 		this.idrejilla = idrejilla;
@@ -32,16 +32,13 @@ public class Evaluacion {
 		this.comentariopsicologo = comentariopsicologo;
 	}
 
-
 	public int getIdevaluacion() {
 		return idevaluacion;
 	}
 
-
 	public void setIdevaluacion(int idevaluacion) {
 		this.idevaluacion = idevaluacion;
 	}
-
 
 	public int getIdrejilla() {
 		return idrejilla;
@@ -66,8 +63,5 @@ public class Evaluacion {
 	public void setComentariopsicologo(String comentariopsicologo) {
 		this.comentariopsicologo = comentariopsicologo;
 	}
-	
-	
-	
-	
+
 }
