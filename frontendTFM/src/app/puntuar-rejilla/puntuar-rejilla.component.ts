@@ -45,7 +45,8 @@ export class PuntuarRejillaComponent implements OnInit {
          for (var i: number = 0; i < 14; i++) {
             this.ordenConstructos[i] = i;
             for (var j: number = 0; j < 12; j++) {
-               this.puntuaciones[i][j] = j;
+               // this.puntuaciones[i][j] = j;
+               this.puntuaciones[i][j] = Math.floor(Math.random() * (7 - 1 + 1)) + 1;;
             }
          }
       }

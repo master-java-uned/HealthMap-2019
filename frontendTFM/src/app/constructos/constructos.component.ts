@@ -56,8 +56,8 @@ export class ConstructosComponent implements OnInit {
          }
          //Si estamos en modo test -> Rellenamos los campos para hacer pruebas rápidas
          if (this.bModo_test) {
-            this.usuarioRejilla.poloIzquierdo[i] = 'val_test_poloIzq_' + i;
-            this.usuarioRejilla.poloDerecho[i] = 'val_test_poloDer_' + i;
+            this.usuarioRejilla.poloIzquierdo[i] = 'val_test_poloIzq_' + (i + 1);
+            this.usuarioRejilla.poloDerecho[i] = 'val_test_poloDer_' + (i + 1);
          }
          this.usuarioRejilla.polos[i] = new Polos(this.usuarioRejilla.idrejilla, i + 1, this.usuarioRejilla.poloIzquierdo[i], this.usuarioRejilla.poloDerecho[i]);
       }

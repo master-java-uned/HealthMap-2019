@@ -17,6 +17,7 @@ export class ElementosComponent implements OnInit {
    @Input() usuarioDatos: UsuarioDatos;
    //SALIDA - Emitter en el que se vuelcan los datos de salida
    @Output() emitterOutputComponente = new EventEmitter();
+   bElementosIniciados = false;
 
 
    constructor(private tokenService: TokenService, private rejillaService: RejillaService) { }
@@ -26,6 +27,7 @@ export class ElementosComponent implements OnInit {
       this.inicializarRejilla();
    }
 
+
    inicializarRejilla(): void {
       //Obtenemos los elementos base de la BD
       this.rejillaService.backend_getElementos().subscribe(data => {
@@ -33,17 +35,19 @@ export class ElementosComponent implements OnInit {
          //Si estamos en modo test rellenamos los datos de los elementos de forma automática
          this.rellenar_modo_test();
          this.rejillaService.sesion_setElementos(this.usuarioDatos.rejilla.elementos);
+         this.bElementosIniciados = true;
       });
    }
 
 
    guardar(): void {
+      var arrayComparacion: Array<string> = ["yo actual", "yo dentro de 2 años", "yo dentro de dos años", "yo ideal"];
       //Montamos la estructura de salida
       for (var i = 0; i <= 11; i++) {
          this.usuarioDatos.rejilla.elementosrejilla[i].idelemento = this.usuarioDatos.rejilla.elementos[i].idelemento;
          this.usuarioDatos.rejilla.elementosrejilla[i].idrejilla = this.usuarioDatos.rejilla.idrejilla;
          //Tratamos los casos especiales: "Yo actual", "Yo dentro de dos años" y "Yo ideal"
-         if (this.usuarioDatos.rejilla.elementos[i].descripcion in new Array("Yo actual", "Yo dentro de dos años", "Yo ideal")) {
+         if (arrayComparacion.includes(this.usuarioDatos.rejilla.elementos[i].descripcion.toLowerCase())) {
             this.usuarioDatos.rejilla.elementosrejilla[i].nombreelemento = this.usuarioDatos.rejilla.elementos[i].descripcion;
             this.usuarioDatos.rejilla.elementosrejilla[i].rolelemento = null;
          }
@@ -58,7 +62,7 @@ export class ElementosComponent implements OnInit {
       this.usuarioDatos.rejilla.elementosrejilla = new Array;
       if (this.bModo_test) {
          for (var i = 0; i <= 11; i++) {
-            this.usuarioDatos.rejilla.elementosrejilla[i] = new Elementosrejilla(i, this.usuarioDatos.rejilla.idrejilla, 'nombre_' + i, 'rol_desc_' + i);
+            this.usuarioDatos.rejilla.elementosrejilla[i] = new Elementosrejilla(i, this.usuarioDatos.rejilla.idrejilla, 'nombre_' + (i + 1), 'rol_desc_' + (i + 1));
          }
       }
    }
